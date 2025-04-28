@@ -3,6 +3,7 @@ import requests
 import json
 import pandas as pd
 from tqdm import tqdm
+from get_affiliation_from_arxiv import extract_affliation
 
 # --- 查询主论文，获取paperId ---
 def get_paper_id(paper_title: str) -> str:
@@ -45,8 +46,7 @@ def fetch_citations(paper_id: str, max_papers: int = 100):
             citation_count = citing_paper.get("citationCount", 0)
             authors_raw = citing_paper.get("authors", [])
             authors = [author.get("name", "") for author in authors_raw]
-            affiliations = [author.get("affiliations", "") for author in authors_raw]  # 有些作者可能没有affiliations字段
-
+            affiliations = extract_affliation(title)
             citations.append({
                 "paper_name": title,
                 "authors": authors,
