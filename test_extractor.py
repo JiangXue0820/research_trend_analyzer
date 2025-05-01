@@ -4,6 +4,7 @@ from tqdm import tqdm
 import json
 import os
 import re
+import time
 
 def fetch_neurips(year):
     print(f"Fetching paper list for NeurIPS {year}...")
@@ -224,6 +225,50 @@ def fetch_ieeesp(conference = None, year = None, save_folder = 'paper/', keyword
         time.sleep(10)
 
 
+def fetch_ccs_2024():
+    """
+    Fetches the list of papers from the ACM CCS 2024 conference page on DBLP.
+    Extracts the title, authors, and URLs for each paper and saves the data to a JSON file.
+    """
+    url = "https://dblp.org/db/conf/ccs/ccs2024.html"
+    response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Failed to retrieve the page. Status code: {response.status_code}")
+        return
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    entries = soup.find_all("li", class_="entry")
+
+    papers = []
+    for entry in tqdm(entries, desc="Processing papers"):
+        title_tag = entry.find("span", class_="title")
+        if not title_tag:
+            continue
+        title = title_tag.get_text(strip=True)
+
+        authors = [author_tag.get_text(strip=True) for author_tag in entry.find_all("span", itemprop="author")]
+
+        # Extract URLs (e.g., electronic edition, DOI)
+        links = entry.find_all("a", href=True)
+        urls = {link.get_text(strip=True): link["href"] for link in links}
+
+        papers.append({
+            "title": title,
+            "authors": authors,
+            "urls": urls
+        })
+
+    # Define the output directory and file path
+    output_dir = os.path.join("paper_list", "ccs")
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, "ccs2024.json")
+
+    # Save the data to a JSON file
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(papers, f, indent=4, ensure_ascii=False)
+
+    print(f"Saved {len(papers)} papers to {output_file}")
+
 # Execute the main function
 if __name__ == "__main__":
-    fetch_neurips(2019)
+    fetch_ccs_2024()
