@@ -2,8 +2,10 @@ import asyncio
 import os
 import logging
 from llama_index.tools.duckduckgo import DuckDuckGoSearchToolSpec
-from llama_index.core.agent.workflow import FunctionAgent
+from llama_index.core.agent.workflow import FunctionAgent, AgentWorkflow, ReActAgent
 from llama_index.llms.gemini import Gemini
+from grpc.experimental import aio
+aio.init_grpc_aio()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -17,55 +19,74 @@ def get_api_key():
     logger.info("Retrieved GEMINI_API_KEY successfully")
     return api_key
 
-def setup_agent():
-    logger.info("Setting up the agent...")
-    # Configure GoogleGenAI LLM
-    llm = Gemini(
-        model="gemini-2.0-flash",
-        temperature=0,
-        api_key=get_api_key()
-    )
-    logger.info("Initialized GoogleGenAI LLM")
+# Configure GoogleGenAI LLM
+llm = Gemini(
+    model="gemini-2.0-flash",
+    temperature=0,
+    api_key=get_api_key()
+)
+logger.info("Initialized GoogleGenAI LLM")
 
-    # Initialize the DuckDuckGo search tool specification
-    duckduckgo_spec = DuckDuckGoSearchToolSpec()
-    tools_ddg_search = duckduckgo_spec.to_tool_list()
-    logger.info(f"Initialized DuckDuckGo tools: {tools_ddg_search}")
+# Define a list of agent
+logger.info("Setting up the agent...")
 
-    # Build the agent using FunctionAgent
-    agent = FunctionAgent(
-        llm=llm,
-        tools=tools_ddg_search,
-        verbose=True,
-        system_prompt=(
-            "Agent that leverages Google Gemini LLM and DuckDuckGo to locate the accepted papers page "
-            "for a given conference and year."
-        )
-    )
-    logger.info("FunctionAgent created successfully")
-    return agent
+duckduckgo_spec = DuckDuckGoSearchToolSpec()
+search_tool = duckduckgo_spec.to_tool_list()
+websearch_agent = FunctionAgent(
+    llm=llm,
+    tools=search_tool,
+    verbose=True,
+    name="websearch_agent",
+    description="The agent search related information on website",
+    system_prompt="Agent that leverages DuckDuckGo to search related information on website."
+)
 
-async def find_accepted_papers(conference_name: str, year: int, agent=None):
-    if agent is None:
-        logger.info("No agent provided, setting up a new agent")
-        agent = setup_agent()
+resource_selection_agent = ReActAgent(
+    llm=llm,
+    verbose=True,
+    name="resource_selection_agent",
+    description="Evaluates URLs and selects the most appropriate one for information extraction.",
+    system_prompt="""
+You are provided with a list of URLs resulting from a web search. Your task is to evaluate these URLs and select the one that is most relevant and reliable for extracting information about accepted papers for a given conference and year. Consider factors such as domain authority, content relevance, and data completeness.
+"""
+)
 
-    query = f"{conference_name} {year} accepted papers"
-    logger.info(f"Executing query: {query}")
-    try:
-        response = await agent.run(query)
-        logger.info("Query executed successfully")
-        return response
-    except Exception as e:
-        logger.error(f"Error during query execution: {e}")
-        return f"Error searching for papers: {str(e)}"
+topic_filter_agent = ReActAgent(
+    llm=llm,
+    verbose=True,
+    name="topic_filter_agent",
+    description="The agent tilter the list of papers to include only those related to the specified topic.",
+    system_prompt="Filter the list of papers to include only those related to the specified topic."
+)
 
+metadata_extractor_agent = FunctionAgent(
+    llm=llm,
+    verbose=True,
+    name="metadata_extractor_agent",
+    description="The agent extract metadata of the paper (title, authors, and affiliations) and output in JSON format. ",
+    system_prompt="Extract the title, authors, and affiliations from the list of papers and output in JSON format."
+)
+
+
+# Define a list of agent
+logger.info("Setting up the agent workflow...")
+workflow = AgentWorkflow(
+    agents=[websearch_agent, resource_selection_agent],
+    root_agent="websearch_agent",
+    verbose=True
+)
+
+
+# Define the main asynchronous function
 async def main():
-    logger.info("Starting the agent application")
-    agent = setup_agent()
-    result = await find_accepted_papers("NeurIPS", 2024, agent)
-    logger.info(f"Search finished")
-    print("Search result:", result)
+    conference = "NeurIPS"
+    year = 2024
+    keyword = "privacy"
+    save_dir = "."
 
+    result = await workflow.run(f"Find the website page of accepted papers for {conference} {year}")
+    print(result)
+
+# Execute the main function
 if __name__ == "__main__":
     asyncio.run(main())
