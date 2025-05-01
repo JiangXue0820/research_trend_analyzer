@@ -1,7 +1,7 @@
 {
     "0": {
         "paper_id": "d14c0fa06fa21555c2d7c14991f701c8d1a06bba",
-        "paper_name": "PrivaCI-Bench: Evaluating Privacy with Contextual Integrity and Legal Compliance",
+        "title": "PrivaCI-Bench: Evaluating Privacy with Contextual Integrity and Legal Compliance",
         "year": 2025,
         "venue": "arXiv.org",
         "authors": [
@@ -15,15 +15,19 @@
             "Peizhao Hu",
             "Yangqiu Song"
         ],
-        "affiliations": [
-            "1HKUST, 2National University of Singapore, 3Huawei Technologies"
-        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2502-17041",
+            "ArXiv": "2502.17041",
+            "DOI": "10.48550/arXiv.2502.17041",
+            "CorpusId": 276575052
+        },
+        "doi": "10.48550/arXiv.2502.17041",
         "abstract": null,
         "citation_count": 0
     },
     "1": {
         "paper_id": "b7c1f5d13d5cb310a9261526e9475c6cef37eda9",
-        "paper_name": "SoK: A Classification for AI-driven Personalized Privacy Assistants",
+        "title": "SoK: A Classification for AI-driven Personalized Privacy Assistants",
         "year": 2025,
         "venue": "arXiv.org",
         "authors": [
@@ -31,33 +35,37 @@
             "L. Iwaya",
             "Simone Fischer-Hübner"
         ],
-        "affiliations": [
-            "Karlstad University",
-            "Chalmers University of Technology",
-            "and University of Gothenburg",
-            "Karlstad University, Chalmers",
-            "University of Technology, and",
-            "University of Gothenburg"
-        ],
+        "externalIds": {
+            "ArXiv": "2502.07693",
+            "DBLP": "journals/corr/abs-2502-07693",
+            "DOI": "10.48550/arXiv.2502.07693",
+            "CorpusId": 276259346
+        },
+        "doi": "10.48550/arXiv.2502.07693",
         "abstract": null,
         "citation_count": 0
     },
     "2": {
         "paper_id": "e74fe8ad5fb88c9e9ba76b59a411dde5b1cad9c9",
-        "paper_name": "Contextual Agent Security: A Policy for Every Purpose",
+        "title": "Contextual Agent Security: A Policy for Every Purpose",
         "year": 2025,
         "venue": "",
         "authors": [
             "Lillian Tsai",
             "Eugene Bagdasarian"
         ],
-        "affiliations": [],
+        "externalIds": {
+            "ArXiv": "2501.17070",
+            "DOI": "10.1145/3713082.3730378",
+            "CorpusId": 275932031
+        },
+        "doi": "10.1145/3713082.3730378",
         "abstract": null,
         "citation_count": 0
     },
     "3": {
         "paper_id": "f9cc6ff06ed2f1413d27f5f2ce776b8c528c1f76",
-        "paper_name": "PrivComp-KG: Leveraging KG and LLM for Compliance Verification",
+        "title": "PrivComp-KG: Leveraging KG and LLM for Compliance Verification",
         "year": 2024,
         "venue": "International Conference on Trust, Privacy and Security in Intelligent Systems and Applications",
         "authors": [
@@ -68,48 +76,56 @@
             "Deepti Gupta",
             "Anupam Joshi"
         ],
-        "affiliations": [
-            "1 University of Texas at El Paso, lgarza3@miners.utep.edu, apiplai@utep.edu",
-            "2 Texas A&M University Central Texas, {elluri,d.gupta}@tamuct.edu",
-            "3 University of Maryland Baltimore County, {anantak1,joshi}@umbc.edu"
-        ],
+        "externalIds": {
+            "DBLP": "conf/tpsisa/GarzaEPKGJ24",
+            "DOI": "10.1109/TPS-ISA62245.2024.00021",
+            "CorpusId": 275587919
+        },
+        "doi": "10.1109/TPS-ISA62245.2024.00021",
         "abstract": null,
         "citation_count": 0
     },
     "4": {
         "paper_id": "fce6e7964ce697b36fa7ad5d974fbe5693ffa898",
-        "paper_name": "Props for Machine-Learning Security",
+        "title": "Props for Machine-Learning Security",
         "year": 2024,
         "venue": "arXiv.org",
         "authors": [
             "Ari Juels",
             "F. Koushanfar"
         ],
-        "affiliations": [
-            "2University of California San Diego"
-        ],
+        "externalIds": {
+            "ArXiv": "2410.20522",
+            "DBLP": "journals/corr/abs-2410-20522",
+            "DOI": "10.48550/arXiv.2410.20522",
+            "CorpusId": 273655113
+        },
+        "doi": "10.48550/arXiv.2410.20522",
         "abstract": null,
-        "citation_count": 1
+        "citation_count": 2
     },
     "5": {
         "paper_id": "bc0d369e7466660e2b61e6a00ad372bb942b6971",
-        "paper_name": "Privacy by Design: Bringing User Awareness to Privacy Risks in Internet of Things",
+        "title": "Privacy by Design: Bringing User Awareness to Privacy Risks in Internet of Things",
         "year": 2024,
         "venue": "arXiv.org",
         "authors": [
             "Usama Younus",
             "Rie Kamikubo"
         ],
-        "affiliations": [
-            "University of Maryland",
-            "College Park, Maryland, USA"
-        ],
+        "externalIds": {
+            "ArXiv": "2410.12336",
+            "DBLP": "journals/corr/abs-2410-12336",
+            "DOI": "10.48550/arXiv.2410.12336",
+            "CorpusId": 273375249
+        },
+        "doi": "10.48550/arXiv.2410.12336",
         "abstract": null,
         "citation_count": 0
     },
     "6": {
         "paper_id": "f8404cc3231b897bf490735bf965a98c776aff59",
-        "paper_name": "CI-Bench: Benchmarking Contextual Integrity of AI Assistants on Synthetic Data",
+        "title": "CI-Bench: Benchmarking Contextual Integrity of AI Assistants on Synthetic Data",
         "year": 2024,
         "venue": "arXiv.org",
         "authors": [
@@ -123,23 +139,1870 @@
             "S. Mellem",
             "Shawn O'Banion"
         ],
-        "affiliations": [],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2409-13903",
+            "ArXiv": "2409.13903",
+            "DOI": "10.48550/arXiv.2409.13903",
+            "CorpusId": 272827322
+        },
+        "doi": "10.48550/arXiv.2409.13903",
         "abstract": null,
         "citation_count": 1
     },
     "7": {
         "paper_id": "07a33d3452b20301587970015eb9434cd2dde1ca",
-        "paper_name": "Model-Checking the Implementation of Consent",
+        "title": "Model-Checking the Implementation of Consent",
         "year": 2024,
         "venue": "IEEE International Conference on Software Engineering and Formal Methods",
         "authors": [
             "Ra'ul Pardo",
             "Daniel Le M'etayer"
         ],
-        "affiliations": [
-            "1 IT University of Copenhagen, Denmark (raup@itu.dk)"
-        ],
+        "externalIds": {
+            "ArXiv": "2409.11803",
+            "DBLP": "conf/sefm/PardoM24",
+            "DOI": "10.48550/arXiv.2409.11803",
+            "CorpusId": 272703855
+        },
+        "doi": "10.48550/arXiv.2409.11803",
         "abstract": null,
         "citation_count": 0
+    },
+    "8": {
+        "paper_id": "04fcfb16420d475a33fd9e9df3a21f63b3410676",
+        "title": "Acceptance and self-protection in government, commercial, and interpersonal surveillance contexts: An exploratory study",
+        "year": 2024,
+        "venue": "Cyberpsychology: Journal of Psychosocial Research on Cyberspace",
+        "authors": [
+            "Weizi Liu",
+            "Seo Yoon Lee",
+            "Mike Yao"
+        ],
+        "externalIds": {
+            "DOI": "10.5817/cp2024-4-9",
+            "CorpusId": 272744052
+        },
+        "doi": "10.5817/cp2024-4-9",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "9": {
+        "paper_id": "6c95608b50d360fc9b2043d5caf89ce804ed5696",
+        "title": "PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in Action",
+        "year": 2024,
+        "venue": "Neural Information Processing Systems",
+        "authors": [
+            "Yijia Shao",
+            "Tianshi Li",
+            "Weiyan Shi",
+            "Yanchen Liu",
+            "Diyi Yang"
+        ],
+        "externalIds": {
+            "ArXiv": "2409.00138",
+            "DBLP": "journals/corr/abs-2409-00138",
+            "DOI": "10.48550/arXiv.2409.00138",
+            "CorpusId": 272367699
+        },
+        "doi": "10.48550/arXiv.2409.00138",
+        "abstract": null,
+        "citation_count": 12
+    },
+    "10": {
+        "paper_id": "9f74ba5d097d5b08ea0d5216f826ac2da99647ce",
+        "title": "Privacy-Preserving Data Management using Blockchains",
+        "year": 2024,
+        "venue": "arXiv.org",
+        "authors": [
+            "Michael Mireku Kwakye"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2408-11263",
+            "ArXiv": "2408.11263",
+            "DOI": "10.48550/arXiv.2408.11263",
+            "CorpusId": 271915938
+        },
+        "doi": "10.48550/arXiv.2408.11263",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "11": {
+        "paper_id": "bda1c3ec04deb8decef7689716895aefad040176",
+        "title": "Privacy Checklist: Privacy Violation Detection Grounding on Contextual Integrity Theory",
+        "year": 2024,
+        "venue": "arXiv.org",
+        "authors": [
+            "Haoran Li",
+            "Wei Fan",
+            "Yulin Chen",
+            "Jiayang Cheng",
+            "Tianshu Chu",
+            "Xuebing Zhou",
+            "Peizhao Hu",
+            "Yangqiu Song"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2408-10053",
+            "ArXiv": "2408.10053",
+            "DOI": "10.48550/arXiv.2408.10053",
+            "CorpusId": 271903418
+        },
+        "doi": "10.48550/arXiv.2408.10053",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "12": {
+        "paper_id": "6af200052b1aae40a7214b73cc7c59fb475772d5",
+        "title": "Operationalizing Contextual Integrity in Privacy-Conscious Assistants",
+        "year": 2024,
+        "venue": "arXiv.org",
+        "authors": [
+            "Sahra Ghalebikesabi",
+            "Eugene Bagdasaryan",
+            "Ren Yi",
+            "Itay Yona",
+            "Ilia Shumailov",
+            "Aneesh Pappu",
+            "Chongyang Shi",
+            "Laura Weidinger",
+            "Robert Stanforth",
+            "Leonard Berrada",
+            "Pushmeet Kohli",
+            "Po-Sen Huang",
+            "Borja Balle"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2408-02373",
+            "ArXiv": "2408.02373",
+            "DOI": "10.48550/arXiv.2408.02373",
+            "CorpusId": 271709517
+        },
+        "doi": "10.48550/arXiv.2408.02373",
+        "abstract": null,
+        "citation_count": 7
+    },
+    "13": {
+        "paper_id": "acc79fcf42b64234c3aa48ba7eb4b21cd9271f51",
+        "title": "GoldCoin: Grounding Large Language Models in Privacy Laws via Contextual Integrity Theory",
+        "year": 2024,
+        "venue": "Conference on Empirical Methods in Natural Language Processing",
+        "authors": [
+            "Wei Fan",
+            "Haoran Li",
+            "Zheye Deng",
+            "Weiqi Wang",
+            "Yangqiu Song"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2406-11149",
+            "ArXiv": "2406.11149",
+            "ACL": "2024.emnlp-main.195",
+            "DOI": "10.48550/arXiv.2406.11149",
+            "CorpusId": 270559936
+        },
+        "doi": "10.48550/arXiv.2406.11149",
+        "abstract": null,
+        "citation_count": 6
+    },
+    "14": {
+        "paper_id": "1109339bde0aff96f6830b3e4adcdaf417dad496",
+        "title": "PrivacyOracle: Configuring Sensor Privacy Firewalls with Large Language Models in Smart Built Environments",
+        "year": 2024,
+        "venue": "2024 IEEE Security and Privacy Workshops (SPW)",
+        "authors": [
+            "Brian Wang",
+            "L. Garcia",
+            "Mani Srivastava"
+        ],
+        "externalIds": {
+            "DBLP": "conf/sp/WangGS24",
+            "DOI": "10.1109/SPW63631.2024.00028",
+            "CorpusId": 270974399
+        },
+        "doi": "10.1109/SPW63631.2024.00028",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "15": {
+        "paper_id": "50a78ce0151b551ca7287ce946e44b2cd5b8a684",
+        "title": "AirGapAgent: Protecting Privacy-Conscious Conversational Agents",
+        "year": 2024,
+        "venue": "Conference on Computer and Communications Security",
+        "authors": [
+            "Eugene Bagdasarian",
+            "Ren Yi",
+            "Sahra Ghalebikesabi",
+            "P. Kairouz",
+            "Marco Gruteser",
+            "Sewoong Oh",
+            "Borja Balle",
+            "Daniel Ramage"
+        ],
+        "externalIds": {
+            "DBLP": "conf/ccs/BagdasarianYGKG24",
+            "ArXiv": "2405.05175",
+            "DOI": "10.1145/3658644.3690350",
+            "CorpusId": 269626177
+        },
+        "doi": "10.1145/3658644.3690350",
+        "abstract": null,
+        "citation_count": 8
+    },
+    "16": {
+        "paper_id": "0a1d211fe6e56fd5080e8ab4ea54b2392e9aa4d3",
+        "title": "Navigating virtual spaces: Understanding user adaptation in online meetings during the pandemic",
+        "year": 2024,
+        "venue": "Int. J. Hum. Comput. Stud.",
+        "authors": [
+            "Ana Cristina Bicharra Garcia",
+            "A. Vivacqua"
+        ],
+        "externalIds": {
+            "DBLP": "journals/ijmms/GarciaV24",
+            "DOI": "10.1016/j.ijhcs.2024.103274",
+            "CorpusId": 269166582
+        },
+        "doi": "10.1016/j.ijhcs.2024.103274",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "17": {
+        "paper_id": "d27e105fcf1844a1af6814fc27c252f502d93ac9",
+        "title": "Contextualizing Interpersonal Data Sharing in Smart Homes",
+        "year": 2024,
+        "venue": "Proceedings on Privacy Enhancing Technologies",
+        "authors": [
+            "Weijia He",
+            "Nathan Reitinger",
+            "Atheer Almogbil",
+            "Yi-Shyuan Chiang",
+            "Timothy J. Pierson",
+            "David Kotz"
+        ],
+        "externalIds": {
+            "DBLP": "journals/popets/HeRACPK24",
+            "DOI": "10.56553/popets-2024-0051",
+            "CorpusId": 268943745
+        },
+        "doi": "10.56553/popets-2024-0051",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "18": {
+        "paper_id": "b8113d5922063ceb73074cbdff31b45ead365df5",
+        "title": "SoK: Technical Implementation and Human Impact of Internet Privacy Regulations",
+        "year": 2023,
+        "venue": "IEEE Symposium on Security and Privacy",
+        "authors": [
+            "Eleanor Birrell",
+            "Jay Rodolitz",
+            "Angel Ding",
+            "Jenna Lee",
+            "Emily McReynolds",
+            "Jevan A. Hutson",
+            "Ada Lerner"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2312-15383",
+            "ArXiv": "2312.15383",
+            "DOI": "10.1109/SP54263.2024.00206",
+            "CorpusId": 266551704
+        },
+        "doi": "10.1109/SP54263.2024.00206",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "19": {
+        "paper_id": "68d745796f8a928f2203bbf6be4ce0384618df9a",
+        "title": "Design Guidelines for Improving Mobile Sensing Data Collection: Prospective Mixed Methods Study",
+        "year": 2023,
+        "venue": "Journal of Medical Internet Research",
+        "authors": [
+            "Christopher Slade",
+            "R. Benzo",
+            "Peter Washington"
+        ],
+        "externalIds": {
+            "PubMedCentral": "11632896",
+            "DOI": "10.2196/55694",
+            "CorpusId": 272513591,
+            "PubMed": "39556828"
+        },
+        "doi": "10.2196/55694",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "20": {
+        "paper_id": "68c6b65b127158df2e74f36757117613b9ae9146",
+        "title": "Automating Governing Knowledge Commons and Contextual Integrity (GKC-CI) Privacy Policy Annotations with Large Language Models",
+        "year": 2023,
+        "venue": "Proceedings on Privacy Enhancing Technologies",
+        "authors": [
+            "Jake Chanenson",
+            "Madison Pickering",
+            "Noah J. Apthorpe"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2311-02192",
+            "ArXiv": "2311.02192",
+            "DOI": "10.48550/arXiv.2311.02192",
+            "CorpusId": 265033340
+        },
+        "doi": "10.48550/arXiv.2311.02192",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "21": {
+        "paper_id": "7947ce8d58641734453fc952079c1bb27ef4818e",
+        "title": "Understanding Privacy Concerns in Mobile Health Applications: A Scenario-based Online Survey",
+        "year": 2023,
+        "venue": "International Conference on Trust, Security and Privacy in Computing and Communications",
+        "authors": [
+            "Reham Al Tamime",
+            "Ali Farooq",
+            "Joni Salminen",
+            "Vincent Marmion",
+            "Wendy Hall"
+        ],
+        "externalIds": {
+            "DBLP": "conf/trustcom/TamimeFSM023",
+            "DOI": "10.1109/TrustCom60117.2023.00239",
+            "CorpusId": 270097571
+        },
+        "doi": "10.1109/TrustCom60117.2023.00239",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "22": {
+        "paper_id": "d86a75e49a1b55ee5923664560b3356eb9fec094",
+        "title": "Libertas: Privacy-Preserving Collective Computation for Decentralised Personal Data Stores",
+        "year": 2023,
+        "venue": "",
+        "authors": [
+            "Rui Zhao",
+            "Naman Goel",
+            "Nitin Agrawal",
+            "Jun Zhao",
+            "Jake M L Stein",
+            "Ruben Verborgh",
+            "Reuben Binns",
+            "T. Berners-Lee",
+            "N. Shadbolt"
+        ],
+        "externalIds": {
+            "ArXiv": "2309.16365",
+            "CorpusId": 263134602
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 4
+    },
+    "23": {
+        "paper_id": "40d2c969df0f7d434ee0dc79f8153cf5bcdeb199",
+        "title": "Mobile Application Privacy Risk Assessments from User-authored Scenarios",
+        "year": 2023,
+        "venue": "IEEE International Requirements Engineering Conference",
+        "authors": [
+            "Tianjian Huang",
+            "Vaishnavi Kaulagi",
+            "M. Hosseini",
+            "T. Breaux"
+        ],
+        "externalIds": {
+            "DBLP": "conf/re/HuangKHB23",
+            "DOI": "10.1109/RE57278.2023.00012",
+            "CorpusId": 263228556
+        },
+        "doi": "10.1109/RE57278.2023.00012",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "24": {
+        "paper_id": "efe6dc0564709a2b73e83ab94b7c31e3d958d46f",
+        "title": "Data-CASE: Grounding Data Regulations for Compliant Data Processing Systems",
+        "year": 2023,
+        "venue": "International Conference on Extending Database Technology",
+        "authors": [
+            "Vishal Chakraborty",
+            "Stacy Ann-Elvy",
+            "S. Mehrotra",
+            "Faisal Nawab",
+            "Mohammad Sadoghi",
+            "Sharad Sharma",
+            "Nalini Venkatsubhramanian",
+            "Farhan Saeed"
+        ],
+        "externalIds": {
+            "ArXiv": "2308.07501",
+            "DBLP": "journals/corr/abs-2308-07501",
+            "DOI": "10.48550/arXiv.2308.07501",
+            "CorpusId": 260899998
+        },
+        "doi": "10.48550/arXiv.2308.07501",
+        "abstract": null,
+        "citation_count": 1
+    },
+    "25": {
+        "paper_id": "53dcfc7943a3f64fac552ae97db74536b91dd27c",
+        "title": "Privacy Concerns and Antecedents of Building Data Sharing: A Privacy Calculus Perspective",
+        "year": 2023,
+        "venue": "ACM SIGEnergy Energy Informatics Review",
+        "authors": [
+            "Yanhui Xu",
+            "Dan Wang"
+        ],
+        "externalIds": {
+            "DOI": "10.1145/3607114.3607116",
+            "CorpusId": 259297696
+        },
+        "doi": "10.1145/3607114.3607116",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "26": {
+        "paper_id": "cb17fd83d80e358de51af95e32b7e8660d6329c6",
+        "title": "Automating privacy decisions -where to draw the line?",
+        "year": 2023,
+        "venue": "2023 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW)",
+        "authors": [
+            "Victor Morel",
+            "S. Fischer-Hübner"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2305-08747",
+            "ArXiv": "2305.08747",
+            "DOI": "10.1109/EuroSPW59978.2023.00017",
+            "CorpusId": 258685438
+        },
+        "doi": "10.1109/EuroSPW59978.2023.00017",
+        "abstract": null,
+        "citation_count": 1
+    },
+    "27": {
+        "paper_id": "2af55017c6af40df18818faae68830b037092251",
+        "title": "Attitudes towards Client-Side Scanning for CSAM, Terrorism, Drug Trafficking, Drug Use and Tax Evasion in Germany",
+        "year": 2023,
+        "venue": "IEEE Symposium on Security and Privacy",
+        "authors": [
+            "Lisa Geierhaas",
+            "Fabian Otto",
+            "Maximilian Häring",
+            "Matthew Smith"
+        ],
+        "externalIds": {
+            "DBLP": "conf/sp/GeierhaasOHS23",
+            "DOI": "10.1109/SP46215.2023.10179417",
+            "CorpusId": 260003405
+        },
+        "doi": "10.1109/SP46215.2023.10179417",
+        "abstract": null,
+        "citation_count": 6
+    },
+    "28": {
+        "paper_id": "96d0257acbaea54755fd438bb3c6bdfe75f03452",
+        "title": "Exploring the Relevance of Data Privacy-Enhancing Technologies for AI Governance Use Cases",
+        "year": 2023,
+        "venue": "arXiv.org",
+        "authors": [
+            "Emma Bluemke",
+            "Tantum Collins",
+            "Ben Garfinkel",
+            "Andrew Trask"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2303-08956",
+            "ArXiv": "2303.08956",
+            "DOI": "10.48550/arXiv.2303.08956",
+            "CorpusId": 257557649
+        },
+        "doi": "10.48550/arXiv.2303.08956",
+        "abstract": null,
+        "citation_count": 10
+    },
+    "29": {
+        "paper_id": "fab81b94d7813a98fa178dd56115b040d85803d6",
+        "title": "ARGUS: Context-Based Detection of Stealthy IoT Infiltration Attacks",
+        "year": 2023,
+        "venue": "USENIX Security Symposium",
+        "authors": [
+            "P. Rieger",
+            "Marco Chilese",
+            "Reham Mohamed",
+            "Markus Miettinen",
+            "Hossein Fereidooni",
+            "A. Sadeghi"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2302-07589",
+            "ArXiv": "2302.07589",
+            "DOI": "10.48550/arXiv.2302.07589",
+            "CorpusId": 256868392
+        },
+        "doi": "10.48550/arXiv.2302.07589",
+        "abstract": null,
+        "citation_count": 14
+    },
+    "30": {
+        "paper_id": "31921994cb0d4e22cdf3776728364bb8807eed4f",
+        "title": "Privacy-Enhancing Technology and Everyday Augmented Reality",
+        "year": 2022,
+        "venue": "Proceedings of the ACM on Interactive Mobile Wearable and Ubiquitous Technologies",
+        "authors": [
+            "Joseph O'Hagan",
+            "Pejman Saeghe",
+            "Jan Gugenheimer",
+            "Daniel Medeiros",
+            "Karola Marky",
+            "M. Khamis",
+            "Mark Mcgill"
+        ],
+        "externalIds": {
+            "DBLP": "journals/imwut/OHaganSGMMKM22",
+            "DOI": "10.1145/3569501",
+            "CorpusId": 255596481
+        },
+        "doi": "10.1145/3569501",
+        "abstract": null,
+        "citation_count": 59
+    },
+    "31": {
+        "paper_id": "725918886466615b11f47f6f992eacf800b14a4c",
+        "title": "Exploring Consequences of Privacy Policies with Narrative Generation via Answer Set Programming",
+        "year": 2022,
+        "venue": "arXiv.org",
+        "authors": [
+            "C. Dabral",
+            "Emma Tosch",
+            "Chris Martens"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2212-06719",
+            "ArXiv": "2212.06719",
+            "DOI": "10.48550/arXiv.2212.06719",
+            "CorpusId": 254591698
+        },
+        "doi": "10.48550/arXiv.2212.06719",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "32": {
+        "paper_id": "38096c592e3cbb89b8852ef297ed5eecfdd8b58a",
+        "title": "Policy Transparency: Authorization Logic Meets General Transparency to Prove Software Supply Chain Integrity",
+        "year": 2022,
+        "venue": "SCORED@CCS",
+        "authors": [
+            "Andrew Ferraiuolo",
+            "Razieh Behjati",
+            "Tiziano Santoro",
+            "Ben Laurie"
+        ],
+        "externalIds": {
+            "DBLP": "conf/scored/FerraiuoloBSL22",
+            "DOI": "10.1145/3560835.3564549",
+            "CorpusId": 253180953
+        },
+        "doi": "10.1145/3560835.3564549",
+        "abstract": null,
+        "citation_count": 12
+    },
+    "33": {
+        "paper_id": "497d5c8e783aeeb71708c5e5f8813c54b89ba469",
+        "title": "Cryptography, Trust and Privacy: It's Complicated",
+        "year": 2022,
+        "venue": "Symposium on Computer Science and Law",
+        "authors": [
+            "Ero Balsa",
+            "H. Nissenbaum",
+            "Sunoo Park"
+        ],
+        "externalIds": {
+            "DBLP": "conf/cslaw/BalsaNP22",
+            "DOI": "10.1145/3511265.3550443",
+            "CorpusId": 253111576
+        },
+        "doi": "10.1145/3511265.3550443",
+        "abstract": null,
+        "citation_count": 8
+    },
+    "34": {
+        "paper_id": "c632385b5d99a4ae212a8b83f9b25791bcf65fce",
+        "title": "Hapi: A domain-specific language for the declaration of access policies",
+        "year": 2022,
+        "venue": "Journal of Computer Languages",
+        "authors": [
+            "Vinícius Julião Ramos",
+            "Alexander Holmquist",
+            "Fernando Magno Quintão Pereira"
+        ],
+        "externalIds": {
+            "DBLP": "journals/vlc/RamosHP22",
+            "DOI": "10.1016/j.cola.2022.101153",
+            "CorpusId": 261285041
+        },
+        "doi": "10.1016/j.cola.2022.101153",
+        "abstract": null,
+        "citation_count": 1
+    },
+    "35": {
+        "paper_id": "dcad46728e8b13a0aa9ec4f7a3c77f51e55a4934",
+        "title": "A Model of Contextual Factors Affecting Older Adults’ Information-Sharing Decisions in the U.S.",
+        "year": 2022,
+        "venue": "ACM Trans. Comput. Hum. Interact.",
+        "authors": [
+            "Alisa Frik",
+            "Julia Bernd",
+            "Serge Egelman"
+        ],
+        "externalIds": {
+            "DBLP": "journals/tochi/FrikBE23",
+            "DOI": "10.1145/3557888",
+            "CorpusId": 251724285
+        },
+        "doi": "10.1145/3557888",
+        "abstract": null,
+        "citation_count": 8
+    },
+    "36": {
+        "paper_id": "fc5b7c21af4ab28fcb297b1b7ae69cdc78c40171",
+        "title": "Analyzing User Perspectives on Mobile App Privacy at Scale",
+        "year": 2022,
+        "venue": "International Conference on Software Engineering",
+        "authors": [
+            "Preksha Nema",
+            "Pauline Anthonysamy",
+            "N. Taft",
+            "Sai Teia Peddinti"
+        ],
+        "externalIds": {
+            "DBLP": "conf/icse/NemaATP22",
+            "DOI": "10.1145/3510003.3510079",
+            "CorpusId": 249929302
+        },
+        "doi": "10.1145/3510003.3510079",
+        "abstract": null,
+        "citation_count": 38
+    },
+    "37": {
+        "paper_id": "ef2b97b8a8458ab498338154bed68f5c32a4747d",
+        "title": "Exploring Bystanders’ Privacy Concerns with Smart Homes in Jordan",
+        "year": 2022,
+        "venue": "International Conference on Human Factors in Computing Systems",
+        "authors": [
+            "Wael S. Albayaydh",
+            "I. Flechais"
+        ],
+        "externalIds": {
+            "DBLP": "conf/chi/AlbayaydhF22",
+            "DOI": "10.1145/3491102.3502097",
+            "CorpusId": 248081184
+        },
+        "doi": "10.1145/3491102.3502097",
+        "abstract": null,
+        "citation_count": 18
+    },
+    "38": {
+        "paper_id": "6d4378aa3322b9a651d553d59e955bd583d2c53b",
+        "title": "Still Creepy After All These Years:The Normalization of Affective Discomfort in App Use",
+        "year": 2022,
+        "venue": "International Conference on Human Factors in Computing Systems",
+        "authors": [
+            "John S. Seberger",
+            "Irina Shklovski",
+            "Emily Swiatek",
+            "S. Patil"
+        ],
+        "externalIds": {
+            "DBLP": "conf/chi/SebergerSSP22",
+            "DOI": "10.1145/3491102.3502112",
+            "CorpusId": 248419443
+        },
+        "doi": "10.1145/3491102.3502112",
+        "abstract": null,
+        "citation_count": 38
+    },
+    "39": {
+        "paper_id": "fcf8d80050296419ebae8f89d27e1f59aa2b49a6",
+        "title": "A policy-aware epistemic framework for social networks",
+        "year": 2022,
+        "venue": "Journal of Logic and Computation",
+        "authors": [
+            "Zahra Moezkarimi",
+            "F. Ghassemi",
+            "M. Mousavi"
+        ],
+        "externalIds": {
+            "DBLP": "journals/logcom/MoezkarimiGM22",
+            "DOI": "10.1093/logcom/exac025",
+            "CorpusId": 248109413
+        },
+        "doi": "10.1093/logcom/exac025",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "40": {
+        "paper_id": "8a1abe0d7c997983b65fdb4933448652b495dac5",
+        "title": "Effect of User Expectation on Mobile App Privacy: A Field Study",
+        "year": 2022,
+        "venue": "Annual IEEE International Conference on Pervasive Computing and Communications",
+        "authors": [
+            "Ricardo Mendes",
+            "André Brandão",
+            "J. Vilela",
+            "A. Beresford"
+        ],
+        "externalIds": {
+            "DBLP": "conf/percom/MendesBVB22",
+            "DOI": "10.1109/PerCom53586.2022.9762379",
+            "CorpusId": 248407885
+        },
+        "doi": "10.1109/PerCom53586.2022.9762379",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "41": {
+        "paper_id": "39fab3a4a7d67b69cc29c5f417dc58e4fc09b003",
+        "title": "‘A right to be forgotten’: retrospective privacy concerns in social networking services",
+        "year": 2022,
+        "venue": "Behavior and Information Technology",
+        "authors": [
+            "Yun Zhang",
+            "Chuan Luo",
+            "Hongyan Wang",
+            "Yang Chen",
+            "Yue Chen"
+        ],
+        "externalIds": {
+            "DBLP": "journals/behaviourIT/ZhangLWCC23",
+            "DOI": "10.1080/0144929X.2022.2046162",
+            "CorpusId": 247508493
+        },
+        "doi": "10.1080/0144929X.2022.2046162",
+        "abstract": null,
+        "citation_count": 9
+    },
+    "42": {
+        "paper_id": "c7a8afbe5636bb3bab09d3afc0f84e4400bb0871",
+        "title": "From data flows to privacy‐benefit trade‐offs: A user‐centric semantic model",
+        "year": 2022,
+        "venue": "Security and Privacy",
+        "authors": [
+            "Yang Lu",
+            "Shujun Li"
+        ],
+        "externalIds": {
+            "DBLP": "journals/sap/LuL22",
+            "DOI": "10.1002/spy2.225",
+            "CorpusId": 247467609
+        },
+        "doi": "10.1002/spy2.225",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "43": {
+        "paper_id": "107182f088256ea0395bdb7023d90a4f4d56920a",
+        "title": "Prototyping policy: Visualizing impact for better regulation",
+        "year": 2022,
+        "venue": "Convergence: The International Journal of Research into New Media Technologies",
+        "authors": [
+            "Jasmine E. McNealy",
+            "Dennis Jen",
+            "Stephanie Nguyen"
+        ],
+        "externalIds": {
+            "DOI": "10.1177/13548565211069875",
+            "CorpusId": 246448506
+        },
+        "doi": "10.1177/13548565211069875",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "44": {
+        "paper_id": "92451e70e7c43ffb111dd2c18fd8b832ba2d4a8d",
+        "title": "Systems Challenges for Trustworthy Embodied Systems",
+        "year": 2022,
+        "venue": "arXiv.org",
+        "authors": [
+            "H. Ruess"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2201-03413",
+            "ArXiv": "2201.03413",
+            "CorpusId": 248096696
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "45": {
+        "paper_id": "7ee21cc4b8e4d08475d77bcf7dd0622f4f4c4eae",
+        "title": "Melihat Peran Perantara dalam Kasus Penyebaran Video Non-Konsensual dengan Kerangka Contextual Integrity",
+        "year": 2021,
+        "venue": "Jurnal Wanita dan Keluarga",
+        "authors": [
+            "Idha Saraswati"
+        ],
+        "externalIds": {
+            "DOI": "10.22146/jwk.3618",
+            "CorpusId": 245205382
+        },
+        "doi": "10.22146/jwk.3618",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "46": {
+        "paper_id": "897e200ae55c9b329a118fbbf7781ee5d385cab8",
+        "title": "The Evolving Path of “the Right to Be Left Alone” - When Privacy Meets Technology",
+        "year": 2021,
+        "venue": "International Conference on Trust, Privacy and Security in Intelligent Systems and Applications",
+        "authors": [
+            "Michela Iezzi"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2111-12434",
+            "ArXiv": "2111.12434",
+            "DOI": "10.1109/TPSISA52974.2021.00025",
+            "CorpusId": 244527117
+        },
+        "doi": "10.1109/TPSISA52974.2021.00025",
+        "abstract": null,
+        "citation_count": 1
+    },
+    "47": {
+        "paper_id": "467b7d20a898592c56c4771d4c12c921df83e877",
+        "title": "DataProVe: Fully Automated Conformance Verification Between Data Protection Policies and System Architectures",
+        "year": 2021,
+        "venue": "Proceedings on Privacy Enhancing Technologies",
+        "authors": [
+            "Vinh-Thong Ta",
+            "M. Eiza"
+        ],
+        "externalIds": {
+            "DBLP": "journals/popets/TaE22",
+            "DOI": "10.2478/popets-2022-0028",
+            "CorpusId": 244429552
+        },
+        "doi": "10.2478/popets-2022-0028",
+        "abstract": null,
+        "citation_count": 4
+    },
+    "48": {
+        "paper_id": "f6e35416a76deaf24e57a14a153bfb7631d1f7f8",
+        "title": "Investigating privacy concerns related to mobile augmented reality Apps - A vignette based online experiment",
+        "year": 2021,
+        "venue": "Computers in Human Behavior",
+        "authors": [
+            "David Harborth",
+            "Sebastian Pape"
+        ],
+        "externalIds": {
+            "MAG": "3159691270",
+            "DBLP": "journals/chb/HarborthP21",
+            "DOI": "10.1016/J.CHB.2021.106833",
+            "CorpusId": 235515195
+        },
+        "doi": "10.1016/J.CHB.2021.106833",
+        "abstract": null,
+        "citation_count": 51
+    },
+    "49": {
+        "paper_id": "2117067593b48a5821b8e0f162417a9cb3ab2e35",
+        "title": "The dynamics of data donation: privacy risk, mobility data, and the smart city",
+        "year": 2021,
+        "venue": "",
+        "authors": [
+            "Jorge Campos"
+        ],
+        "externalIds": {
+            "DBLP": "phd/ethos/Campos21",
+            "MAG": "3186041551",
+            "DOI": "10.17630/STA/110",
+            "CorpusId": 237828438
+        },
+        "doi": "10.17630/STA/110",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "50": {
+        "paper_id": "07b06e66d7e2d5231dfefb5115d509f7374623c5",
+        "title": "Modeling of Personalized Privacy Disclosure Behavior: A Formal Method Approach",
+        "year": 2021,
+        "venue": "ARES",
+        "authors": [
+            "Nuhil Mehdy",
+            "Hoda Mehrpouyan"
+        ],
+        "externalIds": {
+            "DBLP": "journals/corr/abs-2106-11762",
+            "ArXiv": "2106.11762",
+            "DOI": "10.1145/3465481.3470102",
+            "CorpusId": 235592822
+        },
+        "doi": "10.1145/3465481.3470102",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "51": {
+        "paper_id": "e1776d67c5be21a72d0dca11055bd38b9f385067",
+        "title": "Empowering Users in Online Open Communities",
+        "year": 2021,
+        "venue": "SN Computer Science",
+        "authors": [
+            "N. Osman",
+            "Ronald Chenu",
+            "Qiang Shen",
+            "Carles Sierra",
+            "Fausto Giunchiglia"
+        ],
+        "externalIds": {
+            "DBLP": "journals/sncs/OsmanCSSG21",
+            "DOI": "10.1007/s42979-021-00714-5",
+            "CorpusId": 235465783
+        },
+        "doi": "10.1007/s42979-021-00714-5",
+        "abstract": null,
+        "citation_count": 6
+    },
+    "52": {
+        "paper_id": "d268d6311bb1fa5c29f524159f1f8809951529e4",
+        "title": "Extraction and Analysis of Stories: Natural Language Processing for Software Engineering.",
+        "year": 2021,
+        "venue": "",
+        "authors": [
+            "Hui Guo"
+        ],
+        "externalIds": {
+            "MAG": "3172135078",
+            "CorpusId": 238161603
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "53": {
+        "paper_id": "1db3ff38ce304b8e68aafaed992a939a9b7be2f4",
+        "title": "A Design Space for Privacy Choices: Towards Meaningful Privacy Control in the Internet of Things",
+        "year": 2021,
+        "venue": "International Conference on Human Factors in Computing Systems",
+        "authors": [
+            "Yuanyuan Feng",
+            "Yaxing Yao",
+            "N. Sadeh"
+        ],
+        "externalIds": {
+            "DBLP": "conf/chi/FengYS21",
+            "DOI": "10.1145/3411764.3445148",
+            "CorpusId": 233987661
+        },
+        "doi": "10.1145/3411764.3445148",
+        "abstract": null,
+        "citation_count": 94
+    },
+    "54": {
+        "paper_id": "32e1db9ddb708bf22a3404af8f01dd774be9a719",
+        "title": "Privacy as a Planned Behavior: Effects of Situational Factors on Privacy Perceptions and Plans",
+        "year": 2021,
+        "venue": "User Modeling, Adaptation, and Personalization",
+        "authors": [
+            "A. N. Mehdy",
+            "Michael D. Ekstrand",
+            "Bart P. Knijnenburg",
+            "Hoda Mehrpouyan"
+        ],
+        "externalIds": {
+            "DBLP": "conf/um/MehdyEKM21",
+            "ArXiv": "2104.11847",
+            "DOI": "10.1145/3450613.3456829",
+            "CorpusId": 233394074
+        },
+        "doi": "10.1145/3450613.3456829",
+        "abstract": null,
+        "citation_count": 18
+    },
+    "55": {
+        "paper_id": "18128af3e00c60c56fdad4f8f20ce10327142e2a",
+        "title": "Designing for the Privacy Commons",
+        "year": 2021,
+        "venue": "Governing Privacy in Knowledge Commons",
+        "authors": [
+            "Darakhshan J. Mir"
+        ],
+        "externalIds": {
+            "MAG": "3139753543",
+            "DOI": "10.1017/9781108749978.011",
+            "CorpusId": 233641285
+        },
+        "doi": "10.1017/9781108749978.011",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "56": {
+        "paper_id": "9303fb7d15269a79a03fabe7b415296379b205ee",
+        "title": "A Calculus of Tracking: Theory and Practice",
+        "year": 2021,
+        "venue": "Proceedings on Privacy Enhancing Technologies",
+        "authors": [
+            "Giorgio Di Tizio",
+            "F. Massacci"
+        ],
+        "externalIds": {
+            "DBLP": "journals/popets/TizioM21",
+            "DOI": "10.2478/popets-2021-0027",
+            "CorpusId": 231743901
+        },
+        "doi": "10.2478/popets-2021-0027",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "57": {
+        "paper_id": "3f1fc58a2cfe162dc4e9b8e80ae48208c60e9c1c",
+        "title": "Using Complexity to Calibrate Legal Response to Covid-19",
+        "year": 2021,
+        "venue": "Frontiers of Physics",
+        "authors": [
+            "O. Malcai",
+            "Michal Shur-Ofry"
+        ],
+        "externalIds": {
+            "MAG": "3134940094",
+            "DOI": "10.3389/fphy.2021.650943",
+            "CorpusId": 233401951
+        },
+        "doi": "10.3389/fphy.2021.650943",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "58": {
+        "paper_id": "67a39a1cf0a7af2cfdd874caaca9e8837a248bd7",
+        "title": "Applying a Contextual Integrity Framework to Privacy Policies for Smart Technologies",
+        "year": 2020,
+        "venue": "Journal of Information Policy",
+        "authors": [
+            "Gwen Shaffer"
+        ],
+        "externalIds": {
+            "MAG": "3113756705",
+            "DOI": "10.2139/ssrn.3742916",
+            "CorpusId": 234581044
+        },
+        "doi": "10.2139/ssrn.3742916",
+        "abstract": null,
+        "citation_count": 11
+    },
+    "59": {
+        "paper_id": "6dd144c45ae774cf47e2c1d0b42366537656beca",
+        "title": "Aquilis",
+        "year": 2020,
+        "venue": "Proceedings of the ACM on Interactive Mobile Wearable and Ubiquitous Technologies",
+        "authors": [
+            "Abhishek Kumar",
+            "Tristan Braud",
+            "Young D. Kwon",
+            "Pan Hui"
+        ],
+        "externalIds": {
+            "DBLP": "journals/imwut/KumarBKH20",
+            "MAG": "3107185463",
+            "DOI": "10.1145/3432205",
+            "CorpusId": 229320981
+        },
+        "doi": "10.1145/3432205",
+        "abstract": null,
+        "citation_count": 9
+    },
+    "60": {
+        "paper_id": "5e7c7a279609cc418164eae47f26dd68c40ea683",
+        "title": "An Ontology for Privacy Requirements via a Systematic Literature Review",
+        "year": 2020,
+        "venue": "Journal on Data Semantics",
+        "authors": [
+            "M. Gharib",
+            "P. Giorgini",
+            "J. Mylopoulos"
+        ],
+        "externalIds": {
+            "DBLP": "journals/jodsn/GharibGM20",
+            "DOI": "10.1007/s13740-020-00116-5",
+            "CorpusId": 231202427
+        },
+        "doi": "10.1007/s13740-020-00116-5",
+        "abstract": null,
+        "citation_count": 21
+    },
+    "61": {
+        "paper_id": "94449bbdcecde4635728f5033e7b48f8b97d9265",
+        "title": "Applying Privacy-Aware Policies in IoT Devices Using Privacy Metrics",
+        "year": 2020,
+        "venue": "International Conference on Communications, Computing, Cybersecurity, and Informatics",
+        "authors": [
+            "M. Tavakolan",
+            "Ismaeel A. Faridi"
+        ],
+        "externalIds": {
+            "MAG": "3099493518",
+            "DBLP": "conf/ccci/TavakolanF20",
+            "DOI": "10.1109/CCCI49893.2020.9256605",
+            "CorpusId": 227062452
+        },
+        "doi": "10.1109/CCCI49893.2020.9256605",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "62": {
+        "paper_id": "a701b636afc391f75c4d71d779e0e77f3766cbad",
+        "title": "TURP: Managing Trust for Regulating Privacy in Internet of Things",
+        "year": 2020,
+        "venue": "IEEE Internet Computing",
+        "authors": [
+            "Nadin Kökciyan",
+            "P. Yolum"
+        ],
+        "externalIds": {
+            "DBLP": "journals/internet/KokciyanY20",
+            "MAG": "3082714774",
+            "DOI": "10.1109/MIC.2020.3020006",
+            "CorpusId": 226452352
+        },
+        "doi": "10.1109/MIC.2020.3020006",
+        "abstract": null,
+        "citation_count": 12
+    },
+    "63": {
+        "paper_id": "2a27df75e0e3ac0e3f43abc132619d6659e8ef1e",
+        "title": "Making context the central concept in privacy engineering",
+        "year": 2020,
+        "venue": "Research and Practice in Technology Enhanced Learning",
+        "authors": [
+            "T. Hoel",
+            "Weiqin Chen",
+            "J. Pawlowski"
+        ],
+        "externalIds": {
+            "DBLP": "journals/rptel/HoelCP20",
+            "MAG": "3094028046",
+            "DOI": "10.1186/s41039-020-00141-9",
+            "CorpusId": 224774512
+        },
+        "doi": "10.1186/s41039-020-00141-9",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "64": {
+        "paper_id": "1eee04a79db56d526ed3384a23901b07c7476c04",
+        "title": "Informational Friction as a Lens for Studying Algorithmic Aspects of Privacy",
+        "year": 2020,
+        "venue": "Proc. ACM Hum. Comput. Interact.",
+        "authors": [
+            "P. Skeba",
+            "E. Baumer"
+        ],
+        "externalIds": {
+            "DBLP": "journals/pacmhci/SkebaB20",
+            "MAG": "3093664790",
+            "DOI": "10.1145/3415172",
+            "CorpusId": 224804957
+        },
+        "doi": "10.1145/3415172",
+        "abstract": null,
+        "citation_count": 15
+    },
+    "65": {
+        "paper_id": "baeba3f85b8def6bf3604030ad38f40f6a05e778",
+        "title": "Beyond The Text: Analysis of Privacy Statements through Syntactic and Semantic Role Labeling",
+        "year": 2020,
+        "venue": "NLLP",
+        "authors": [
+            "Yan Shvartzshnaider",
+            "Ananth Balashankar",
+            "Vikas Patidar",
+            "Thomas Wies",
+            "L. Subramanian"
+        ],
+        "externalIds": {
+            "ACL": "2023.nllp-1.10",
+            "ArXiv": "2010.00678",
+            "MAG": "3090131812",
+            "DBLP": "journals/corr/abs-2010-00678",
+            "DOI": "10.18653/v1/2023.nllp-1.10",
+            "CorpusId": 222124980
+        },
+        "doi": "10.18653/v1/2023.nllp-1.10",
+        "abstract": null,
+        "citation_count": 4
+    },
+    "66": {
+        "paper_id": "8466e25c1439083fed16704acfb819f862acfc56",
+        "title": "Investigating User Perceptions of Mobile App Privacy: An Analysis of User-Submitted App Reviews",
+        "year": 2020,
+        "venue": "International Journal of Information Security and Privacy",
+        "authors": [
+            "Andrew Besmer",
+            "J. Watson",
+            "M. Banks"
+        ],
+        "externalIds": {
+            "DBLP": "journals/ijisp/BesmerWB20",
+            "MAG": "3084027408",
+            "DOI": "10.4018/ijisp.2020100105",
+            "CorpusId": 224998595
+        },
+        "doi": "10.4018/ijisp.2020100105",
+        "abstract": null,
+        "citation_count": 15
+    },
+    "67": {
+        "paper_id": "8d9bb973e94f4116af0786f4cd7a01afd13c8aa2",
+        "title": "Privacy in the Era of 5G, IoT, Big Data and Machine Learning",
+        "year": 2020,
+        "venue": "International Conference on Trust, Privacy and Security in Intelligent Systems and Applications",
+        "authors": [
+            "E. Bertino"
+        ],
+        "externalIds": {
+            "DBLP": "conf/tpsisa/Bertino20",
+            "DOI": "10.1109/TPS-ISA50397.2020.00027",
+            "CorpusId": 231682447
+        },
+        "doi": "10.1109/TPS-ISA50397.2020.00027",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "68": {
+        "paper_id": "e5cb6aa66550b82f0902dcd05cac87d6f51e2322",
+        "title": "The Never-Ending Story: On the Need for Continuous Privacy Impact Assessment",
+        "year": 2020,
+        "venue": "2020 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW)",
+        "authors": [
+            "Laurens Sion",
+            "Dimitri Van Landuyt",
+            "W. Joosen"
+        ],
+        "externalIds": {
+            "MAG": "3093996718",
+            "DBLP": "conf/eurosp/SionLJ20",
+            "DOI": "10.1109/EuroSPW51379.2020.00049",
+            "CorpusId": 225079626
+        },
+        "doi": "10.1109/EuroSPW51379.2020.00049",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "69": {
+        "paper_id": "cd8573c3d66def4fade3f975bcac9d93c1a76c7b",
+        "title": "Contextual Privacy Policy Modeling in IoT",
+        "year": 2020,
+        "venue": "2020 IEEE Intl Conf on Dependable, Autonomic and Secure Computing, Intl Conf on Pervasive Intelligence and Computing, Intl Conf on Cloud and Big Data Computing, Intl Conf on Cyber Science and Technology Congress (DASC/PiCom/CBDCom/CyberSciTech)",
+        "authors": [
+            "Emmanuel Onu",
+            "Michael Mireku Kwakye",
+            "K. Barker"
+        ],
+        "externalIds": {
+            "DBLP": "conf/dasc/OnuK020",
+            "MAG": "3104677116",
+            "DOI": "10.1109/DASC-PICom-CBDCom-CyberSciTech49142.2020.00030",
+            "CorpusId": 226851522
+        },
+        "doi": "10.1109/DASC-PICom-CBDCom-CyberSciTech49142.2020.00030",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "70": {
+        "paper_id": "d85dd643a8d32f447cc966d01f09f97ee6e1c117",
+        "title": "Design principles for the General Data Protection Regulation (GDPR): A formal concept analysis and its evaluation",
+        "year": 2020,
+        "venue": "Information Systems",
+        "authors": [
+            "D. Tamburri"
+        ],
+        "externalIds": {
+            "MAG": "2990724439",
+            "DBLP": "journals/is/Tamburri20",
+            "DOI": "10.1016/j.is.2019.101469",
+            "CorpusId": 214339561
+        },
+        "doi": "10.1016/j.is.2019.101469",
+        "abstract": null,
+        "citation_count": 85
+    },
+    "71": {
+        "paper_id": "0f6addd366c380b456632765b5703ea4b2fbc33c",
+        "title": "Provably Privacy-Preserving Distributed Data Aggregation in Smart Grids",
+        "year": 2020,
+        "venue": "Database Security",
+        "authors": [
+            "Marius Stübs",
+            "Tobias Mueller",
+            "Kai Bavendiek",
+            "Manuel Loesch",
+            "S. Schupp",
+            "H. Federrath"
+        ],
+        "externalIds": {
+            "MAG": "3036007006",
+            "DBLP": "conf/dbsec/StubsMBLSF20",
+            "DOI": "10.1007/978-3-030-49669-2_9",
+            "CorpusId": 219850499
+        },
+        "doi": "10.1007/978-3-030-49669-2_9",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "72": {
+        "paper_id": "e12fbe12519b69ed944ab23df1bd86209b968b2e",
+        "title": "Norm-based Access Control",
+        "year": 2020,
+        "venue": "ACM Symposium on Access Control Models and Technologies",
+        "authors": [
+            "Onuralp Ulusoy",
+            "P. Yolum"
+        ],
+        "externalIds": {
+            "MAG": "3032157309",
+            "DBLP": "conf/sacmat/UlusoyY20",
+            "DOI": "10.1145/3381991.3395601",
+            "CorpusId": 218972914
+        },
+        "doi": "10.1145/3381991.3395601",
+        "abstract": null,
+        "citation_count": 8
+    },
+    "73": {
+        "paper_id": "6fc566aaaa399505bcc22f7353696f110f17614b",
+        "title": "DPIA in Context: Applying DPIA to Assess Privacy Risks of Cyber Physical Systems",
+        "year": 2020,
+        "venue": "Future Internet",
+        "authors": [
+            "Jane Henriksen-Bulmer",
+            "Shamal Faily",
+            "Sheridan Jeary"
+        ],
+        "externalIds": {
+            "DBLP": "journals/fi/Henriksen-Bulmer20",
+            "MAG": "3027037005",
+            "DOI": "10.3390/fi12050093",
+            "CorpusId": 219473464
+        },
+        "doi": "10.3390/fi12050093",
+        "abstract": null,
+        "citation_count": 10
+    },
+    "74": {
+        "paper_id": "45203459dcb3a7c92cedcf4b14308828573aee86",
+        "title": "Comparison and Prediction of Privacy Concerns on Health Apps (Preprint)",
+        "year": 2020,
+        "venue": "",
+        "authors": [
+            "Reham AlTamime",
+            "Vincent Marmion",
+            "W. Hall"
+        ],
+        "externalIds": {
+            "MAG": "3046405326",
+            "DOI": "10.2196/20409",
+            "CorpusId": 225801475
+        },
+        "doi": "10.2196/20409",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "75": {
+        "paper_id": "1bcc97de52924a6f41fb3de2e49802d1aa66c53f",
+        "title": "Assessment and Prediction of Privacy Concerns on Health Apps (Preprint)",
+        "year": 2020,
+        "venue": "",
+        "authors": [
+            "Reham AlTamime",
+            "Vincent Marmion",
+            "Wendy A. Hall"
+        ],
+        "externalIds": {
+            "DOI": "10.2196/preprints.20409",
+            "CorpusId": 242285875
+        },
+        "doi": "10.2196/preprints.20409",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "76": {
+        "paper_id": "37dd65f9f229e30097ddaa0b3d7f623dae91ac7d",
+        "title": "Face Recognition Technologies: Designing Systems that Protect Privacy and Prevent Bias",
+        "year": 2020,
+        "venue": "",
+        "authors": [
+            "Douglas Yeung",
+            "Rebecca Balebako",
+            "Carlos Ignacio Gutierrez Gaviria",
+            "Michael Chaykowsky"
+        ],
+        "externalIds": {
+            "MAG": "3025153755",
+            "DOI": "10.7249/rr4226",
+            "CorpusId": 219412599
+        },
+        "doi": "10.7249/rr4226",
+        "abstract": null,
+        "citation_count": 6
+    },
+    "77": {
+        "paper_id": "d5e78bbdbe43193283d352412c128a75f613776b",
+        "title": "A Ranking Based Approach in Security Alert for Handling Sensitive Data Organization",
+        "year": 2020,
+        "venue": "International journal of recent advances in engineering & technology",
+        "authors": [
+            "Tania Sebastian",
+            "J. Raja"
+        ],
+        "externalIds": {
+            "MAG": "3032737046",
+            "DOI": "10.46564/ijraet.2020.v08i04.005",
+            "CorpusId": 219790555
+        },
+        "doi": "10.46564/ijraet.2020.v08i04.005",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "78": {
+        "paper_id": "d08572eb8211a6bf91a813e99b0da9daa11f10ff",
+        "title": "The What of Data: Defining Which Scientific Research Is Appropriate to Share",
+        "year": 2020,
+        "venue": "iConference",
+        "authors": [
+            "B. Boscoe"
+        ],
+        "externalIds": {
+            "MAG": "3010680180",
+            "DBLP": "conf/iconference/Boscoe20",
+            "DOI": "10.1007/978-3-030-43687-2_58",
+            "CorpusId": 213185501
+        },
+        "doi": "10.1007/978-3-030-43687-2_58",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "79": {
+        "paper_id": "26ed7775e85df074e993109a760ac953fa79059e",
+        "title": "Consumer Privacy and the Future of Data-Based Innovation and Marketing",
+        "year": 2020,
+        "venue": "International Journal of Research in Marketing",
+        "authors": [
+            "Alexander Bleier",
+            "Avi Goldfarb",
+            "Catherine Tucker"
+        ],
+        "externalIds": {
+            "MAG": "3016340546",
+            "DOI": "10.2139/ssrn.3570156",
+            "CorpusId": 218807805
+        },
+        "doi": "10.2139/ssrn.3570156",
+        "abstract": null,
+        "citation_count": 134
+    },
+    "80": {
+        "paper_id": "3387a374867cefe265cfd7c535aee5d489b49a6f",
+        "title": "A Privacy-Centered System Model for Smart Connected Homes",
+        "year": 2020,
+        "venue": "2020 IEEE International Conference on Pervasive Computing and Communications Workshops (PerCom Workshops)",
+        "authors": [
+            "Joseph Bugeja",
+            "A. Jacobsson",
+            "P. Davidsson"
+        ],
+        "externalIds": {
+            "DBLP": "conf/percom/BugejaJD20",
+            "MAG": "3047454167",
+            "DOI": "10.1109/percomworkshops48775.2020.9156246",
+            "CorpusId": 221087033
+        },
+        "doi": "10.1109/percomworkshops48775.2020.9156246",
+        "abstract": null,
+        "citation_count": 4
+    },
+    "81": {
+        "paper_id": "7479febd956cd0575286edfc8d7dc4ed3cb3de9a",
+        "title": "DESEN",
+        "year": 2019,
+        "venue": "ACM Transactions on Software Engineering and Methodology",
+        "authors": [
+            "Özgür Kafali",
+            "Nirav Ajmeri",
+            "Munindar P. Singh"
+        ],
+        "externalIds": {
+            "MAG": "2996464519",
+            "DBLP": "journals/tosem/KafaliAS20",
+            "DOI": "10.1145/3365664",
+            "CorpusId": 204895903
+        },
+        "doi": "10.1145/3365664",
+        "abstract": null,
+        "citation_count": 13
+    },
+    "82": {
+        "paper_id": "55d5f7b31de33231427da618415d14066e2e5157",
+        "title": "Enabling Privacy Policies for mHealth Studies",
+        "year": 2019,
+        "venue": "2019 IEEE International Conference on Big Data (Big Data)",
+        "authors": [
+            "Brian Wang",
+            "M. Srivastava"
+        ],
+        "externalIds": {
+            "DBLP": "conf/bigdataconf/WangS19",
+            "MAG": "3008217449",
+            "DOI": "10.1109/BigData47090.2019.9006338",
+            "CorpusId": 211298234
+        },
+        "doi": "10.1109/BigData47090.2019.9006338",
+        "abstract": null,
+        "citation_count": 2
+    },
+    "83": {
+        "paper_id": "52e990de3e4663c8481484db1f6856223dcf2b81",
+        "title": "The information/guarantees balance: protecting informational privacy interests within the European data protection framework",
+        "year": 2019,
+        "venue": "",
+        "authors": [
+            "Emile Douilhet"
+        ],
+        "externalIds": {
+            "DBLP": "phd/ethos/Douilhet19",
+            "MAG": "3005441277",
+            "CorpusId": 213256367
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 0
+    },
+    "84": {
+        "paper_id": "c0a71ebe4d80ff173774383892cef559b0e1fc95",
+        "title": "\"Giving a little 'ayyy, I feel ya' to someone's personal post\"",
+        "year": 2019,
+        "venue": "Proc. ACM Hum. Comput. Interact.",
+        "authors": [
+            "Danielle M Lottridge",
+            "Nazanin Andalibi",
+            "Joy Kim",
+            "Joseph Kaye"
+        ],
+        "externalIds": {
+            "DBLP": "journals/pacmhci/LottridgeAKK19",
+            "MAG": "2983134389",
+            "DOI": "10.1145/3359179",
+            "CorpusId": 207959375
+        },
+        "doi": "10.1145/3359179",
+        "abstract": null,
+        "citation_count": 7
+    },
+    "85": {
+        "paper_id": "92d961de090232fb006e98b7ae99b8d5677ef477",
+        "title": "Artificial intelligence assistants and risk: framing a connectivity risk narrative",
+        "year": 2019,
+        "venue": "Ai & Society",
+        "authors": [
+            "Martin Cunneen",
+            "Martin Mullins",
+            "Finbarr Murphy"
+        ],
+        "externalIds": {
+            "DBLP": "journals/ais/CunneenMM20",
+            "MAG": "2984976433",
+            "DOI": "10.1007/s00146-019-00916-9",
+            "CorpusId": 207913008
+        },
+        "doi": "10.1007/s00146-019-00916-9",
+        "abstract": null,
+        "citation_count": 18
+    },
+    "86": {
+        "paper_id": "b2f1158a7db2b9f633224d8bbead216647795ab1",
+        "title": "The psychology of privacy in the digital age",
+        "year": 2019,
+        "venue": "Social & Personality Psychology Compass",
+        "authors": [
+            "Avelie Stuart",
+            "A. Bandara",
+            "M. Levine"
+        ],
+        "externalIds": {
+            "MAG": "2973225335",
+            "DOI": "10.1111/SPC3.12507",
+            "CorpusId": 203482984
+        },
+        "doi": "10.1111/SPC3.12507",
+        "abstract": null,
+        "citation_count": 30
+    },
+    "87": {
+        "paper_id": "034f78e71ab0ac7521c4055d512a503472118bab",
+        "title": "Formalizing Privacy Laws for License Generation and Data Repository Decision Automation",
+        "year": 2019,
+        "venue": "arXiv.org",
+        "authors": [
+            "Micah Altman",
+            "Stephen Chong",
+            "Alexandra Wood"
+        ],
+        "externalIds": {
+            "MAG": "2982261329",
+            "DBLP": "journals/corr/abs-1910-10096",
+            "ArXiv": "1910.10096",
+            "CorpusId": 204824095
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 1
+    },
+    "88": {
+        "paper_id": "fdc9d7714a4c5568e522b482827ed4146358c1c6",
+        "title": "A Privacy Awareness System for Software Design",
+        "year": 2019,
+        "venue": "International journal of software engineering and knowledge engineering",
+        "authors": [
+            "Inah Omoronyia",
+            "Ubong Etuk",
+            "Peter Inglis"
+        ],
+        "externalIds": {
+            "MAG": "2988625699",
+            "DBLP": "journals/ijseke/OmoronyiaEI19",
+            "DOI": "10.1142/s0218194019500499",
+            "CorpusId": 207757352
+        },
+        "doi": "10.1142/s0218194019500499",
+        "abstract": null,
+        "citation_count": 8
+    },
+    "89": {
+        "paper_id": "5b9ebf6c7c953ce6a2c5608d95207c88e3b741ef",
+        "title": "Metrics for Privacy Assessment When Sharing Information in Online Social Networks",
+        "year": 2019,
+        "venue": "IEEE Access",
+        "authors": [
+            "José Alemany",
+            "E. Del Val",
+            "J. M. Alberola",
+            "A. García-Fornes"
+        ],
+        "externalIds": {
+            "DBLP": "journals/access/AlemanyNAG19",
+            "MAG": "2978479133",
+            "DOI": "10.1109/ACCESS.2019.2944723",
+            "CorpusId": 204701540
+        },
+        "doi": "10.1109/ACCESS.2019.2944723",
+        "abstract": null,
+        "citation_count": 20
+    },
+    "90": {
+        "paper_id": "4553d807edd7c455cce0e23303611769b77c70c6",
+        "title": "SoK: Three Facets of Privacy Policies",
+        "year": 2019,
+        "venue": "WPES@CCS",
+        "authors": [
+            "Victor Morel",
+            "Raúl Pardo"
+        ],
+        "externalIds": {
+            "MAG": "3085448225",
+            "DBLP": "conf/wpes/MorelP20",
+            "DOI": "10.1145/3411497.3420216",
+            "CorpusId": 221652724
+        },
+        "doi": "10.1145/3411497.3420216",
+        "abstract": null,
+        "citation_count": 20
+    },
+    "91": {
+        "paper_id": "3040d578b64eb4edc175c385eb8f886a91db2e52",
+        "title": "Three Dimensions of Privacy Policies",
+        "year": 2019,
+        "venue": "arXiv.org",
+        "authors": [
+            "Victor Morel",
+            "Raúl Pardo"
+        ],
+        "externalIds": {
+            "MAG": "2966882926",
+            "DBLP": "journals/corr/abs-1908-06814",
+            "ArXiv": "1908.06814",
+            "CorpusId": 201070733
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 7
+    },
+    "92": {
+        "paper_id": "db30e77a0472d024bfbcda96d3e55f90acb89061",
+        "title": "Çorba: crowdsourcing to obtain requirements from regulations and breaches",
+        "year": 2019,
+        "venue": "Empirical Software Engineering",
+        "authors": [
+            "Hui Guo",
+            "Özgür Kafali",
+            "Anne-Liz Jeukeng",
+            "L. Williams",
+            "Munindar P. Singh"
+        ],
+        "externalIds": {
+            "MAG": "2967190452",
+            "DBLP": "journals/ese/GuoKJWS20",
+            "DOI": "10.1007/s10664-019-09753-2",
+            "CorpusId": 199576862
+        },
+        "doi": "10.1007/s10664-019-09753-2",
+        "abstract": null,
+        "citation_count": 10
+    },
+    "93": {
+        "paper_id": "e94b2f521ee4c5288dd527456b8a58839e2e7b11",
+        "title": "Programmable In-Network Security for Context-aware BYOD Policies",
+        "year": 2019,
+        "venue": "USENIX Security Symposium",
+        "authors": [
+            "Qiao Kang",
+            "Lei Xue",
+            "Adam Morrison",
+            "Yuxing Tang",
+            "Ang Chen",
+            "Xiapu Luo"
+        ],
+        "externalIds": {
+            "ArXiv": "1908.01405",
+            "MAG": "2966431679",
+            "DBLP": "journals/corr/abs-1908-01405",
+            "CorpusId": 199442333
+        },
+        "doi": "",
+        "abstract": null,
+        "citation_count": 63
+    },
+    "94": {
+        "paper_id": "3705e7f7c6252b2db0a6d14369458351c390c208",
+        "title": "Architectural Considerations for Privacy on the Edge",
+        "year": 2019,
+        "venue": "IEEE Internet Computing",
+        "authors": [
+            "Christos Tsigkanos",
+            "Cosmin Avasalcai",
+            "S. Dustdar"
+        ],
+        "externalIds": {
+            "MAG": "2981173388",
+            "DBLP": "journals/internet/TsigkanosADD19",
+            "DOI": "10.1109/MIC.2019.2935800",
+            "CorpusId": 204821885
+        },
+        "doi": "10.1109/MIC.2019.2935800",
+        "abstract": null,
+        "citation_count": 17
+    },
+    "95": {
+        "paper_id": "da72e8ad48701d82cc12f259e8cdb4b17dec45a9",
+        "title": "Anon what what?: Children's Understanding of the Language of Privacy",
+        "year": 2019,
+        "venue": "International Conference on Interaction Design and Children",
+        "authors": [
+            "Stacy Black",
+            "Rezvan Joshaghani",
+            "Dhanush kumar Ratakonda",
+            "Hoda Mehrpouyan",
+            "J. A. Fails"
+        ],
+        "externalIds": {
+            "MAG": "2948742935",
+            "DBLP": "conf/acmidc/BlackJRMF19",
+            "DOI": "10.1145/3311927.3325324",
+            "CorpusId": 174801883
+        },
+        "doi": "10.1145/3311927.3325324",
+        "abstract": null,
+        "citation_count": 5
+    },
+    "96": {
+        "paper_id": "4ed5a9b23bbfd341b3e6abc4ba3c5a1534890ae6",
+        "title": "Formal specification and verification of user-centric privacy policies for ubiquitous systems",
+        "year": 2019,
+        "venue": "International Database Engineering and Applications Symposium",
+        "authors": [
+            "Rezvan Joshaghani",
+            "Stacy Black",
+            "Elena Sherman",
+            "Hoda Mehrpouyan"
+        ],
+        "externalIds": {
+            "MAG": "2963014426",
+            "DBLP": "conf/ideas/JoshaghaniBSM19",
+            "DOI": "10.1145/3331076.3331105",
+            "CorpusId": 197928389
+        },
+        "doi": "10.1145/3331076.3331105",
+        "abstract": null,
+        "citation_count": 6
+    },
+    "97": {
+        "paper_id": "745e04e10c37a3ed2988ffe9ed4d0cbb17331add",
+        "title": "Towards Enhanced Accountability in Complying with Healthcare Regulations",
+        "year": 2019,
+        "venue": "International Workshop on Software Engineering in Healthcare",
+        "authors": [
+            "P. Anish",
+            "V. Joshi",
+            "A. Sainani",
+            "S. Ghaisas"
+        ],
+        "externalIds": {
+            "DBLP": "conf/icse/AnishJSG19",
+            "MAG": "2966820886",
+            "DOI": "10.1109/SEH.2019.00012",
+            "CorpusId": 199022755
+        },
+        "doi": "10.1109/SEH.2019.00012",
+        "abstract": null,
+        "citation_count": 3
+    },
+    "98": {
+        "paper_id": "9fe0215f6b81d2766c62ebd4439adc4acec1528b",
+        "title": "VACCINE: Using Contextual Integrity For Data Leakage Detection",
+        "year": 2019,
+        "venue": "The Web Conference",
+        "authors": [
+            "Yan Shvartzshnaider",
+            "Zvonimir Pavlinovic",
+            "Ananth Balashankar",
+            "Thomas Wies",
+            "L. Subramanian",
+            "H. Nissenbaum",
+            "Prateek Mittal"
+        ],
+        "externalIds": {
+            "MAG": "2946325696",
+            "DBLP": "conf/www/Shvartzshnaider19",
+            "DOI": "10.1145/3308558.3313655",
+            "CorpusId": 141054021
+        },
+        "doi": "10.1145/3308558.3313655",
+        "abstract": null,
+        "citation_count": 31
+    },
+    "99": {
+        "paper_id": "9f7377798a60776928fb8a5991bcc9478f57c27e",
+        "title": "Bringing Design to the Privacy Table: Broadening “Design” in “Privacy by Design” Through the Lens of HCI",
+        "year": 2019,
+        "venue": "International Conference on Human Factors in Computing Systems",
+        "authors": [
+            "Richmond Y. Wong",
+            "D. Mulligan"
+        ],
+        "externalIds": {
+            "MAG": "2914669693",
+            "DBLP": "conf/chi/WongM19",
+            "DOI": "10.1145/3290605.3300492",
+            "CorpusId": 85558106
+        },
+        "doi": "10.1145/3290605.3300492",
+        "abstract": null,
+        "citation_count": 88
     }
 }
