@@ -255,7 +255,7 @@ def fetch_ccs_2024():
         papers.append({
             "title": title,
             "authors": authors,
-            "urls": urls
+            "urls": urls['electronic edition via DOI']
         })
 
     # Define the output directory and file path

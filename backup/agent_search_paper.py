@@ -76,7 +76,6 @@ workflow = AgentWorkflow(
     verbose=True
 )
 
-
 # Define the main asynchronous function
 async def main():
     conference = "NeurIPS"
