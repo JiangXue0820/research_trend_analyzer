@@ -3,8 +3,6 @@
 Utility to initialize the language model (LLM) based on configuration.
 Supports local models and API-based models (OpenAI, DeepSeek, Gemma).
 """
-import config
-
 # Import LangChain LLM classes
 from langchain.chat_models import ChatOpenAI
 try:
@@ -25,14 +23,9 @@ from langfuse import Langfuse
 from langfuse.langchain import CallbackHandler
 
 # Initialize a global Langfuse client and handler
-langfuse_client = Langfuse(
-    public_key=config.LANGFUSE_PUBLIC_KEY,
-    secret_key=config.LANGFUSE_SECRET_KEY,
-    host=config.LANGFUSE_HOST
-)
-langfuse_handler = CallbackHandler(tracer=langfuse_client)
+langfuse_handler = CallbackHandler()
 
-def get_llm():
+def get_llm(config):
     """Initialize and return an LLM instance based on config settings."""
     # 1. Use a local model if specified
     if config.USE_LOCAL_LLM or config.LLM_PROVIDER.lower() == "local":
@@ -61,7 +54,7 @@ def get_llm():
                             verbose=True)
     elif provider == "gemini" and ChatGoogleGenerativeAI:
         return ChatGoogleGenerativeAI(
-            model=config.GEMINI_MODEL,
+            model=config.GOOGLE_MODEL,
             api_key=config.GOOGLE_API_KEY,
             callback_manager=CallbackManager([langfuse_handler]),
             verbose=True
