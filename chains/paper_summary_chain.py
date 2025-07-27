@@ -1,5 +1,7 @@
 # paper_summary_chain.py
 from langchain.chains.summarize import load_summarize_chain
+from langchain.callbacks.manager import CallbackManager
+from configs.llm_provider import langfuse_handler  
 
 def summarize_documents(llm, documents):
     """Use a summarization chain to summarize a list of Document objects."""

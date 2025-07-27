@@ -1,4 +1,5 @@
 # app.py (Streamlit front-end)
+import os
 import streamlit as st
 from agents.conversation_agent import create_research_assistant
 from retriever.vector_store import ResearchPaperStore
