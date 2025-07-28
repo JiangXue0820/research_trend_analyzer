@@ -23,7 +23,13 @@ class TopicKeywordsModel(BaseModel):
     topic: str
     keywords: List[str]
 
-# ---------- 1) Raw Functions ----------
+# ---------- 1) Save Papaer Tool ----------
+
+class SavePaperArgs(BaseModel):
+    paper_info_list: List[Dict[str, Any]] = Field(..., description="List of paper metadata dicts")
+    conference: str = Field(..., description="Conference name")
+    year: int = Field(..., description="Year")
+    topic_keywords: Optional[TopicKeywordsModel] = Field(default=None, description="Dict with keys 'topic' and 'keywords' (optional).")
 
 def save_paper_info(
     paper_info_list: List[Dict[str, Any]],
@@ -49,6 +55,20 @@ def save_paper_info(
 
     logging.info(f"Saved {len(paper_info_list)} papers to {filepath}")
     return {"filepath": filepath, "total_count": len(paper_info_list)}
+
+save_paper_tool = StructuredTool.from_function(
+    func=save_paper_info,
+    args_schema=SavePaperArgs,
+    name="save_paper_info",
+    description="Save a list of paper metadata (title, authors, abstract, urls) to a JSONL file under paper_list/<conference>/<conference><year>.jsonl. Optionally grouped by topic."
+)
+
+# ---------- 2) Load Papaer Tool ----------
+
+class LoadPaperArgs(BaseModel):
+    conference: str = Field(..., description="Conference name")
+    year: int = Field(..., description="Year")
+    topic_keywords: Optional[TopicKeywordsModel] = Field(default=None, description="Dict with keys 'topic' and 'keywords' (optional).")
 
 def load_paper_list(
     conference: str,
@@ -78,6 +98,20 @@ def load_paper_list(
             except json.JSONDecodeError:
                 logging.warning(f"Skipping invalid JSON line in {filepath}")
     return papers
+
+load_paper_tool = StructuredTool.from_function(
+    func=load_paper_list,
+    args_schema=LoadPaperArgs,
+    name="load_paper_list",
+    description="Load paper metadata from the JSONL file saved by save_paper_info for a given conference and year. Optionally load a topic-filtered file."
+)
+
+# ---------- 3) Filter Papaer Tool ----------
+
+class FilterPaperByTopicArgs(BaseModel):
+    conference: str = Field(..., description="Conference name")
+    year: int = Field(..., description="Year")
+    topic_keywords: TopicKeywordsModel = Field(..., description="Dict with keys 'topic' and 'keywords' (required).")
 
 def filter_paper_by_topic(
     conference: str,
@@ -125,6 +159,18 @@ def filter_paper_by_topic(
     result.update({"new_count": len(unique_filtered)})
     return result
 
+filter_paper_by_topic_tool = StructuredTool.from_function(
+    func=filter_paper_by_topic,
+    args_schema=FilterPaperByTopicArgs,
+    name="filter_paper_by_topic",
+    description="Filter a conference/year's paper list JSONL file by a topic's keywords, saving the filtered list to a topic-specific file. Returns file path and number of filtered papers."
+)
+
+# ---------- 4) Fetch Papaer List Tool ----------
+
+class FetchPaperArgs(BaseModel):
+    conference: str = Field(..., description="Conference name")
+    year: int = Field(..., description="Year")
 
 def fetch_paper_list(
     conference: str,
@@ -155,6 +201,16 @@ def fetch_paper_list(
     result.update({"new_count": len(new_metas)})
     return result
 
+fetch_paper_list_tool = StructuredTool.from_function(
+    func=fetch_paper_list,
+    args_schema=FetchPaperArgs,
+    name="fetch_paper_list",
+    description="Fetch all papers from a given conference and year from conference website, dedupe existing, and save new to JSONL."
+)
+
+# ---------- 5) Generate Keyword Tool ----------
+class GenerateKeywordListArgs(BaseModel):
+    topic: str = Field(..., description="The research topic or subject to generate keywords for.")
     
 def generate_keyword_list(topic: str, llm=None) -> dict:
     """
@@ -218,62 +274,6 @@ Output:
     }
 
 
-# ---------- 2) Pydantic Schemas ----------
-
-class SavePaperArgs(BaseModel):
-    paper_info_list: List[Dict[str, Any]] = Field(..., description="List of paper metadata dicts")
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
-    topic_keywords: Optional[TopicKeywordsModel] = Field(default=None, description="Dict with keys 'topic' and 'keywords' (optional).")
-
-class LoadPaperArgs(BaseModel):
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
-    topic_keywords: Optional[TopicKeywordsModel] = Field(default=None, description="Dict with keys 'topic' and 'keywords' (optional).")
-
-class FilterPaperByTopicArgs(BaseModel):
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
-    topic_keywords: TopicKeywordsModel = Field(..., description="Dict with keys 'topic' and 'keywords' (required).")
-
-class FetchPaperArgs(BaseModel):
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
-
-class GenerateKeywordListArgs(BaseModel):
-    topic: str = Field(..., description="The research topic or subject to generate keywords for.")
-
-
-# ---------- 3) LangChain Structured Tools ----------
-
-save_paper_tool = StructuredTool.from_function(
-    func=save_paper_info,
-    args_schema=SavePaperArgs,
-    name="save_paper_info",
-    description="Save a list of paper metadata (title, authors, abstract, urls) to a JSONL file under paper_list/<conference>/<conference><year>.jsonl. Optionally grouped by topic."
-)
-
-load_paper_tool = StructuredTool.from_function(
-    func=load_paper_list,
-    args_schema=LoadPaperArgs,
-    name="load_paper_list",
-    description="Load paper metadata from the JSONL file saved by save_paper_info for a given conference and year. Optionally load a topic-filtered file."
-)
-
-filter_paper_by_topic_tool = StructuredTool.from_function(
-    func=filter_paper_by_topic,
-    args_schema=FilterPaperByTopicArgs,
-    name="filter_paper_by_topic",
-    description="Filter a conference/year's paper list JSONL file by a topic's keywords, saving the filtered list to a topic-specific file. Returns file path and number of filtered papers."
-)
-
-fetch_paper_list_tool = StructuredTool.from_function(
-    func=fetch_paper_list,
-    args_schema=FetchPaperArgs,
-    name="fetch_paper_list",
-    description="Fetch all papers from a given conference and year from conference website, dedupe existing, and save new to JSONL."
-)
-
 # 这里 generate_keyword_list 需要注意，如果你的函数签名是 (topic: str, llm=None)，
 # LangChain只会传 schema 字段（即 topic），你可以用 partial 或包装函数
 from functools import partial
@@ -284,9 +284,9 @@ keyword_generation_tool = StructuredTool.from_function(
     description="Given a research topic or concept, generate a list of keywords using an LLM."
 )
 
-# ---------- 4) Toolkit ----------
+# ---------- 6) Toolkit ----------
 
-data_fetch_toolkit = [
+paper_fetch_toolkit = [
     save_paper_tool,
     load_paper_tool,
     fetch_paper_list_tool,
