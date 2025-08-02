@@ -6,6 +6,7 @@ from tqdm import tqdm
 from pydantic import BaseModel, Field
 from langchain.tools import StructuredTool
 import logging
+from functools import partial
 
 import sys
 sys.path.append("../")
@@ -193,7 +194,6 @@ def fetch_paper_list(
 
     if all_metas is None:
         return {"error": "Failed to fetch paper list."}
-    
     new_metas = [meta for meta in all_metas if meta.get('paper_url') and meta.get('paper_url') not in seen_urls]
 
     result = save_paper_info(new_metas, conference, year)
@@ -276,7 +276,6 @@ Output:
 
 # 这里 generate_keyword_list 需要注意，如果你的函数签名是 (topic: str, llm=None)，
 # LangChain只会传 schema 字段（即 topic），你可以用 partial 或包装函数
-from functools import partial
 keyword_generation_tool = StructuredTool.from_function(
     func=partial(generate_keyword_list, llm=get_llm(config)),
     args_schema=GenerateKeywordListArgs,

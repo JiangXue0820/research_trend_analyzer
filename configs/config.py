@@ -7,6 +7,8 @@ load_dotenv()
 # Configuration for model selection and API keys
 USE_LOCAL_LLM = False  # Set True to use a local LLM instead of an API-based model
 LLM_PROVIDER = "gemini"  # Options: "openai", "deepseek", "gemiin", "local"
+USE_LOCAL_EMBEDDING = True
+EMBEDDING_PROVIDER = "local"  # Options: "openai", "deepseek", "gemiin", "local"
 
 # API Keys and model identifiers
 SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY", "")
@@ -27,7 +29,7 @@ LOCAL_MODEL_TYPE = "chatglm"          # Type of local model ("chatglm", "qwen", 
 
 # Vector store (Chroma) settings
 PERSIST_DIR = "vector_store"  # Directory to persist the Chroma database
-EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"  # HuggingFace model for embeddings
+EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # HuggingFace model for embeddings
 
 # Other configurations
 PAPER_DIR = "papers"  # Directory to save downloaded PDFs
@@ -37,3 +39,18 @@ LANGFUSE_API_KEY_SECRET = os.getenv("LANGFUSE_API_KEY_SECRET", "")
 LANGFUSE_API_KEY_PUBLIC = os.getenv("LANGFUSE_API_KEY_PUBLIC", "")
 LANGFUSE_PROJECT_NAME = os.getenv("LANGFUSE_PROJECT_NAME", "research_agent")
 LANGFUSE_HOST="https://cloud.langfuse.com"
+
+# Configuration for text splitter 
+CHUNK_SIZE = 700
+CHUNK_OVERLAP = 150
+
+# Configuration for RAG
+DB_PATH = "faiss_index"
+RAG_RETRIEVER_CONFIG = {
+    "search_type": "similarity",    # 可选："similarity", "mmr"
+    # "search_kwargs": {
+    #     "k": 5,                    # 检索返回最相关 top k
+        # "fetch_k": 20,          # mmr 时可加 fetch_k 参数
+        # "lambda_mult": 0.5      # mmr 时可加 lambda_mult
+    # }
+}

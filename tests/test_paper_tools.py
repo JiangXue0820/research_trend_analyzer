@@ -5,8 +5,8 @@ import tempfile
 import pytest
 import sys
 sys.path.append("../")
-from tools import data_fetch_tools as data_fetch_tools
-from tools.data_fetch_tools import (
+from research_trend_analyzer.tools import paper_fetch_tools as paper_fetch_tools
+from research_trend_analyzer.tools.paper_fetch_tools import (
     save_paper_info, load_paper_list, filter_paper_by_topic, fetch_paper_list,
     generate_keyword_list, TopicKeywordsModel
 )
@@ -108,13 +108,13 @@ def test_fetch_paper_list(monkeypatch):
     # PATCH load_paper_list: 只返回urlx
     def mock_load_paper_list(c, y, topic_keywords=None):
         return [{"paper_url": "urlx"}]
-    monkeypatch.setattr(data_fetch_tools, "load_paper_list", mock_load_paper_list)
+    monkeypatch.setattr(paper_fetch_tools, "load_paper_list", mock_load_paper_list)
     # PATCH save_paper_info
     def mock_save_paper_info(papers, c, y, topic_keywords=None):
         return {"filepath": "/tmp/fake", "count": len(papers)}
-    monkeypatch.setattr(data_fetch_tools, "save_paper_info", mock_save_paper_info)
+    monkeypatch.setattr(paper_fetch_tools, "save_paper_info", mock_save_paper_info)
 
-    result = data_fetch_tools.fetch_paper_list(conf, year)
+    result = paper_fetch_tools.fetch_paper_list(conf, year)
     print("TEST_RESULT:", result)
     assert "new_count" in result
     assert result["new_count"] == 1

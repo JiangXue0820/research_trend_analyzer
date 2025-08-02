@@ -1,13 +1,24 @@
 import os
 import requests
-import pdfplumber
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_chroma import Chroma
-from langchain.tools import StructuredTool
-from langchain.agents import initialize_agent, AgentType
+import sys
+sys.path.append("../")
 from pydantic import BaseModel, Field
+from typing import Optional, Dict, List
+from functools import partial
+import logging
+
+from langchain.tools import StructuredTool
+from langchain.document_loaders import PyMuPDFLoader
+from langchain_core.documents import Document
+from langchain_community.vectorstores import FAISS
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+
+from configs import config, llm_provider
+from utils import prompts
+
+# embedding_fn = get_embedding_model(config)
+
 
 # ----------- 1. Tool: Download Paper -----------
 class DownloadPaperArgs(BaseModel):
@@ -28,121 +39,193 @@ download_paper_tool = StructuredTool.from_function(
 )
 
 # ----------- 2. Tool: Parse & Vectorize Paper -----------
-class ProcessPaperArgs(BaseModel):
-    pdf_path: str = Field(..., description="Path to PDF file")
-    persist_directory: str = Field("./chroma_db", description="Directory for Chroma vector store")
+class PaperInfoModel(BaseModel):
+    title: str = Field(..., description="Title of the paper")
+    authors: str = Field(..., description="Authors of the paper")
+    venue: str = Field(..., description="Publication venue")
+    year: str = Field(..., description="Publication year")
+    topic: Optional[str] = Field(None, description="Topic of the paper")
 
-def process_paper(pdf_path: str, persist_directory: str = "./chroma_db") -> int:
-    with pdfplumber.open(pdf_path) as pdf:
-        paper_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    chunks = splitter.split_text(paper_text)
-    documents = [Document(page_content=chunk, metadata={"chunk_id": idx}) for idx, chunk in enumerate(chunks)]
-    embedding_fn = OpenAIEmbeddings(model="text-embedding-3-small")
-    vectorstore = Chroma.from_documents(
-        documents=documents,
-        embedding=embedding_fn,
-        persist_directory=persist_directory
-    )
-    vectorstore.persist()
-    return len(chunks)
+class ParseAndSavePDFArgs(BaseModel):
+    pdf_path: str = Field(..., description="PDF file path")
+    paper_info: PaperInfoModel = Field(..., description="Dictionary containing paper metadata (title, authors, venue, url)")
 
-process_paper_tool = StructuredTool.from_function(
-    func=process_paper,
-    args_schema=ProcessPaperArgs,
-    name="process_paper",
-    description="Parse, chunk, embed, and save paper into Chroma vector DB."
+def parse_and_save_pdf(
+    pdf_path: str,
+    paper_info: PaperInfoModel,
+    embedding_fn,
+    text_splitter,
+    db_path
+) -> dict:
+    
+    # load doc from pdf
+    docs = PyMuPDFLoader(pdf_path).load()
+
+    # split into chuncks
+    split_chunks = text_splitter.split_documents(docs)
+
+    # for each chunk, assign with meta data (better for retrieval w.r.t metadata)
+    parsed_chunks = []
+    for idx, chunk in enumerate(split_chunks):
+        meta = {
+            "chunk_id": idx,
+            "title": paper_info.get("title", ""),
+            "authors": paper_info.get("authors", ""),
+            "venue": paper_info.get("venue", ""),
+            "year": paper_info.get("year", ""),
+            "topic": paper_info.get("topic", ""),
+        }
+        parsed_chunks.append(Document(page_content=chunk.page_content, metadata=meta))
+
+    if os.path.exists(db_path):
+        vectorstore = FAISS.load_local(db_path, embedding_fn)
+        vectorstore.add_documents(parsed_chunks)
+    else:
+        vectorstore = FAISS.from_documents(parsed_chunks, embedding_fn)
+    vectorstore.save_local(db_path)
+    return {"chunks_added": len(parsed_chunks), "db_path": db_path}
+
+parse_and_save_pdf_tool = StructuredTool.from_function(
+    func=partial(
+        parse_and_save_pdf, 
+        embedding_fn=llm_provider.get_embedding_model(config), 
+        text_splitter=llm_provider.get_text_splitter(config), 
+        db_path=config.DB_PATH
+        ),
+    args_schema=ParseAndSavePDFArgs,
+    name="parse_and_save_pdf",
+    description="Given the directory of a PDF paper (with paper_info dict), parse the content, split into chunks, embed and save to vector database for future retrival augumented generation."
 )
 
-# ----------- 3. Tool: RAG Q&A -----------
-class RagAnswerArgs(BaseModel):
-    question: str = Field(..., description="Question about the paper")
-    persist_directory: str = Field("./chroma_db", description="Chroma vector DB directory")
-    top_k: int = Field(5, description="Number of top chunks to retrieve")
+# ----------- 3. Tool: RAG Retriever -----------
+class RagRetrieveArgs(BaseModel):
+    question: str = Field(..., description="Your question about the paper")
+    paper_info: PaperInfoModel = Field(..., description="Metadata about the paper for filtering")
 
-def rag_answer(question: str, persist_directory: str = "./chroma_db", top_k: int = 5) -> str:
-    embedding_fn = OpenAIEmbeddings(model="text-embedding-3-small")
-    vectorstore = Chroma(
-        embedding_function=embedding_fn,
-        persist_directory=persist_directory
-    )
-    retriever = vectorstore.as_retriever(search_kwargs={"k": top_k})
+def rag_retrieve(
+    question: str,
+    paper_info: PaperInfoModel,
+    db_path: str,
+    rag_config: Dict,
+    embedding_fn,
+) -> List[Document]:
+    
+    if not os.path.exists(db_path):
+        logging.error(f"Vectorstore not found at {db_path}")
+        return []
+    vectorstore = FAISS.load_local(db_path, embedding_fn)
+
+    # Construct filter dict from paper_info (exclude None or empty)
+    filter_dict = paper_info.model_dump(exclude_none=True) if paper_info else {}
+    # Only filter if something present
+    retriever_config = rag_config.copy()
+    if filter_dict:
+        retriever_config = retriever_config.copy()
+        retriever_config.setdefault("search_kwargs", {})
+        retriever_config["search_kwargs"]["filter"] = filter_dict
+
+    retriever = vectorstore.as_retriever(**retriever_config)
     docs = retriever.get_relevant_documents(question)
-    context = "\n".join(doc.page_content for doc in docs)
-    llm = ChatOpenAI(model="gpt-3.5-turbo")
-    prompt = (
-        f"Given the following paper context, answer the question as thoroughly as possible:\n\n"
-        f"{context}\n\n"
-        f"Question: {question}\n"
-        f"Answer:"
-    )
-    response = llm.invoke(prompt)
-    return response.content if hasattr(response, "content") else response
+    logging.info(f"Retrieved {len(docs)} docs for question: {question} with filter: {filter_dict}")
+    return docs
 
-rag_answer_tool = StructuredTool.from_function(
-    func=rag_answer,
-    args_schema=RagAnswerArgs,
-    name="rag_answer",
-    description="Answer user question about the paper using RAG (retrieval-augmented generation)."
+rag_retrieve_tool = StructuredTool.from_function(
+    func=partial(
+        rag_retrieve,
+        db_path=config.DB_PATH,
+        rag_config=config.RAG_RETRIEVER_CONFIG,
+        embedding_fn=llm_provider.get_embedding_model(config),
+    ),
+    args_schema=RagRetrieveArgs,
+    name="rag_retrieve",
+    description="Retrieve relevant document chunks for a question, filtering by paper metadata (e.g. title, authors, venue, year, topic, etc.)."
+)
+
+
+# ----------- 3. Tool: RAG Q&A -----------
+class RagQAToolArgs(BaseModel):
+    question: str = Field(..., description="Question about the paper")
+    context: str = Field(..., description="Relevant chunks from the retriever tool")
+
+def rag_qa(
+        question: str, 
+        context: str, 
+        llm) -> str:
+    prompt = f"""Given the following paper context, answer the question thoroughly.
+
+{context}
+
+Question: {question}
+Answer:"""
+    try:
+        response = llm.invoke(prompt)
+        logging.info("[RAG] LLM generated an answer successfully.")
+        return response.content if hasattr(response, "content") else str(response)
+    except Exception as e:
+        logging.exception("[RAG] Exception occurred while calling LLM.")
+        return f"LLM service failed: {str(e)}"
+
+rag_qa_tool = StructuredTool.from_function(
+    func=partial(rag_qa, llm=llm_provider.get_llm(config)),
+    args_schema=RagQAToolArgs,
+    name="rag_qa",
+    description="Answer a user question about a paper given relevant context chunks."
 )
 
 # ----------- 4. Tool: Summarize Paper Insights -----------
-class SummarizePaperArgs(BaseModel):
-    persist_directory: str = Field("./chroma_db", description="Chroma vector DB directory")
-    md_path: str = Field("paper_summary.md", description="Path to save markdown summary")
+class PaperSummaryArgs(BaseModel):
+    context: str = Field(..., description="Relevant chunks from the retriever tool")
 
-def summarize_paper_insights(persist_directory: str = "./chroma_db", md_path: str = "paper_summary.md") -> str:
-    embedding_fn = OpenAIEmbeddings(model="text-embedding-3-small")
-    vectorstore = Chroma(
-        embedding_function=embedding_fn,
-        persist_directory=persist_directory
-    )
-    docs = vectorstore.similarity_search("", k=1000)
-    full_text = "\n".join(doc.page_content for doc in docs)
-    llm = ChatOpenAI(model="gpt-3.5-turbo")
-    prompt = (
-        "You are an expert research assistant. Given the full text of a scientific paper, summarize it with the following structure:\n\n"
-        "1. Motivation (background)\n"
-        "2. State-of-the-art methods & limitations\n"
-        "3. Proposed method (main contribution, novelty, highlights)\n"
-        "4. Experimental results (setup, baselines, findings)\n"
-        "5. Limitations and future work\n\n"
-        "Please use Markdown headings for each section.\n\n"
-        f"Paper content:\n{full_text}\n\n"
-        "Output the summary only, in Markdown."
-    )
-    response = llm.invoke(prompt)
-    md_content = response.content if hasattr(response, "content") else response
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(md_content)
-    return md_path
+def summarize_paper(
+    context: str, 
+    instruction: str, 
+    llm) -> str:
+    
+    prompt = f"""{instruction}
+
+## Given Paper
+{context}
+
+## Summary"""
+    
+    try:
+        response = llm.invoke(prompt)
+        logging.info("[SUM] LLM generated a summary successfully.")
+        return response.content if hasattr(response, "content") else str(response)
+    except Exception as e:
+        logging.exception("[SUM] Exception occurred while calling LLM.")
+        return f"LLM service failed: {str(e)}"
 
 summarize_paper_tool = StructuredTool.from_function(
-    func=summarize_paper_insights,
-    args_schema=SummarizePaperArgs,
+    func=partial(
+        summarize_paper, 
+        instruction=prompts.paper_summarization_template, 
+        llm=llm_provider.get_llm(config)
+    ),
+    args_schema=PaperSummaryArgs,
     name="summarize_paper",
-    description="Summarize the paper's main insights and save to a markdown file."
+    description="Summarize paper content according to a specific instruction or template."
 )
 
-# ----------- 5. Compose Toolkit -----------
-toolkit = [
-    download_paper_tool,
-    process_paper_tool,
-    rag_answer_tool,
-    summarize_paper_tool
-]
+# # ----------- 5. Compose Toolkit -----------
+# toolkit = [
+#     download_paper_tool,
+#     process_paper_tool,
+#     rag_answer_tool,
+#     summarize_paper_tool
+# ]
 
-# ----------- 6. Initialize Agent -----------
-if __name__ == "__main__":
-    llm = ChatOpenAI(model="gpt-3.5-turbo")
-    agent = initialize_agent(
-        tools=toolkit,
-        llm=llm,
-        agent=AgentType.OPENAI_FUNCTIONS,
-        verbose=True
-    )
-    print("Agent initialized. Try prompting it with tasks like:")
-    print("- Download a paper from a URL.")
-    print("- Process the downloaded paper and save it into a vector database.")
-    print("- Answer: What is the main contribution of the paper?")
-    print("- Summarize the paper and save it as a markdown file.")
+# # ----------- 6. Initialize Agent -----------
+# if __name__ == "__main__":
+#     llm = ChatOpenAI(model="gpt-3.5-turbo")
+#     agent = initialize_agent(
+#         tools=toolkit,
+#         llm=llm,
+#         agent=AgentType.OPENAI_FUNCTIONS,
+#         verbose=True
+#     )
+#     print("Agent initialized. Try prompting it with tasks like:")
+#     print("- Download a paper from a URL.")
+#     print("- Process the downloaded paper and save it into a vector database.")
+#     print("- Answer: What is the main contribution of the paper?")
+#     print("- Summarize the paper and save it as a markdown file.")
