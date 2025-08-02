@@ -27,25 +27,27 @@ GOOGLE_MODEL = "gemini-2.5-flash"  # Example model name for Gemma
 LOCAL_MODEL_PATH = "models/chatglm-6b"  # Path or name for local HuggingFace model
 LOCAL_MODEL_TYPE = "chatglm"          # Type of local model ("chatglm", "qwen", etc.)
 
-# Vector store (Chroma) settings
-PERSIST_DIR = "vector_store"  # Directory to persist the Chroma database
-EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # HuggingFace model for embeddings
-
-# Other configurations
-PAPER_DIR = "papers"  # Directory to save downloaded PDFs
-
 # Langfuse observability
 LANGFUSE_API_KEY_SECRET = os.getenv("LANGFUSE_API_KEY_SECRET", "")
 LANGFUSE_API_KEY_PUBLIC = os.getenv("LANGFUSE_API_KEY_PUBLIC", "")
 LANGFUSE_PROJECT_NAME = os.getenv("LANGFUSE_PROJECT_NAME", "research_agent")
 LANGFUSE_HOST="https://cloud.langfuse.com"
 
+# Configuration for paper paths
+PAPER_ROOT_PATH = "papers"
+PAPER_DB_PATH = os.path.join("PAPER_ROOT_PATH", "papers.db")  # Directory to save downloaded PDFs
+PAPER_SUMMARY_PATH = os.path.join("PAPER_ROOT_PATH", "paper_summary")  # Directory to save downloaded PDFs
+TREND_SUMMARY_PATH = os.path.join("PAPER_ROOT_PATH", "trend_summary")  # Directory to save downloaded PDFs
+TEMP_PAPER_PATH = os.path.join("PAPER_ROOT_PATH", "temp.pdf")  # Directory to save downloaded PDFs
+
 # Configuration for text splitter 
 CHUNK_SIZE = 700
 CHUNK_OVERLAP = 150
 
 # Configuration for RAG
-DB_PATH = "faiss_index"
+VECTOR_DB_PATH = "faiss_index"
+EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # HuggingFace model for embeddings
+
 RAG_RETRIEVER_CONFIG = {
     "search_type": "similarity",    # 可选："similarity", "mmr"
     # "search_kwargs": {

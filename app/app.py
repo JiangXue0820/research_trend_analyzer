@@ -2,8 +2,9 @@
 import os
 import streamlit as st
 from agents.conversation_agent import create_research_assistant
+from research_trend_analyzer.tools import paper_analyze_tools
 from retriever.vector_store import ResearchPaperStore
-from tools import search_tool, pdf_tool, trend_tool
+from tools import search_tool, trend_tool
 from loaders import pdf_loader
 
 # Page title
@@ -16,7 +17,7 @@ if 'agent' not in st.session_state:
     # (Optional) We could trigger data load or crawling here if needed. 
     # For now, we assume data is already persisted or none.
     search_tool.init_paper_store(st.session_state.paper_store)
-    pdf_tool.init_paper_store(st.session_state.paper_store)
+    paper_analyze_tools.init_paper_store(st.session_state.paper_store)
     trend_tool.init_data([])  # If we have preloaded paper data, pass it here.
     # Create the conversational agent
     st.session_state.agent = create_research_assistant()
@@ -35,7 +36,7 @@ if uploaded_file is not None:
     abstract = pdf_loader.extract_abstract(text)
     if text:
         # Summarize the uploaded paper using the PDF tool
-        summary = pdf_tool.load_and_summarize_paper(file_path)
+        summary = paper_analyze_tools.load_and_summarize_paper(file_path)
         st.write("**Summary of the uploaded paper:**")
         st.write(summary)
         # Add the uploaded paper to the vector store for future queries

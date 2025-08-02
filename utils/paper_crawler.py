@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any
+import logging
 
 def paper_matches_topic(
     paper: Dict[str, Any],
@@ -37,6 +38,34 @@ def paper_matches_topic(
         if kw_lower and kw_lower in combined_text:
             return True
     return False
+
+def download_pdf(pdf_url, save_path="temp/paper.pdf"):
+    """
+    Downloads a PDF from the given URL and saves it locally.
+    Returns the save path if successful, or an error message (string starting with 'error: ...').
+    """
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/pdf,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+
+    try:
+        resp = requests.get(pdf_url, headers=headers, allow_redirects=True, timeout=30)
+        resp.raise_for_status()
+        if not resp.content.startswith(b'%PDF'):
+            snippet = resp.content[:300].decode(errors='replace')
+            return f"error: Not a valid PDF (possible HTML error page). File snippet: {snippet}"
+        with open(save_path, "wb") as f:
+            f.write(resp.content)
+        return "succeed"
+    except requests.HTTPError as e:
+        return f"error: HTTP error during download: {e} (status code: {getattr(e.response, 'status_code', None)})"
+    except Exception as e:
+        return f"error: Failed to download or save PDF: {e}"
 
 def fetch_neurips_papers(year: int) -> List[Dict]:
     """
