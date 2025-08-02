@@ -12,10 +12,8 @@ import sqlite3
 
 import sys
 sys.path.append("../")
-from utils import prompts, paper_crawler
+from utils import paper_crawler
 from configs import config
-from configs.logging import configure_logging
-from configs.llm_provider import get_llm
 
 def create_paper_table(paper_db_path: str):
     try:
@@ -214,9 +212,8 @@ def fetch_paper_list_sql(
 ) -> Dict[str, Any]:
     try:
         # Use your actual fetcher, this is a stub example
-        from utils.paper_crawler import fetch_neurips_papers
         if conference.lower() in ['nips', 'neurips']:
-            papers = fetch_neurips_papers(year)
+            papers = paper_crawler.fetch_neurips_papers(year)
             result = save_paper_info_sql(papers, conference, year, paper_db_path)
             if "error" not in result.keys():
                 logging.info(f"[FETCH] Fetched and saved papers for {conference} {year}")
