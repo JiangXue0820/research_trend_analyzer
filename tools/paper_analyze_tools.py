@@ -352,18 +352,3 @@ paper_analyze_toolkit = [
     summarize_paper_tool,
     trend_summary_tool
 ]
-
-# # ----------- 6. Initialize Agent -----------
-# if __name__ == "__main__":
-#     llm = ChatOpenAI(model="gpt-3.5-turbo")
-#     agent = initialize_agent(
-#         tools=toolkit,
-#         llm=llm,
-#         agent=AgentType.OPENAI_FUNCTIONS,
-#         verbose=True
-#     )
-#     print("Agent initialized. Try prompting it with tasks like:")
-#     print("- Download a paper from a URL.")
-#     print("- Process the downloaded paper and save it into a vector database.")
-#     print("- Answer: What is the main contribution of the paper?")
-#     print("- Summarize the paper and save it as a markdown file.")

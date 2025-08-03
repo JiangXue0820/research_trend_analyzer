@@ -1,4 +1,12 @@
 import re
+import sqlite3
+import os
+
+def ensure_parent_dir(db_path):
+    parent_dir = os.path.dirname(os.path.abspath(db_path))
+    if parent_dir and not os.path.exists(parent_dir):
+        os.makedirs(parent_dir, exist_ok=True)
+    
 
 def save_md_file(text: str, md_path: str, mode: str = "w") -> str:
     """
@@ -67,3 +75,43 @@ def get_md_section(content: str, section_name: str, level: int = 2) -> dict:
         }
     except Exception as e:
         return {"error": f"Failed to extract section: {e}"}
+    
+
+def initialize_paper_database(paper_db_path: str):
+    try:
+        ensure_parent_dir(paper_db_path)
+        conn = sqlite3.connect(paper_db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS papers (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                authors TEXT,
+                abstract TEXT,
+                conference TEXT,
+                year INTEGER,
+                paper_url TEXT,
+                topic TEXT,
+                keywords TEXT
+            );
+        ''')
+        conn.commit()
+        conn.close()
+        return {"message": f"Created or checked table in {paper_db_path}"}
+    except Exception as e:
+        return {"error": f"[CREATE_TABLE] Failed to create/check table in {paper_db_path}: {e}"}
+
+def ensure_list(val):
+    if isinstance(val, list):
+        return val
+    return [val] if val else []
+
+def merge_unique_elements(list1, list2):
+    seen = set()
+    result = []
+    for item in list1 + list2:
+        key = item.lower() if isinstance(item, str) else item
+        if key not in seen:
+            seen.add(key)
+            result.append(item)
+    return result

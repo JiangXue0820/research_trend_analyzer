@@ -103,7 +103,7 @@ def fetch_neurips_papers(year: int) -> List[Dict]:
         results.append({
             "title": paper_title,
             "authors": authors,
-            "paper_url": paper_url,
+            "paper_url": paper_url if paper_url else "",
         })
 
     return results

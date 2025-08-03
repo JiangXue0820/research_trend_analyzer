@@ -35,17 +35,18 @@ LANGFUSE_HOST="https://cloud.langfuse.com"
 
 # Configuration for paper paths
 PAPER_ROOT_PATH = "papers"
-PAPER_DB_PATH = os.path.join("PAPER_ROOT_PATH", "papers.db")  # Directory to save downloaded PDFs
-PAPER_SUMMARY_PATH = os.path.join("PAPER_ROOT_PATH", "paper_summary")  # Directory to save downloaded PDFs
-TREND_SUMMARY_PATH = os.path.join("PAPER_ROOT_PATH", "trend_summary")  # Directory to save downloaded PDFs
-TEMP_PAPER_PATH = os.path.join("PAPER_ROOT_PATH", "temp.pdf")  # Directory to save downloaded PDFs
+VECTOR_DB_PATH = os.path.join(PAPER_ROOT_PATH, "vector_db")  # Directory to save downloaded PDFs
+
+PAPER_DB_PATH = os.path.join(PAPER_ROOT_PATH, "papers.db")  # Directory to save downloaded PDFs
+PAPER_SUMMARY_PATH = os.path.join(PAPER_ROOT_PATH, "paper_summary")  # Directory to save downloaded PDFs
+TREND_SUMMARY_PATH = os.path.join(PAPER_ROOT_PATH, "trend_summary")  # Directory to save downloaded PDFs
+TEMP_PAPER_PATH = os.path.join(PAPER_ROOT_PATH, "temp.pdf")  # Directory to save downloaded PDFs
 
 # Configuration for text splitter 
 CHUNK_SIZE = 700
 CHUNK_OVERLAP = 150
 
 # Configuration for RAG
-VECTOR_DB_PATH = "faiss_index"
 EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # HuggingFace model for embeddings
 
 RAG_RETRIEVER_CONFIG = {

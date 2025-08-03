@@ -23,8 +23,7 @@ from transformers import AutoTokenizer, AutoModel, pipeline
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-from langfuse import get_client
-from langfuse.langchain import CallbackHandler
+
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -35,8 +34,6 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 def get_llm(config):
     """Initialize and return an LLM instance based on config settings."""
-    langfuse = get_client(public_key=config.LANGFUSE_API_KEY_PUBLIC)
-    langfuse_handler = CallbackHandler()
 
     # 1. Use a local model if specified
     if config.USE_LOCAL_LLM or config.LLM_PROVIDER.lower() == "local":
@@ -45,7 +42,7 @@ def get_llm(config):
         model = AutoModel.from_pretrained(model_path)
         generation_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
         llm = HuggingFacePipeline(pipeline=generation_pipeline)
-        llm.callback_manager = CallbackManager([langfuse_handler])
+        # llm.callback_manager = CallbackManager([langfuse_handler])
         llm.verbose = True
         return llm
 
@@ -55,19 +52,19 @@ def get_llm(config):
         # OpenAI chat model (requires OPENAI_API_KEY)
         return ChatOpenAI(model_name=config.OPENAI_MODEL, 
                           openai_api_key=config.OPENAI_API_KEY,
-                          callback_manager=CallbackManager([StreamingStdOutCallbackHandler(), langfuse_handler]),
+                          callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
                           verbose=True)
     elif provider == "deepseek" and ChatDeepSeek:
         # DeepSeek API model
         return ChatDeepSeek(model=config.DEEPSEEK_MODEL, 
                             api_key=config.DEEPSEEK_API_KEY,
-                            callback_manager=CallbackManager([StreamingStdOutCallbackHandler(), langfuse_handler]),
+                            callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
                             verbose=True)
     elif provider == "gemini" and ChatGoogleGenerativeAI:
         return ChatGoogleGenerativeAI(
             model=config.GOOGLE_MODEL,
             api_key=config.GOOGLE_API_KEY,
-            callback_manager=CallbackManager([StreamingStdOutCallbackHandler(), langfuse_handler]),
+            callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
             verbose=True
         )
     else:
