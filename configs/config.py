@@ -38,6 +38,7 @@ PAPER_ROOT_PATH = "papers"
 VECTOR_DB_PATH = os.path.join(PAPER_ROOT_PATH, "vector_db")  # Directory to save downloaded PDFs
 
 PAPER_DB_PATH = os.path.join(PAPER_ROOT_PATH, "papers.db")  # Directory to save downloaded PDFs
+PAPER_LIST_PATH = os.path.join(PAPER_ROOT_PATH, "paper_list")  # Directory to save downloaded PDFs
 PAPER_SUMMARY_PATH = os.path.join(PAPER_ROOT_PATH, "paper_summary")  # Directory to save downloaded PDFs
 TREND_SUMMARY_PATH = os.path.join(PAPER_ROOT_PATH, "trend_summary")  # Directory to save downloaded PDFs
 TEMP_PAPER_PATH = os.path.join(PAPER_ROOT_PATH, "temp.pdf")  # Directory to save downloaded PDFs

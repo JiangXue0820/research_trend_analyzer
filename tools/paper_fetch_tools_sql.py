@@ -29,16 +29,13 @@ def save_paper_info_sql(
     paper_info_list: List[Dict[str, Any]],
     conference: str,
     year: int,
-    paper_db_path: str
+    paper_db_path: str,
 ) -> Dict[str, Any]:
 
-    if not os.path.exists(paper_db_path):
-        logging.warning(f"[INIT] PAPER_DB_PATH does not exist, initializing a new one: {paper_db_path}")
-        result = data_process.initialize_paper_database(paper_db_path)
-        if "error" in result.keys():
-            return {"error": f"[INIT] Fail to initialize database: {result["error"]}"}
-    else:
-        logging.info(f"[INIT] Loading database from PAPER_DB_PATH {paper_db_path}")
+    result = data_process.initialize_paper_database(paper_db_path)
+    if "error" in result.keys():
+        return {"error": f"[INIT] Fail to initialize database: {result['error']}"}
+    logging.info(f"[INIT] Checked/initialized database at {paper_db_path}")
 
     try:
         conn = sqlite3.connect(paper_db_path)
@@ -128,6 +125,9 @@ def load_paper_list_sql(
       - title (if provided), OR
       - conference + year (optionally filter by topic overlap in Python)
     """
+    # Always ensure the table exists
+    data_process.initialize_paper_database(paper_db_path)
+
     try:
         conn = sqlite3.connect(paper_db_path)
         cursor = conn.cursor()
@@ -207,6 +207,10 @@ def filter_paper_by_topic_sql(
     topic_keywords: TopicKeywordsModel,
     paper_db_path: str
 ) -> Dict[str, Any]:
+    
+    # Always ensure the table exists
+    data_process.initialize_paper_database(paper_db_path)
+
     failed_entries = []
     try:
         with sqlite3.connect(paper_db_path) as conn:
@@ -220,10 +224,10 @@ def filter_paper_by_topic_sql(
             try:
                 cursor.execute(query, params)
                 rows = cursor.fetchall()
-                logging.info(f"[FILTER] Fetched {len(rows)} papers from DB for {conference} {year}")
+                logging.info(f"[FILTER] Fetched {len(rows)} papers from database {paper_db_path} for {conference} {year}")
             except Exception as db_err:
-                logging.exception(f"[FILTER] Database fetch failed: {db_err}")
-                return {"error": f"Failed to fetch papers from database: {db_err}"}
+                logging.exception(f"[FILTER] Failed to fetch papers from database {paper_db_path}: {db_err}")
+                return {"error": f"Failed to fetch papers from database {paper_db_path}: {db_err}"}
 
             keywords_set = set(kw.lower() for kw in topic_keywords.keywords if isinstance(kw, str))
             filtered_papers = []
@@ -250,7 +254,7 @@ def filter_paper_by_topic_sql(
                     failed_entries.append({
                         "index": idx,
                         "row_data": list(row),
-                        "error": str(parse_err)
+                        "error": str(error_msg)
                     })
 
             logging.info(f"[FILTER] {len(filtered_papers)} papers matched filter for {conference} {year} and keywords.")
@@ -258,11 +262,9 @@ def filter_paper_by_topic_sql(
             updated_paper_info_list = []
             for idx, paper in enumerate(filtered_papers):
                 try:
-                    new_topic = data_process.merge_unique_elements(paper["topic"], topic_keywords.topic)
-                    new_keywords = data_process.merge_unique_elements(paper["keywords"], topic_keywords.keywords)
+                    updated_entry["topic"] = data_process.merge_unique_elements(paper["topic"], data_process.ensure_list(topic_keywords.topic))
+                    updated_entry["keywords"] = data_process.merge_unique_elements(paper["keywords"], data_process.ensure_list(topic_keywords.keywords))
                     updated_entry = paper.copy()
-                    updated_entry["topic"].extend(data_process.ensure_list(new_topic))
-                    updated_entry["keywords"](data_process.ensure_list(new_keywords))
                     updated_paper_info_list.append(updated_entry)
                     logging.debug(f"[FILTER][{idx}] Merged topics/keywords for '{paper['title']}'")
                 except Exception as merge_err:
@@ -271,7 +273,7 @@ def filter_paper_by_topic_sql(
                     failed_entries.append({
                         "index": idx,
                         "title": paper.get("title"),
-                        "error": str(merge_err)
+                        "error": str(error_msg)
                     })
 
             # Save updated papers
@@ -323,7 +325,7 @@ def fetch_paper_list_sql(
                 return {"message": f"Fetched and saved {len(papers)} papers for {conference} {year}"}
             else:
                 logging.error(f"[Fail] Failed to fetch  papers for {conference} {year}")
-                return {"error": f"Failed to fetch paper {conference} {year}, {result["error"]}"}
+                return {"error": f"Failed to fetch paper {conference} {year}, {result['error']}"}
 
         else:
             logging.warning(f"[FETCH] Crawling not supported for {conference}")
@@ -333,11 +335,7 @@ def fetch_paper_list_sql(
         return {"error": f"Failed to fetch papers: {str(e)}"}
     
 class GenerateKeywordListArgs(BaseModel):
-    topic: List = Field(..., description="The research topic or subject to generate keywords for, for instance ['privacy'].")
-    
-import logging
-import json
-import ast
+    topic: str = Field(..., description="The research topic or subject to generate keywords for, for instance ['privacy'].")
 
 def generate_keyword_list(
         topic: str, 
@@ -362,16 +360,17 @@ Output:
         logging.info(f"[KEYWORD_GEN] Sending prompt to LLM for topic: '{topic}'")
         response = llm.invoke(prompt) if hasattr(llm, "invoke") else llm(prompt)
         response_text = response.content if hasattr(response, "content") else response
+        cleaned_text = data_process.strip_code_block(response_text)
         logging.debug(f"[KEYWORD_GEN] Raw LLM response: {response_text[:200]}")
-
+        
         # Try JSON first, then fallback to ast.literal_eval
         try:
-            result = json.loads(response_text.strip())
+            result = json.loads(cleaned_text)
             logging.info("[KEYWORD_GEN] Successfully parsed LLM output as JSON.")
         except Exception as json_err:
             logging.warning(f"[KEYWORD_GEN] JSON parsing failed: {json_err}, trying ast.literal_eval...")
             try:
-                result = ast.literal_eval(response_text.strip())
+                result = ast.literal_eval(cleaned_text)
                 logging.info("[KEYWORD_GEN] Successfully parsed LLM output with ast.literal_eval.")
             except Exception as ast_err:
                 logging.error(f"[KEYWORD_GEN] Both JSON and ast parsing failed. ast error: {ast_err}")
@@ -386,14 +385,14 @@ Output:
             and "topic" in result and isinstance(result["topic"], str)
             and "keywords" in result and isinstance(result["keywords"], list)
         ):
-            topic = result["topic"].strip().lower()
+            topic_val = result["topic"].strip().lower()
             keywords_list = [k.strip().lower() for k in data_process.ensure_list(result["keywords"])]
 
-            logging.info(f"[KEYWORD_GEN] Extracted topic: {topic}, keywords: {keywords_list}")
+            logging.info(f"[KEYWORD_GEN] Extracted topic: {topic_val}, keywords: {keywords_list}")
 
             return {
-                "message": f"Extracted: {topic}, keywords: {keywords_list}",
-                "topic": topic,
+                "message": f"Extracted: {topic_val}, keywords: {keywords_list}",
+                "topic": topic_val,
                 "keywords": keywords_list
             }
         else:

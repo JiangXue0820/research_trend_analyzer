@@ -3,7 +3,6 @@ import os
 import streamlit as st
 from agents.conversation_agent import create_research_assistant
 from research_trend_analyzer.tools import paper_analyze_tools
-from retriever.vector_store import ResearchPaperStore
 from tools import search_tool, trend_tool
 from loaders import pdf_loader
 

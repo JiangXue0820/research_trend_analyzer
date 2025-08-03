@@ -107,6 +107,9 @@ def ensure_list(val):
     return [val] if val else []
 
 def merge_unique_elements(list1, list2):
+    list1 = ensure_list(list1)
+    list2 = ensure_list(list2)
+    
     seen = set()
     result = []
     for item in list1 + list2:
@@ -115,3 +118,11 @@ def merge_unique_elements(list1, list2):
             seen.add(key)
             result.append(item)
     return result
+
+def strip_code_block(text: str) -> str:
+    # Removes ```json, ```python, or just ``` ... ```
+    code_block_pattern = r"^```(?:json|python)?\s*([\s\S]+?)\s*```$"
+    match = re.match(code_block_pattern, text.strip(), re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+    return text.strip()
