@@ -25,7 +25,7 @@ class SavePaperArgs(BaseModel):
     conference: str = Field(..., description="Conference name")
     year: int = Field(..., description="Year")
 
-def save_paper_info_sql(
+def save_paper_info(
     paper_info_list: List[Dict[str, Any]],
     conference: str,
     year: int,
@@ -109,50 +109,30 @@ def save_paper_info_sql(
 
 
 class LoadPaperArgs(BaseModel):
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
-    topic_keywords: Optional[TopicKeywordsModel] = Field(default=None, description="Dict with keys 'topic' and 'keywords' (optional).")
+    title: str = Field(..., description="Paper Name")
 
-def load_paper_list_sql(
+def load_paper_by_title(
     paper_db_path: str,
-    title: Optional[str] = None,
-    conference: Optional[str] = None,
-    year: Optional[int] = None,
-    topic_keywords: Optional[TopicKeywordsModel] = None
+    title: str
 ) -> Dict[str, Any]:
     """
-    Load papers from SQL database by:
-      - title (if provided), OR
-      - conference + year (optionally filter by topic overlap in Python)
+    Load papers from SQL database by title only.
     """
-    # Always ensure the table exists
-    data_process.initialize_paper_database(paper_db_path)
 
+    data_process.initialize_paper_database(paper_db_path)
     try:
         conn = sqlite3.connect(paper_db_path)
         cursor = conn.cursor()
-        papers = []
-
-        if title:
-            query = """
-                SELECT title, authors, abstract, conference, year, paper_url, topic, keywords 
-                FROM papers 
-                WHERE title = ?
-            """
-            params = [title]
-            logging.info(f"[LOAD] Loading by title: {title}")
-        elif conference and year:
-            query = """
-                SELECT title, authors, abstract, conference, year, paper_url, topic, keywords 
-                FROM papers 
-                WHERE conference = ? AND year = ?
-            """
-            params = [conference, year]
-            logging.info(f"[LOAD] Loading by conference={conference}, year={year}")
-        else:
-            return {"error": "Must provide either title, or conference+year (optionally topic)."}
+        query = """
+            SELECT title, authors, abstract, conference, year, paper_url, topic, keywords
+            FROM papers
+            WHERE title = ?
+        """
+        params = [title]
+        logging.info(f"[LOAD] Loading by title: {title}")
 
         cursor.execute(query, params)
+        papers = []
         for row in cursor.fetchall():
             paper = {
                 "title": row[0],
@@ -167,32 +147,24 @@ def load_paper_list_sql(
             papers.append(paper)
         conn.close()
 
-        # Topic overlap filtering (in Python), if needed
-        if conference and year and topic_keywords and topic_keywords.keywords:
-            keywords_set = set(t.lower() for t in topic_keywords.keywords)
-            filtered_papers = []
-            for paper in papers:
-                paper_keywords = set(t.lower() for t in paper.get("keywords", []))
-                if paper_keywords & keywords_set:
-                    filtered_papers.append(paper)
-            papers = filtered_papers
-            logging.info(f"[LOAD] After topic overlap filtering: {len(papers)} papers")
-
-        logging.info(f"[LOAD] Loaded {len(papers)} papers.")
-
-        # Check for ambiguity in title query
-        if title and len(papers) != 1:
+        if len(papers) == 0:
+            return {
+                "error": f"No paper found with title '{title}'.",
+                "papers": []
+            }
+        elif len(papers) > 1:
             logging.warning(f"[LOAD] Loaded more than one paper with name '{title}'.")
             return {
-                "message": f"Loaded more than one paper with name '{title}'.",
+                "error": f"Loaded more than one paper with name '{title}'. Recheck the loading result.",
                 "papers": papers
             }
-        return {
-            "message": f"[LOAD] Loaded {len(papers)} papers.",
-            "papers": papers
-        }
+        else:
+            return {
+                "message": f"Loaded 1 paper with title '{title}'.",
+                "papers": papers
+            }
     except Exception as e:
-        logging.exception("[LOAD] Exception during loading paper info")
+        logging.exception("[LOAD] Exception during loading paper info by title")
         return {"error": f"Failed to load paper info: {str(e)}"}
 
 
@@ -201,7 +173,7 @@ class FilterPaperByTopicArgs(BaseModel):
     year: int = Field(..., description="Year")
     topic_keywords: TopicKeywordsModel = Field(..., description="Dict with keys 'topic' and 'keywords' (required).")
 
-def filter_paper_by_topic_sql(
+def filter_paper_by_topic(
     conference: str,
     year: int,
     topic_keywords: TopicKeywordsModel,
@@ -229,7 +201,13 @@ def filter_paper_by_topic_sql(
                 logging.exception(f"[FILTER] Failed to fetch papers from database {paper_db_path}: {db_err}")
                 return {"error": f"Failed to fetch papers from database {paper_db_path}: {db_err}"}
 
+            if not topic_keywords.topic or not topic_keywords.keywords: 
+                logging.exception(f"[FILTER] Failed to extract topic from topic_keywords {topic_keywords}")
+                return {"error": f"Failed to extract topic or keywords from topic_keywords {topic_keywords}"}
+            
+            topic = topic_keywords.keywords
             keywords_set = set(kw.lower() for kw in topic_keywords.keywords if isinstance(kw, str))
+
             filtered_papers = []
             for idx, row in enumerate(rows):
                 try:
@@ -243,10 +221,10 @@ def filter_paper_by_topic_sql(
                         "topic": json.loads(row[6]) if row[6] else [],
                         "keywords": json.loads(row[7]) if row[7] else []
                     }
-                    in_keywords = any(kw in paper["abstract"].lower() for kw in keywords_set)
+                    in_abstract = any(kw in paper["abstract"].lower() for kw in keywords_set)
                     in_title = any(kw in (paper["title"] or "").lower() for kw in keywords_set)
-                    in_paper_keywords = set(k.lower() for k in paper["keywords"])
-                    if in_keywords or in_title or keywords_set & in_paper_keywords:
+                    in_topic = topic in paper["topic"]
+                    if in_abstract or in_title or in_topic:
                         filtered_papers.append(paper)
                 except Exception as parse_err:
                     error_msg = f"[FILTER][{idx}] Error parsing row: {parse_err}"
@@ -262,9 +240,9 @@ def filter_paper_by_topic_sql(
             updated_paper_info_list = []
             for idx, paper in enumerate(filtered_papers):
                 try:
+                    updated_entry = paper.copy()
                     updated_entry["topic"] = data_process.merge_unique_elements(paper["topic"], data_process.ensure_list(topic_keywords.topic))
                     updated_entry["keywords"] = data_process.merge_unique_elements(paper["keywords"], data_process.ensure_list(topic_keywords.keywords))
-                    updated_entry = paper.copy()
                     updated_paper_info_list.append(updated_entry)
                     logging.debug(f"[FILTER][{idx}] Merged topics/keywords for '{paper['title']}'")
                 except Exception as merge_err:
@@ -279,7 +257,7 @@ def filter_paper_by_topic_sql(
             # Save updated papers
             if updated_paper_info_list:
                 try:
-                    save_result = save_paper_info_sql(
+                    save_result = save_paper_info(
                         paper_info_list=updated_paper_info_list,
                         conference=conference,
                         year=year,
@@ -310,7 +288,7 @@ class FetchPaperArgs(BaseModel):
     conference: str = Field(..., description="Conference name")
     year: int = Field(..., description="Year")
 
-def fetch_paper_list_sql(
+def fetch_paper_list(
     conference: str,
     year: int,
     paper_db_path: str
@@ -319,7 +297,7 @@ def fetch_paper_list_sql(
         # Use your actual fetcher, this is a stub example
         if conference.lower() in ['nips', 'neurips']:
             papers = paper_crawler.fetch_neurips_papers(year)
-            result = save_paper_info_sql(papers, conference, year, paper_db_path)
+            result = save_paper_info(papers, conference, year, paper_db_path)
             if "error" not in result.keys():
                 logging.info(f"[FETCH] Fetched and saved papers for {conference} {year}")
                 return {"message": f"Fetched and saved {len(papers)} papers for {conference} {year}"}
@@ -411,25 +389,25 @@ Output:
 
 
 save_paper_tool = StructuredTool.from_function(
-    func=partial(save_paper_info_sql, paper_db_path=config.PAPER_DB_PATH),
+    func=partial(save_paper_info, paper_db_path=config.PAPER_DB_PATH),
     args_schema=SavePaperArgs,
     name="save_paper_info",
     description="Save a list of paper metadata (title, authors, abstract, urls) to the SQL database. Optionally grouped by topic."
 )
 load_paper_tool = StructuredTool.from_function(
-    func=partial(load_paper_list_sql, paper_db_path=config.PAPER_DB_PATH),
+    func=partial(load_paper_by_title, paper_db_path=config.PAPER_DB_PATH),
     args_schema=LoadPaperArgs,
     name="load_paper_list",
     description="Load paper metadata from the SQL database for a given conference and year. Optionally filter by topic."
 )
 filter_paper_by_topic_tool = StructuredTool.from_function(
-    func=partial(filter_paper_by_topic_sql, paper_db_path=config.PAPER_DB_PATH),
+    func=partial(filter_paper_by_topic, paper_db_path=config.PAPER_DB_PATH),
     args_schema=FilterPaperByTopicArgs,
     name="filter_paper_by_topic",
     description="Filter papers in the SQL database by a topic's keywords, for a conference and year."
 )
 fetch_paper_list_tool = StructuredTool.from_function(
-    func=partial(fetch_paper_list_sql, paper_db_path=config.PAPER_DB_PATH),
+    func=partial(fetch_paper_list, paper_db_path=config.PAPER_DB_PATH),
     args_schema=FetchPaperArgs,
     name="fetch_paper_list",
     description="Fetch all papers for a given conference and year, dedupe, and save new to SQL database."
