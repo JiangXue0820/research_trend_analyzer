@@ -3,8 +3,8 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from typing import List, Dict, Any
-import logging
+from typing import List, Dict, Any, Union, Optional
+from data_process import _make_response
 
 HEADERS = {
     "User-Agent": (
@@ -15,60 +15,163 @@ HEADERS = {
     "Accept": "application/pdf,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
 
-
 def paper_matches_topic(
     paper: Dict[str, Any],
     topic_keywords: List[str],
     fields: List[str] = ["title"]
-) -> bool:
+) -> Dict[str, Any]:
     """
-    Returns True if any of the topic_keywords appear (case-insensitive, as substring)
-    in any of the specified fields of the paper dict.
-    If topic_keywords is empty, returns True.
-    Args:
-        paper: Paper dictionary, should include 'title' and optionally 'abstract'.
-        topic_keywords: List of keywords to search for.
-        fields: List of fields in paper to search (e.g.: ["title", "abstract"])
-    Returns:
-        bool
-    """
-    if not topic_keywords:
-        return True
-    
-    combined_text = ""
-    for field in fields:
-        value = paper.get(field, "")
-        if isinstance(value, str):
-            combined_text += " " + value.lower()
-    if not combined_text.strip():
-        return False  # Nothing to match
-    
-    for kw in topic_keywords:
-        kw_lower = kw.lower().strip()
-        if kw_lower and kw_lower in combined_text:
-            return True
-    return False
+    Check if any topic keywords appear (case-insensitive, substring match)
+    in the specified fields of a paper dictionary.
 
-def download_pdf(pdf_url, save_path="temp/paper.pdf"):
+    Args:
+        paper (dict): Dictionary containing paper information (e.g., title, abstract).
+        topic_keywords (list[str]): Keywords to search for.
+        fields (list[str], optional): Fields to search in. Defaults to ["title"].
+
+    """
+    try:
+        if not topic_keywords:
+            return _make_response(
+                "warning",
+                "No topic keywords provided — cannot check for topic match.",
+                None
+            )
+
+        # Combine text from specified fields into one lowercase string
+        combined_text = ""
+        for field in fields:
+            value = paper.get(field, "")
+            if isinstance(value, str):
+                combined_text += " " + value.lower()
+
+        if not combined_text.strip():
+            return _make_response(
+                "warning",
+                "No text found in specified fields — cannot check for topic match.",
+                None
+            )
+
+        # Find all matching keywords (case-insensitive, substring match)
+        matched_keywords: List[str] = []
+        seen = set()  # de-duplicate while preserving order
+        for kw in topic_keywords:
+            if not isinstance(kw, str):
+                continue
+            kw_lower = kw.lower().strip()
+            if not kw_lower:
+                continue
+            if kw_lower in combined_text and kw not in seen:
+                matched_keywords.append(kw)  # keep original form for readability
+                seen.add(kw)
+
+        if matched_keywords:
+            return _make_response(
+                "success",
+                "Keyword matches found.",
+                {"matched": True, "keywords": matched_keywords, "fields": fields}
+            )
+
+        return _make_response(
+            "warning",
+            "No matching keywords found in specified fields.",
+            {"matched": False, "keywords": [], "fields": fields}
+        )
+
+    except Exception as e:
+        return _make_response(
+            "error",
+            f"Error while checking topic match: {e}",
+            None
+        )
+
+    except Exception as e:
+        return _make_response(
+            "error",
+            f"Error while checking topic match: {e}",
+            None
+        )
+    
+def download_pdf(pdf_url: str, file_path: str = "temp/paper.pdf") -> Dict[str, Union[Dict[str, str], Optional[str]]]:
     """
     Downloads a PDF from the given URL and saves it locally.
     Returns the save path if successful, or an error message (string starting with 'error: ...').
+
+    Args:
+        pdf_url (str): The URL pointing to the PDF file.
+        file_path (str, optional): Local file path to save the PDF. Defaults to "temp/paper.pdf".
+
     """
 
     try:
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
         resp = requests.get(pdf_url, headers=HEADERS, allow_redirects=True, timeout=30)
         resp.raise_for_status()
+
+        # Validate PDF content signature
         if not resp.content.startswith(b'%PDF'):
             snippet = resp.content[:300].decode(errors='replace')
-            return f"error: Not a valid PDF (possible HTML error page). File snippet: {snippet}"
-        with open(save_path, "wb") as f:
-            f.write(resp.content)
-        return "succeed"
-    except requests.HTTPError as e:
-        return f"error: HTTP error during download: {e} (status code: {getattr(e.response, 'status_code', None)})"
-    except Exception as e:
-        return f"error: Failed to download or save PDF: {e}"
+            return _make_response(
+                "error",
+                f"Not a valid PDF (possible HTML page). Snippet: {snippet}",
+                None
+            )
 
+        # Save the PDF to file
+        with open(file_path, "wb") as f:
+            f.write(resp.content)
+
+        return _make_response(
+            "success",
+            "Downloaded PDF successfully.",
+            {"path": file_path}
+        )
+
+    except requests.HTTPError as e:
+        return _make_response(
+            "error",
+            f"HTTP error: {e} (status code: {getattr(e.response, 'status_code', None)})",
+            None
+        )
+    except Exception as e:
+        return _make_response(
+            "error",
+            f"Failed to download or save PDF: {e}",
+            None
+        )
+
+    
+def delete_pdf(file_path="temp/paper.pdf"):
+    """
+    Deletes the temporary PDF according to the file path.
+    Always returns a dict with 'message_type' and 'message_content'.
+
+    Args:
+        file_path (str, optional): Path to the PDF file. Defaults to "temp/paper.pdf"
+    """
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return _make_response(
+                "success",
+                "Deleted PDF successfully.",
+                {"deleted": True, "path": file_path}
+            )
+        else:
+            return _make_response(
+                "warning",
+                "No PDF found at the given path; nothing to delete.",
+                None
+            )
+    except Exception as e:
+        return _make_response(
+            "error",
+            f"Could not delete PDF: {e}",
+            None
+        )
+    
 def fetch_neurips_papers(year: int) -> List[Dict]:
     """
     Fetches NeurIPS papers for a given year from the public website.

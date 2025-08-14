@@ -1,6 +1,24 @@
 import re
 import sqlite3
 import os
+from typing import Dict, Any, List, Optional, Literal
+
+
+def _make_response(
+    status: Literal["success", "warning", "error"],
+    message: str,
+    data: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
+    """
+    Construct structured return message：
+    {
+        "status": "success" | "warning" | "error",
+        "message": "描述信息",
+        "data": {...} | None
+    }
+    """
+    return {"status": status, "message": message, "data": data}
+
 
 def ensure_parent_dir(db_path):
     parent_dir = os.path.dirname(os.path.abspath(db_path))
