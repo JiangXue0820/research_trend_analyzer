@@ -20,87 +20,152 @@ def _make_response(
     return {"status": status, "message": message, "data": data}
 
 
-def ensure_parent_dir(db_path):
-    parent_dir = os.path.dirname(os.path.abspath(db_path))
-    if parent_dir and not os.path.exists(parent_dir):
+
+def ensure_parent_dir(path: str) -> Dict[str, Any]:
+    """
+    Ensure the parent directory of the given path exists; create it if missing.
+
+    Args:
+        path (str): A file path whose parent directory should exist.
+    """
+    parent_dir = os.path.dirname(os.path.abspath(path))
+    if not parent_dir:
+        return _make_response(
+            "warning",
+            "No parent directory resolved from the given path.",
+            {"parent_dir": "", "created": False}
+        )
+
+    if os.path.exists(parent_dir):
+        return _make_response(
+            "success",
+            "Parent directory already exists.",
+            {"parent_dir": parent_dir, "created": False}
+        )
+
+    try:
         os.makedirs(parent_dir, exist_ok=True)
+        return _make_response(
+            "success",
+            "Parent directory created.",
+            {"parent_dir": parent_dir, "created": True}
+        )
+    except Exception as e:
+        return _make_response(
+            "error",
+            f"Failed to create parent directory: {e}",
+            None
+        )
     
 
-def save_md_file(text: str, md_path: str, mode: str = "w") -> str:
+def save_md_file(text: str, md_path: str, mode: str = "w") -> Dict[str, Any]:
     """
-    Save the given text to a markdown (.md) file.
-    
+    Save markdown text to a file.
+
     Args:
-        text: The markdown-formatted text to save.
-        md_path: Output file path (should end with .md).
-        mode: File mode, "w" to overwrite, "a" to append. Default is "w".
-    Returns:
-        The path of the saved file, or an error message if failed.
+        text (str): The markdown-formatted text to save.
+        md_path (str): Output file path (should end with .md).
+        mode (str, optional): File mode, "w" to overwrite, "a" to append. Default is "w".
     """
+    ensure_resp = ensure_parent_dir(md_path)
+    if ensure_resp["status"] == "error":
+        return _make_response("error", f"Cannot ensure parent dir: {ensure_resp['message']}", None)
+
     try:
         with open(md_path, mode, encoding="utf-8") as f:
-            f.write(text)
-        return {"message": f"Markdown saved to {md_path}"}
+            written = f.write(text)
+        return _make_response(
+            "success",
+            "Markdown saved.",
+            {"path": md_path, "mode": mode, "bytes_written": written}
+        )
     except Exception as e:
-        return {"error": f"Failed to save markdown: {e}"}
+        return _make_response(
+            "error",
+            f"Failed to save markdown: {e}",
+            None
+        )
     
-def load_md_file(md_path: str) -> str:
+def load_md_file(md_path: str) -> Dict[str, Any]:
     """
-    Load and return the contents of a markdown (.md) file.
+    Load the contents of a Markdown (.md) file.
 
     Args:
-        md_path: Path to the markdown file.
-    Returns:
-        The file content as a string, or an error message if failed.
+        md_path (str): Path to the markdown file.
     """
     try:
         with open(md_path, "r", encoding="utf-8") as f:
             content = f.read()
-        return {
-            "message": f"file loaded from {md_path}",
-            "content": content
-            }
+        return _make_response(
+            "success",
+            "File loaded.",
+            {"path": md_path, "content": content}
+        )
     except FileNotFoundError:
-        return {"error": f"File {md_path} not found."}
+        return _make_response(
+            "warning",
+            f"File not found: {md_path}",
+            None
+        )
     except Exception as e:
-        return {"error": f"Failed to load markdown: {e}"}
+        return _make_response(
+            "error",
+            f"Failed to load markdown: {e}",
+            None
+        )
     
 
-def get_md_section(content: str, section_name: str, level: int = 2) -> dict:
+def get_md_section(content: str, section_name: str, level: int = 2) -> Dict[str, Any]:
     """
-    Extracts a Markdown section (by header) from a file.
+    Extract a Markdown section by header text.
+
     Args:
-        md_path: Path to the markdown file.
-        section_name: Name of the section to extract (case-insensitive, no #).
-        level: Header level (e.g., 1 for #, 2 for ##, etc.). Default: 2 (## Section).
-    Returns:
-        dict: {"section": section_text} or {"error": "..."}
+        content (str): Full markdown content.
+        section_name (str): Name of the section to extract (case-insensitive, no '#').
+        level (int, optional): Header level to match (1='#', 2='##', ...). Default 2.
     """
     try:
-        # Build regex pattern for the section header and next header
-        # E.g. for level 2: '^## Section Name' (case-insensitive)
         pattern = (
-            rf"^{'#' * level}\s*{re.escape(section_name)}\s*\n"    # Match header
-            rf"(.*?)"                                              # Capture everything after header (non-greedy)
-            rf"(?=^#{{1,{level}}}\s|\Z)"                           # Stop at next header of level <= given, or EOF
+            rf"^{'#' * level}\s*{re.escape(section_name)}\s*\n"  # header line
+            rf"(.*?)"                                            # section body (non-greedy)
+            rf"(?=^#{{1,{level}}}\s|\Z)"                         # next header (level <= given) or EOF
         )
         match = re.search(pattern, content, re.IGNORECASE | re.MULTILINE | re.DOTALL)
         if not match:
-            return {"error": f"Section '{section_name}' not found."}
-        return {
-            "message": f"section {section_name} extracted",
-            "section": match.group(1).strip()
-        }
+            return _make_response(
+                "warning",
+                f"Section '{section_name}' not found.",
+                None
+            )
+        return _make_response(
+            "success",
+            "Section '{section_name}' extracted.",
+            {"section": match.group(1).strip(), "section_name": section_name, "level": level}
+        )
     except Exception as e:
-        return {"error": f"Failed to extract section: {e}"}
+        return _make_response(
+            "error",
+            f"Failed to extract section: {e}",
+            None
+        )
     
 
-def initialize_paper_database(paper_db_path: str):
+def initialize_paper_database(paper_db_path: str) -> Dict[str, Any]:
+    """
+    Initialize (create if not exists) the SQLite paper database and table.
+
+    Args:
+        paper_db_path (str): Path to the SQLite database file.
+    """
+    ensure_resp = ensure_parent_dir(paper_db_path)
+    if ensure_resp["status"] == "error":
+        return _make_response("error", f"Cannot ensure parent dir: {ensure_resp['message']}", None)
+
     try:
-        ensure_parent_dir(paper_db_path)
         conn = sqlite3.connect(paper_db_path)
         cursor = conn.cursor()
-        cursor.execute('''
+        cursor.execute(
+            """
             CREATE TABLE IF NOT EXISTS papers (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT,
@@ -112,12 +177,22 @@ def initialize_paper_database(paper_db_path: str):
                 topic TEXT,
                 keywords TEXT
             );
-        ''')
+            """
+        )
         conn.commit()
         conn.close()
-        return {"message": f"Created or checked table in {paper_db_path}"}
+        return _make_response(
+            "success",
+            "Table created or already existed.",
+            {"path": paper_db_path, "created_or_checked": True}
+        )
     except Exception as e:
-        return {"error": f"[CREATE_TABLE] Failed to create/check table in {paper_db_path}: {e}"}
+        return _make_response(
+            "error",
+            f"[CREATE_TABLE] Failed to create/check table: {e}",
+            None
+        )
+
 
 def ensure_list(val):
     if isinstance(val, list):
