@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Union, Optional
-from data_process import _make_response
+from helper_func import *
 
 HEADERS = {
     "User-Agent": (
@@ -32,7 +32,8 @@ def paper_matches_topic(
     """
     try:
         if not topic_keywords:
-            return _make_response(
+            # TODO: warning or error?
+            return make_response(
                 "warning",
                 "No topic keywords provided — cannot check for topic match.",
                 None
@@ -46,7 +47,8 @@ def paper_matches_topic(
                 combined_text += " " + value.lower()
 
         if not combined_text.strip():
-            return _make_response(
+            # TODO: warning or error?
+            return make_response(
                 "warning",
                 "No text found in specified fields — cannot check for topic match.",
                 None
@@ -66,27 +68,27 @@ def paper_matches_topic(
                 seen.add(kw)
 
         if matched_keywords:
-            return _make_response(
+            return make_response(
                 "success",
                 "Keyword matches found.",
                 {"matched": True, "keywords": matched_keywords, "fields": fields}
             )
 
-        return _make_response(
+        return make_response(
             "warning",
             "No matching keywords found in specified fields.",
             {"matched": False, "keywords": [], "fields": fields}
         )
 
     except Exception as e:
-        return _make_response(
+        return make_response(
             "error",
             f"Error while checking topic match: {e}",
             None
         )
 
     except Exception as e:
-        return _make_response(
+        return make_response(
             "error",
             f"Error while checking topic match: {e}",
             None
@@ -103,17 +105,16 @@ def download_pdf(pdf_url: str, file_path: str = "temp/paper.pdf") -> Dict[str, U
 
     """
 
+    ensure_parent_dir(file_path)
+    
     try:
-        # Ensure the directory exists
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
         resp = requests.get(pdf_url, headers=HEADERS, allow_redirects=True, timeout=30)
         resp.raise_for_status()
 
         # Validate PDF content signature
         if not resp.content.startswith(b'%PDF'):
             snippet = resp.content[:300].decode(errors='replace')
-            return _make_response(
+            return make_response(
                 "error",
                 f"Not a valid PDF (possible HTML page). Snippet: {snippet}",
                 None
@@ -123,20 +124,20 @@ def download_pdf(pdf_url: str, file_path: str = "temp/paper.pdf") -> Dict[str, U
         with open(file_path, "wb") as f:
             f.write(resp.content)
 
-        return _make_response(
+        return make_response(
             "success",
             "Downloaded PDF successfully.",
             {"path": file_path}
         )
 
     except requests.HTTPError as e:
-        return _make_response(
+        return make_response(
             "error",
             f"HTTP error: {e} (status code: {getattr(e.response, 'status_code', None)})",
             None
         )
     except Exception as e:
-        return _make_response(
+        return make_response(
             "error",
             f"Failed to download or save PDF: {e}",
             None
@@ -154,19 +155,19 @@ def delete_pdf(file_path="temp/paper.pdf"):
     try:
         if os.path.exists(file_path):
             os.remove(file_path)
-            return _make_response(
+            return make_response(
                 "success",
                 "Deleted PDF successfully.",
                 {"deleted": True, "path": file_path}
             )
         else:
-            return _make_response(
+            return make_response(
                 "warning",
                 "No PDF found at the given path; nothing to delete.",
                 None
             )
     except Exception as e:
-        return _make_response(
+        return make_response(
             "error",
             f"Could not delete PDF: {e}",
             None

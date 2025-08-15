@@ -12,7 +12,7 @@ import sqlite3
 
 import sys
 sys.path.append("../")
-from utils import paper_crawler, prompts, data_process
+from utils import paper_crawler, prompts, data_process, helper_func
 from configs import config, llm_provider
 
 
@@ -20,10 +20,10 @@ class TopicKeywordsModel(BaseModel):
     topic: str = Field(..., description="Topic of papers")
     keywords: List[str] = Field(..., description="List of keywords of a certain topic")
 
-class SavePaperArgs(BaseModel):
-    paper_info_list: List[Dict[str, Any]] = Field(..., description="List of paper metadata dicts")
-    conference: str = Field(..., description="Conference name")
-    year: int = Field(..., description="Year")
+# class SavePaperArgs(BaseModel):
+#     paper_info_list: List[Dict[str, Any]] = Field(..., description="List of paper metadata dicts")
+#     conference: str = Field(..., description="Conference name")
+#     year: int = Field(..., description="Year")
 
 def save_paper_info(
     paper_info_list: List[Dict[str, Any]],
@@ -31,258 +31,460 @@ def save_paper_info(
     year: int,
     paper_db_path: str,
 ) -> Dict[str, Any]:
+    """
+    Insert or update paper records by title, conference, year into the SQLite database.
 
-    result = data_process.initialize_paper_database(paper_db_path)
-    if "error" in result.keys():
-        return {"error": f"[INIT] Fail to initialize database: {result['error']}"}
+    Args:
+        paper_info_list (list[dict]): List of paper entries to save.
+        conference (str): Conference name to assign to all entries.
+        year (int): Year to assign to all entries.
+        paper_db_path (str): Path to the SQLite database file.
+    """
+    
+    logging.info(f"[SAVE] Saving paper info into database {paper_db_path}")
+
+    # Initialize DB (HTTP-style dict guaranteed)
+    init_resp = data_process.initialize_paper_database(paper_db_path)
+    if init_resp.get("status") == "error":
+        msg = f"[INIT] Fail to initialize database: {init_resp.get('message')}"
+        logging.error(f"[SAVE] {msg}")
+        return helper_func.make_response("error", msg, None)
     logging.info(f"[INIT] Checked/initialized database at {paper_db_path}")
 
+    # Validate input list
+    if not isinstance(paper_info_list, list) or len(paper_info_list) == 0:
+        msg = "No paper entries provided."
+        logging.warning(f"[SAVE] {msg}")
+        return helper_func.make_response(
+            "warning",
+            msg,
+            {"path": paper_db_path, "inserted": 0, "updated": 0, "skipped": 0, "skipped_entries": []}
+        )
+
     try:
-        conn = sqlite3.connect(paper_db_path)
-        cursor = conn.cursor()
         count_inserted = 0
         count_updated = 0
+        skipped_entries: List[Dict[str, Any]] = []
 
-        skipped_entries = []
-        for idx, entry in enumerate(paper_info_list):
-            try:
-                entry = entry.copy()
-                title = entry.get("title")
-                if not title:
-                    logging.error(f"[SAVE][{idx}] Paper entry missing 'title'; skipping entry: {entry}")
-                    skipped_entries.append({"index": idx, "entry": entry, "error": "Paper entry missing 'title'"})
-                    continue
+        with sqlite3.connect(paper_db_path) as conn:
+            cursor = conn.cursor()
 
-                entry["conference"] = str(conference)
-                entry["year"] = int(year)
+            for idx, entry in enumerate(paper_info_list):
+                try:
+                    if not isinstance(entry, dict):
+                        raise TypeError("Paper entry is not a dict")
 
-                entry["topic"] = json.dumps(data_process.ensure_list(entry.get("topic", [])))
-                entry["keywords"] = json.dumps(data_process.ensure_list(entry.get("keywords", [])))
-                entry["authors"] = json.dumps(data_process.ensure_list(entry.get("authors", [])))
-                entry["paper_url"] = str(entry.get("paper_url", ""))
-                entry.setdefault("abstract", None)
+                    e = dict(entry)  # shallow copy for normalization
+                    title = e.get("title")
+                    if not isinstance(title, str) or not title.strip():
+                        raise ValueError("Paper entry missing 'title'")
 
-                cursor.execute("SELECT id FROM papers WHERE title = ?", (title,))
-                row = cursor.fetchone()
+                    # Normalize/assign fields (no abstract handling)
+                    e["conference"] = str(conference)
+                    e["year"] = int(year)
+                    e["authors"]  = json.dumps(helper_func.ensure_list(e.get("authors", [])))
+                    e["topic"]    = json.dumps(helper_func.ensure_list(e.get("topic", [])))
+                    e["keywords"] = json.dumps(helper_func.ensure_list(e.get("keywords", [])))
+                    e["paper_url"] = str(e.get("paper_url", ""))
 
-                if row is None:
-                    cursor.execute('''
-                        INSERT INTO papers (title, authors, abstract, conference, year, paper_url, topic, keywords)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    ''', (
-                        entry["title"], entry["authors"], entry["abstract"], entry["conference"], entry["year"],
-                        entry["paper_url"], entry["topic"], entry["keywords"]
-                    ))
-                    count_inserted += 1
-                    logging.info(f"[SAVE][{idx}] Inserted new paper: {title}")
-                else:
-                    paper_id = row[0]
-                    cursor.execute(
-                        '''
-                        UPDATE papers
-                        SET authors = ?, abstract = ?, conference = ?, year = ?, paper_url = ?, topic = ?, keywords = ?
-                        WHERE id = ?
-                        ''',
-                        (
-                            entry["authors"], entry["abstract"], entry["conference"], entry["year"],
-                            entry["paper_url"], entry["topic"], entry["keywords"], paper_id
+                    # Upsert by title
+                    cursor.execute("SELECT id FROM papers WHERE title = ?", (title,))
+                    row = cursor.fetchone()
+
+                    if row is None:
+                        # INSERT (no abstract column)
+                        cursor.execute(
+                            """
+                            INSERT INTO papers (title, authors, conference, year, paper_url, topic, keywords)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                title, e["authors"], e["conference"], e["year"],
+                                e["paper_url"], e["topic"], e["keywords"]
+                            )
                         )
-                    )
-                    count_updated += 1
-                    logging.info(f"[SAVE][{idx}] Updated paper: {title}")
+                        count_inserted += 1
+                        logging.info(f"[SAVE][{idx}] Inserted: {title}")
 
-            except Exception as entry_err:
-                logging.error(f"[SAVE][{idx}] Exception processing entry: {entry_err}")
-                skipped_entries.append({"index": idx, "entry": entry, "error": str(entry_err)})
+                    else:
+                        # UPDATE (do not touch abstract)
+                        paper_id = row[0]
+                        cursor.execute(
+                            """
+                            UPDATE papers
+                            SET authors = ?, conference = ?, year = ?, paper_url = ?, topic = ?, keywords = ?
+                            WHERE id = ?
+                            """,
+                            (
+                                e["authors"], e["conference"], e["year"],
+                                e["paper_url"], e["topic"], e["keywords"], paper_id
+                            )
+                        )
+                        count_updated += 1
+                        logging.info(f"[SAVE][{idx}] Updated: {title}")
 
-        conn.commit()
-        conn.close()
-        msg = f"Inserted {count_inserted}, updated {count_updated} papers to {paper_db_path}"
+                except Exception as entry_err:
+                    logging.error(f"[SAVE][{idx}] Skipped entry due to error: {entry_err}")
+                    skipped_entries.append({"index": idx, "title": entry["title"], "error": str(entry_err)})
+
+            conn.commit()
+
+        msg = f"Inserted {count_inserted}, updated {count_updated} papers to {paper_db_path}."
+        data = {
+            "path": paper_db_path,
+            "inserted": count_inserted,
+            "updated": count_updated,
+            "skipped": len(skipped_entries),
+        }
+
+        if len(skipped_entries) > 0:
+            status = 'warning'
+            # msg += f"Failed inserting {len(skipped_entries)} papers: {skipped_entries}"
+            msg = f"{msg} Failed inserting {len(skipped_entries)} papers."
+        else:
+            if (count_inserted + count_updated) > 0:
+                status = 'success'
+            else:
+                status = 'warning'
+                msg = f"{msg} (no rows affected)"
         logging.info(f"[SAVE] {msg}")
-        result = {"message": msg}
-        if skipped_entries:
-            result["skipped_entries"] = skipped_entries
-        return result
+        return helper_func.make_response(status, msg, data)
+
+    except sqlite3.Error as e:
+        msg = f"Database error during save: {e}"
+        logging.error(f"[SAVE] {msg}")
+        return helper_func.make_response("error", msg, None)
     except Exception as e:
-        logging.exception("[SAVE] Exception during saving paper info")
-        return {"error": f"Failed to save paper info: {str(e)}"}
+        logging.exception("[SAVE] Unexpected exception during saving")
+        return helper_func.make_response("error", f"Failed to save paper info: {e}", None)
 
 
 class LoadPaperArgs(BaseModel):
     title: str = Field(..., description="Paper Name")
 
-def load_paper_by_title(
+def get_paper_info_by_title(
     paper_db_path: str,
     title: str
 ) -> Dict[str, Any]:
     """
-    Load papers from SQL database by title only.
+    Load papers from the SQLite database by exact title.
+
+    Args:
+        paper_db_path (str): Path to the SQLite database file.
+        title (str): Exact title to look up.
     """
+    logging.info(f"[LOAD] Looking up paper information with a given paper title.")
 
-    data_process.initialize_paper_database(paper_db_path)
+    # Validate input
+    if not isinstance(title, str) or not title.strip():
+        msg = "Empty title — cannot perform lookup."
+        logging.warning(f"[LOAD] {msg}")
+        return helper_func.make_response("warning", msg, {"title": title, "count": 0, "papers": []})
+
+    # Initialize DB (guaranteed to return HTTP-style dict)
+    init_resp = data_process.initialize_paper_database(paper_db_path)
+    if init_resp.get("status") == "error":
+        msg = f"Cannot initialize database: {init_resp.get('message')}"
+        logging.error(f"[INIT] {msg}")
+        return helper_func.make_response("error", msg, None)
+
+    logging.info(f"[LOAD] SQL database ready at: {paper_db_path}")
+
+    # Query
     try:
-        conn = sqlite3.connect(paper_db_path)
-        cursor = conn.cursor()
-        query = """
-            SELECT title, authors, abstract, conference, year, paper_url, topic, keywords
-            FROM papers
-            WHERE title = ?
-        """
-        params = [title]
-        logging.info(f"[LOAD] Loading by title: {title}")
+        with sqlite3.connect(paper_db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT title, authors, conference, year, paper_url, topic, keywords
+                FROM papers
+                WHERE title = ?
+            """, [title])
+            rows = cursor.fetchall()
 
-        cursor.execute(query, params)
         papers = []
-        for row in cursor.fetchall():
-            paper = {
-                "title": row[0],
-                "authors": json.loads(row[1]) if row[1] else [],
-                "abstract": row[2],
-                "conference": row[3],
-                "year": row[4],
-                "paper_url": row[5],
-                "topic": json.loads(row[6]) if row[6] else [],
-                "keywords": json.loads(row[7]) if row[7] else [],
-            }
-            papers.append(paper)
-        conn.close()
+        for row in rows:
+            # Safely parse JSON-ish columns
+            try:
+                authors = json.loads(row[1]) if row[1] else []
+            except Exception:
+                authors = []
+            try:
+                topic = json.loads(row[5]) if row[5] else []  # CHANGED: index 6 -> 5
+            except Exception:
+                topic = []
+            try:
+                keywords = json.loads(row[6]) if row[6] else []  # FIX: parse keywords (was duplicate topic)
+            except Exception:
+                keywords = []
 
-        if len(papers) == 0:
-            return {
-                "error": f"No paper found with title '{title}'.",
-                "papers": []
-            }
-        elif len(papers) > 1:
-            logging.warning(f"[LOAD] Loaded more than one paper with name '{title}'.")
-            return {
-                "error": f"Loaded more than one paper with name '{title}'. Recheck the loading result.",
-                "papers": papers
-            }
-        else:
-            return {
-                "message": f"Loaded 1 paper with title '{title}'.",
-                "papers": papers
-            }
+            papers.append(
+                {
+                    "title": row[0],
+                    "authors": authors,
+                    "conference": row[2],
+                    "year": row[3],
+                    "paper_url": row[4],
+                    "topic": topic,
+                    "keywords": keywords,
+                }
+            )
+
+        count = len(papers)
+        if count == 0:
+            msg = f"No paper found with title '{title}'."
+            logging.warning(f"[LOAD] {msg}")
+            return helper_func.make_response(
+                "warning", msg, {"title": title, "count": 0, "papers": []}
+            )
+        if count > 1:
+            msg = f"Loaded more than one paper with title '{title}'."
+            logging.warning(f"[LOAD] {msg}")
+            return helper_func.make_response(
+                "warning", msg, {"title": title, "count": count, "papers": papers}
+            )
+
+        msg = f"Loaded 1 paper with title '{title}'."
+        logging.info(f"[LOAD] {msg}")
+        return helper_func.make_response(
+            "success", msg, {"title": title, "count": 1, "papers": papers}
+        )
+
+    except sqlite3.Error as e:
+        msg = f"Database error during lookup: {e}"
+        logging.error(f"[LOAD] {msg}")
+        return helper_func.make_response("error", msg, None)
     except Exception as e:
-        logging.exception("[LOAD] Exception during loading paper info by title")
-        return {"error": f"Failed to load paper info: {str(e)}"}
-
+        msg =  f"Failed to load paper info: {e}"
+        logging.error(f"[LOAD] {msg}")
+        return helper_func.make_response("error", msg, None)
 
 class FilterPaperByTopicArgs(BaseModel):
     conference: str = Field(..., description="Conference name")
     year: int = Field(..., description="Year")
     topic_keywords: TopicKeywordsModel = Field(..., description="Dict with keys 'topic' and 'keywords' (required).")
 
+
 def filter_paper_by_topic(
     conference: str,
     year: int,
-    topic_keywords: TopicKeywordsModel,
+    topic_keywords,  # TopicKeywordsModel with: topic: str, keywords: List[str]
     paper_db_path: str
 ) -> Dict[str, Any]:
+    """
+    Filter papers for a conference/year by title keywords and/or topic membership (no abstract).
     
-    # Always ensure the table exists
-    data_process.initialize_paper_database(paper_db_path)
+    Args:
+        conference (str): Conference name.
+        year (int): Conference year.
+        topic_keywords (TopicKeywordsModel): Object with .topic and .keywords.
+        paper_db_path (str): Path to the SQLite database file.
+    """
+    # Ensure table exists
+    init_resp = data_process.initialize_paper_database(paper_db_path)
+    if init_resp.get("status") == "error":
+        msg = f"Cannot initialize database: {init_resp.get('message')}"
+        logging.error(f"[FILTER][INIT] {msg}")
+        return helper_func.make_response("error", msg, None)
 
-    failed_entries = []
+    failed_entries: List[Dict[str, Any]] = []
+
+    # Normalize inputs
+    topic_str = (getattr(topic_keywords, "topic", "") or "").strip()
+    keywords_in: List[str] = [k for k in getattr(topic_keywords, "keywords", []) if isinstance(k, str)]
+    keywords_set = {k.lower().strip() for k in keywords_in if k.strip()}
+
+    if not topic_str and not keywords_set:
+        msg = "No topic or keywords provided."
+        logging.warning(f"[FILTER] {msg}")
+        return helper_func.make_response(
+            "warning",
+            msg,
+            {
+                "conference": conference,
+                "year": year,
+                "filtered_count": 0,
+                "papers": [],
+                "failed_entries": [],
+            },
+        )
+    
     try:
         with sqlite3.connect(paper_db_path) as conn:
             cursor = conn.cursor()
             query = """
-                SELECT title, authors, abstract, conference, year, paper_url, topic, keywords
+                SELECT
+                    title,       -- 0
+                    authors,     -- 1 (JSON)
+                    conference,  -- 2
+                    year,        -- 3
+                    paper_url,   -- 4
+                    topic,       -- 5 (JSON)
+                    keywords     -- 6 (JSON)
                 FROM papers
                 WHERE conference=? AND year=?
             """
             params = [conference, year]
-            try:
-                cursor.execute(query, params)
-                rows = cursor.fetchall()
-                logging.info(f"[FILTER] Fetched {len(rows)} papers from database {paper_db_path} for {conference} {year}")
-            except Exception as db_err:
-                logging.exception(f"[FILTER] Failed to fetch papers from database {paper_db_path}: {db_err}")
-                return {"error": f"Failed to fetch papers from database {paper_db_path}: {db_err}"}
 
-            if not topic_keywords.topic or not topic_keywords.keywords: 
-                logging.exception(f"[FILTER] Failed to extract topic from topic_keywords {topic_keywords}")
-                return {"error": f"Failed to extract topic or keywords from topic_keywords {topic_keywords}"}
+             # --- DB query with explicit error handling ---
+            try:  
+                cursor.execute(query, params)  
+                rows = cursor.fetchall()  
+
+            except sqlite3.Error as db_err:     
+                msg = f"Failed to fetch papers from database {paper_db_path}: {db_err}"  
+                logging.exception(f"[FILTER] {msg}")  
+                return helper_func.make_response("error", msg, None)  
             
-            topic = topic_keywords.keywords
-            keywords_set = set(kw.lower() for kw in topic_keywords.keywords if isinstance(kw, str))
+            except Exception as db_err:         
+                msg = f"Unexpected DB error: {db_err}"  
+                logging.exception(f"[FILTER] {msg}")    
+                return helper_func.make_response("error", msg, None)  
 
-            filtered_papers = []
-            for idx, row in enumerate(rows):
+            logging.info(f"[FILTER] Fetched {len(rows)} papers from {paper_db_path} for {conference} {year}")
+
+            # If no rows found, return a warning early
+            if len(rows) == 0:  # NEW
+                msg = f"No papers found for {conference} {year}."  # NEW
+                logging.warning(f"[FILTER] {msg}")  # NEW
+                return helper_func.make_response(   # NEW
+                    "warning",
+                    msg,
+                    {
+                        "conference": conference,
+                        "year": year,
+                        "filtered_count": 0,
+                        "papers": [],
+                        "failed_entries": [],
+                        "save_result": helper_func.make_response("warning", "No papers to update.", None),
+                    },
+                )
+
+        filtered_papers: List[Dict[str, Any]] = []
+
+        for idx, row in enumerate(rows):
+            try:
+                # Parse JSON columns
                 try:
-                    paper = {
-                        "title": row[0],
-                        "authors": json.loads(row[1]) if row[1] else [],
-                        "abstract": row[2] or "",
-                        "conference": row[3],
-                        "year": row[4],
-                        "paper_url": row[5],
-                        "topic": json.loads(row[6]) if row[6] else [],
-                        "keywords": json.loads(row[7]) if row[7] else []
-                    }
-                    in_abstract = any(kw in paper["abstract"].lower() for kw in keywords_set)
-                    in_title = any(kw in (paper["title"] or "").lower() for kw in keywords_set)
-                    in_topic = topic in paper["topic"]
-                    if in_abstract or in_title or in_topic:
-                        filtered_papers.append(paper)
-                except Exception as parse_err:
-                    error_msg = f"[FILTER][{idx}] Error parsing row: {parse_err}"
-                    logging.error(error_msg)
-                    failed_entries.append({
-                        "index": idx,
-                        "row_data": list(row),
-                        "error": str(error_msg)
-                    })
+                    authors = json.loads(row[1]) if row[1] else []
+                except Exception:
+                    authors = []
 
-            logging.info(f"[FILTER] {len(filtered_papers)} papers matched filter for {conference} {year} and keywords.")
-
-            updated_paper_info_list = []
-            for idx, paper in enumerate(filtered_papers):
                 try:
-                    updated_entry = paper.copy()
-                    updated_entry["topic"] = data_process.merge_unique_elements(paper["topic"], data_process.ensure_list(topic_keywords.topic))
-                    updated_entry["keywords"] = data_process.merge_unique_elements(paper["keywords"], data_process.ensure_list(topic_keywords.keywords))
-                    updated_paper_info_list.append(updated_entry)
-                    logging.debug(f"[FILTER][{idx}] Merged topics/keywords for '{paper['title']}'")
-                except Exception as merge_err:
-                    error_msg = f"[FILTER][{idx}] Error merging topics/keywords: {merge_err}"
-                    logging.error(error_msg)
-                    failed_entries.append({
-                        "index": idx,
-                        "title": paper.get("title"),
-                        "error": str(error_msg)
-                    })
+                    topic_db = json.loads(row[5]) if row[5] else []
+                except Exception:
+                    topic_db = []
 
-            # Save updated papers
-            if updated_paper_info_list:
                 try:
-                    save_result = save_paper_info(
-                        paper_info_list=updated_paper_info_list,
-                        conference=conference,
-                        year=year,
-                        paper_db_path=paper_db_path
-                    )
-                    logging.info(f"[FILTER][UPDATE] Saved {len(updated_paper_info_list)} updated papers. Save result: {save_result}")
-                except Exception as save_err:
-                    logging.exception(f"[FILTER][UPDATE] Exception saving updated papers: {save_err}")
-                    save_result = {"error": f"Failed to save updated papers: {save_err}"}
-            else:
-                logging.info("[FILTER][UPDATE] No papers to update.")
-                save_result = {"message": "No papers to update."}
+                    keywords_db = json.loads(row[6]) if row[6] else []
+                except Exception:
+                    keywords_db = []
 
-            result = {
-                "message": f"Filtered {len(filtered_papers)} papers; paper saving result: {save_result}",
-                "papers": filtered_papers
-            }
-            if failed_entries:
-                result["failed_entries"] = failed_entries
-            return result
+                paper = {
+                    "title": row[0],
+                    "authors": authors,
+                    "conference": row[2],
+                    "year": row[3],
+                    "paper_url": row[4],
+                    "topic": topic_db,
+                    "keywords": keywords_db,
+                }
 
+                # Matching
+                title_lc = (paper["title"] or "").lower()
+                in_title = bool(keywords_set) and any(kw in title_lc for kw in keywords_set)
+
+                topic_db_lc = [t.lower() for t in paper["topic"] if isinstance(t, str)]
+                in_topic = bool(topic_str) and (topic_str.lower() in topic_db_lc)
+
+                db_keywords_lc = {k.lower() for k in paper["keywords"] if isinstance(k, str)}
+                in_db_keywords = bool(keywords_set) and bool(db_keywords_lc & keywords_set)
+
+                if in_title or in_topic or in_db_keywords:
+                    filtered_papers.append(paper)
+
+            except Exception as parse_err:
+                logging.error(f"[FILTER][{idx}] Error parsing row: {parse_err}")
+                failed_entries.append({
+                    "index": idx,
+                    "row_data": list(row),
+                    "error": str(parse_err),
+                })
+
+        logging.info(f"[FILTER] {len(filtered_papers)} papers matched for {conference} {year}.")
+            
+        # Prepare updates: merge topic (single string) and keywords (list)
+        updated_paper_info_list: List[Dict[str, Any]] = []
+        for idx, paper in enumerate(filtered_papers):
+            try:
+                updated_entry = dict(paper)
+                topic_list_from_input = [topic_str] if topic_str else []
+                updated_entry["topic"] = helper_func.merge_unique_elements(
+                    paper.get("topic", []),
+                    topic_list_from_input
+                )
+                updated_entry["keywords"] = helper_func.merge_unique_elements(
+                    paper.get("keywords", []),
+                    list(keywords_set)  # keep the provided ones
+                )
+                updated_paper_info_list.append(updated_entry)
+                logging.info(f"[FILTER][{idx}] Merged topic/keywords for '{paper['title']}'")
+            except Exception as merge_err:
+                logging.error(f"[FILTER][{idx}] Error merging topic/keywords: {merge_err}")
+                failed_entries.append({
+                    "index": idx,
+                    "title": paper.get("title"),
+                    "error": str(merge_err),
+                })
+
+        # Persist updates if any
+        if updated_paper_info_list:
+            try:
+                save_result = save_paper_info(
+                    paper_info_list=updated_paper_info_list,
+                    conference=conference,
+                    year=year,
+                    paper_db_path=paper_db_path,
+                )
+            except Exception as save_err:
+                logging.exception(f"[FILTER][UPDATE] Exception saving updated papers: {save_err}")
+                save_result = helper_func.make_response("error", f"Failed to save updated papers: {save_err}", None)
+        else:
+            logging.info("[FILTER][UPDATE] No papers to update.")
+            save_result = helper_func.make_response("warning", "No papers to update.", None)
+
+        status = "success"
+        msg = f"Filtered {len(filtered_papers)} papers for {conference} {year}."
+        if save_result.get("status") == "error":
+            status = "error"
+            msg = f"{msg} Failed to save the update oaoers."
+        elif len(filtered_papers) == 0:
+            status = "warning"
+            msg = f"{msg} No new paper updates for this topic."
+        elif len(failed_entries) > 0:
+            status = "warning"
+            msg = f"{msg} Failed updating topic and keywords info for {len(failed_entries)} papers."
+
+        return helper_func.make_response(
+            status,
+            msg,
+            {
+                "conference": conference,
+                "year": year,
+                "filtered_count": len(filtered_papers),
+                "papers": filtered_papers,
+                "failed_entries": failed_entries,
+                "save_result": save_result,
+            },
+        )
+
+    except sqlite3.Error as db_err:
+        msg = f"Failed to fetch papers from database {paper_db_path}: {db_err}"
+        logging.exception(f"[FILTER] {msg}")
+        return helper_func.make_response("error", msg, None)
     except Exception as e:
-        logging.exception("[FILTER] Exception during filtering and updating paper info")
-        return {"error": f"Failed to filter and update papers: {str(e)}"}
-
+        msg = f"Failed to filter and update papers: {e}"
+        logging.exception(f"[FILTER] {msg}")
+        return helper_func.make_response("error", msg, None)
 
 class FetchPaperArgs(BaseModel):
     conference: str = Field(..., description="Conference name")
@@ -339,7 +541,7 @@ Output:
         response = llm.invoke(prompt) if hasattr(llm, "invoke") else llm(prompt)
         response_text = response.content if hasattr(response, "content") else response
         cleaned_text = data_process.strip_code_block(response_text)
-        logging.debug(f"[KEYWORD_GEN] Raw LLM response: {response_text[:200]}")
+        logging.info(f"[KEYWORD_GEN] Raw LLM response: {response_text[:200]}")
         
         # Try JSON first, then fallback to ast.literal_eval
         try:
@@ -388,14 +590,14 @@ Output:
 
 
 
-save_paper_tool = StructuredTool.from_function(
-    func=partial(save_paper_info, paper_db_path=config.PAPER_DB_PATH),
-    args_schema=SavePaperArgs,
-    name="save_paper_info",
-    description="Save a list of paper metadata (title, authors, abstract, urls) to the SQL database. Optionally grouped by topic."
-)
-load_paper_tool = StructuredTool.from_function(
-    func=partial(load_paper_by_title, paper_db_path=config.PAPER_DB_PATH),
+# save_paper_tool = StructuredTool.from_function(
+#     func=partial(save_paper_info, paper_db_path=config.PAPER_DB_PATH),
+#     args_schema=SavePaperArgs,
+#     name="save_paper_info",
+#     description="Save a list of paper metadata (title, authors, abstract, urls) to the SQL database. Optionally grouped by topic."
+# )
+get_paper_info_tool = StructuredTool.from_function(
+    func=partial(get_paper_info_by_title, paper_db_path=config.PAPER_DB_PATH),
     args_schema=LoadPaperArgs,
     name="load_paper_list",
     description="Load paper metadata from the SQL database for a given conference and year. Optionally filter by topic."
@@ -422,8 +624,8 @@ keyword_generation_tool = StructuredTool.from_function(
 
 
 paper_fetch_toolkit = [
-    save_paper_tool,
-    load_paper_tool,
+    # save_paper_tool,
+    get_paper_info_tool,
     fetch_paper_list_tool,
     filter_paper_by_topic_tool,
     keyword_generation_tool
