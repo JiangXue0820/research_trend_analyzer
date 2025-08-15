@@ -424,7 +424,7 @@ def filter_paper_by_topic(
                 )
                 updated_entry["keywords"] = helper_func.merge_unique_elements(
                     paper.get("keywords", []),
-                    list(keywords_set)  # keep the provided ones
+                    keywords_in    # keep the provided ones
                 )
                 updated_paper_info_list.append(updated_entry)
                 logging.info(f"[FILTER][{idx}] Merged topic/keywords for '{paper['title']}'")
@@ -456,7 +456,7 @@ def filter_paper_by_topic(
         msg = f"Filtered {len(filtered_papers)} papers for {conference} {year}."
         if save_result.get("status") == "error":
             status = "error"
-            msg = f"{msg} Failed to save the update oaoers."
+            msg = f"{msg} Failed to save the update papers."
         elif len(filtered_papers) == 0:
             status = "warning"
             msg = f"{msg} No new paper updates for this topic."
@@ -495,99 +495,206 @@ def fetch_paper_list(
     year: int,
     paper_db_path: str
 ) -> Dict[str, Any]:
-    try:
-        # Use your actual fetcher, this is a stub example
-        if conference.lower() in ['nips', 'neurips']:
-            papers = paper_crawler.fetch_neurips_papers(year)
-            result = save_paper_info(papers, conference, year, paper_db_path)
-            if "error" not in result.keys():
-                logging.info(f"[FETCH] Fetched and saved papers for {conference} {year}")
-                return {"message": f"Fetched and saved {len(papers)} papers for {conference} {year}"}
-            else:
-                logging.error(f"[Fail] Failed to fetch  papers for {conference} {year}")
-                return {"error": f"Failed to fetch paper {conference} {year}, {result['error']}"}
+    """
+    Fetch a paper list for a given conference/year and persist it into the database.
+    Currently supports NeurIPS/NIPS via paper_crawler.fetch_neurips_papers(year).
+    """
+    logging.info(f"[FETCH] Fetching papers for {conference} {year}")
 
+    # Validate inputs
+    if not isinstance(conference, str) or not conference.strip():
+        msg = "Empty conference name — cannot fetch."
+        logging.warning(f"[FETCH] {msg}")
+        return helper_func.make_response(
+            "warning",
+            msg,
+            {"conference": conference, "year": year, "fetched": 0}
+        )
+    try:
+        year_int = int(year)
+        if year_int <= 0:
+            raise ValueError("Year must be positive.")
+    except Exception as v_err:
+        msg = f"Invalid year: {v_err}"
+        logging.warning(f"[FETCH] {msg}")
+        return helper_func.make_response(
+            "warning",
+            msg,
+            {"conference": conference, "year": year, "fetched": 0}
+        )
+
+    conf_key = conference.strip().lower()
+
+    # Supported conferences
+    if conf_key in {"neurips", "nips"}:
+        # Crawl
+        try:
+            papers = paper_crawler.fetch_neurips_papers(year_int)
+        except Exception as crawl_err:
+            msg = f"Failed to fetch {conference} {year_int}: {crawl_err}"
+            logging.exception(f"[FETCH] {msg}")
+            return helper_func.make_response("error", msg, None)
+
+        if not isinstance(papers, list):
+            msg = "Crawler returned a non-list payload."
+            logging.error(f"[FETCH] {msg}")
+            return helper_func.make_response(
+                "error",
+                msg,
+                {"conference": conference, "year": year_int}
+            )
+
+        fetched = len(papers)
+        if fetched == 0:
+            msg = f"No papers fetched for {conference} {year_int}."
+            logging.warning(f"[FETCH] {msg}")
+            return helper_func.make_response(
+                "warning",
+                msg,
+                {
+                    "conference": conference,
+                    "year": year_int,
+                    "fetched": 0,
+                    "save_result": helper_func.make_response("warning", "No papers to update.", None),
+                }
+            )
+
+        # Save
+        try:
+            save_result = save_paper_info(
+                paper_info_list=papers,
+                conference=conference,
+                year=year_int,
+                paper_db_path=paper_db_path
+            )
+        except Exception as save_err:
+            msg = f"Exception while saving papers: {save_err}"
+            logging.exception(f"[FETCH] {msg}")
+            return helper_func.make_response("error", msg, None)
+
+        status = save_result.get("status", "warning")
+        if status == "success":
+            msg = f"Fetched and saved {fetched} papers for {conference} {year_int}."
+        elif status == "warning":
+            msg = f"Fetched {fetched} papers for {conference} {year_int}, but no rows were changed."
         else:
-            logging.warning(f"[FETCH] Crawling not supported for {conference}")
-            return {"error": f"Crawling not supported for {conference}"}
-    except Exception as e:
-        logging.exception("[FETCH] Exception during fetching paper list")
-        return {"error": f"Failed to fetch papers: {str(e)}"}
+            msg = f"Fetched {fetched} papers for {conference} {year_int}, but failed to save."
+
+        logging.info(f"[FETCH] {msg}")
+        return helper_func.make_response(
+            status,
+            msg,
+            {
+                "conference": conference,
+                "year": year_int,
+                "fetched": fetched,
+                "save_result": save_result,
+            }
+        )
+
+    # Unsupported conference
+    msg = f"Crawling not supported for {conference}."
+    logging.warning(f"[FETCH] {msg}")
+    return helper_func.make_response(
+        "warning",
+        msg,
+        {"conference": conference, "year": year, "fetched": 0}
+    )
     
 class GenerateKeywordListArgs(BaseModel):
     topic: str = Field(..., description="The research topic or subject to generate keywords for, for instance ['privacy'].")
 
 def generate_keyword_list(
-        topic: str, 
-        llm,
-        instruction) -> dict:
+    topic: str,
+    llm: Any,
+    instruction: str
+) -> Dict[str, Any]:
     """
-    Generate keywords for a topic using an LLM with few-shot prompt.
-    On parsing error, returns a dict with an 'error' key and the raw response.
+    Generate keywords for a topic using an LLM with a few-shot style prompt.
     """
-    if llm is None:
-        logging.error("[KEYWORD_GEN] No LLM provided for topic '%s'.", topic)
-        return {"error": "No LLM provided to generate keywords.", "topic": topic}
+    # CHANGED: tighter LLM validation (single check for None / unusable client)
+    if llm is None or not (hasattr(llm, "invoke") or callable(llm)):
+        msg = "No usable LLM provided to generate keywords."
+        logging.error("[KEYWORD_GEN] %s (topic=%r)", msg, topic)
+        return helper_func.make_response("error", msg, {"topic": topic})
 
     prompt = f"""{instruction}
 
 Now, do the same for this topic:
 Topic: "{topic}"
 Output:
-    """
+"""
 
     try:
-        logging.info(f"[KEYWORD_GEN] Sending prompt to LLM for topic: '{topic}'")
-        response = llm.invoke(prompt) if hasattr(llm, "invoke") else llm(prompt)
-        response_text = response.content if hasattr(response, "content") else response
-        cleaned_text = data_process.strip_code_block(response_text)
-        logging.info(f"[KEYWORD_GEN] Raw LLM response: {response_text[:200]}")
-        
-        # Try JSON first, then fallback to ast.literal_eval
+        logging.info("[KEYWORD_GEN] Sending prompt for topic=%r", topic)
+
         try:
-            result = json.loads(cleaned_text)
+            raw = llm.invoke(prompt) if hasattr(llm, "invoke") else llm(prompt)
+        except Exception as call_err:
+            msg = f"LLM call failed: {call_err}"
+            logging.exception("[KEYWORD_GEN] %s", msg)
+            return helper_func.make_response("error", msg, {"topic": topic})
+
+        response_text = (
+            getattr(raw, "content", None)
+            or getattr(raw, "text", None)
+            or (raw.get("content") or raw.get("text")) if isinstance(raw, dict) else None
+        )
+        if response_text is None:
+            response_text = str(raw)
+
+        logging.info("[KEYWORD_GEN] Raw response (first 200): %s", response_text[:200])
+
+        cleaned = helper_func.strip_code_block(response_text)
+
+        try:
+            parsed = json.loads(cleaned)
             logging.info("[KEYWORD_GEN] Successfully parsed LLM output as JSON.")
-        except Exception as json_err:
-            logging.warning(f"[KEYWORD_GEN] JSON parsing failed: {json_err}, trying ast.literal_eval...")
+        except Exception:
+            logging.warning("[KEYWORD_GEN] JSON parsing failed: %s; trying ast.literal_eval...", json_err)
             try:
-                result = ast.literal_eval(cleaned_text)
+                parsed = ast.literal_eval(cleaned)
                 logging.info("[KEYWORD_GEN] Successfully parsed LLM output with ast.literal_eval.")
-            except Exception as ast_err:
-                logging.error(f"[KEYWORD_GEN] Both JSON and ast parsing failed. ast error: {ast_err}")
-                return {
-                    "error": f"Failed to parse LLM output as JSON or Python: {ast_err}",
-                    "raw_response": response_text[:500],
-                }
+            except Exception as parse_err:
+                msg = f"Failed to parse LLM output as JSON or Python: {parse_err}"
+                logging.error("[KEYWORD_GEN] %s", msg)
+                return helper_func.make_response(
+                    "error", msg, {"topic": topic, "raw_response": response_text[:200]}
+                )
 
-        # Post-processing & validation
-        if (
-            isinstance(result, dict)
-            and "topic" in result and isinstance(result["topic"], str)
-            and "keywords" in result and isinstance(result["keywords"], list)
-        ):
-            topic_val = result["topic"].strip().lower()
-            keywords_list = [k.strip().lower() for k in data_process.ensure_list(result["keywords"])]
+        if not isinstance(parsed, dict) or not isinstance(parsed.get("topic"), str) or not isinstance(parsed.get("keywords"), list):
+            msg = "Output did not match expected data structure. Expected a dict with following fields: 'topic' (str) and 'keywords' (list)."
+            logging.error("[KEYWORD_GEN] %s: %r", msg, parsed)
+            return helper_func.make_response(
+                "error", msg, {"topic": topic, "raw_response": response_text[:500]}
+            )
 
-            logging.info(f"[KEYWORD_GEN] Extracted topic: {topic_val}, keywords: {keywords_list}")
+        topic_out = parsed["topic"].strip().lower()
+        keywords_out: List[str] = [
+            k.strip().lower()
+            for k in helper_func.ensure_list(parsed["keywords"])
+            if isinstance(k, str) and k.strip()
+        ]
 
-            return {
-                "message": f"Extracted: {topic_val}, keywords: {keywords_list}",
-                "topic": topic_val,
-                "keywords": keywords_list
-            }
-        else:
-            logging.error(f"[KEYWORD_GEN] LLM output not in expected dict structure: {result}")
-            return {
-                "error": "Output did not match expected dict structure, topic to be string and keyword to be lists.",
-                "raw_response": response_text[:500],
-            }
+        if not keywords_out:
+            msg = "Parsed output but no keywords were extracted."
+            logging.warning("[KEYWORD_GEN] %s (topic=%r)", msg, topic_out)
+            return helper_func.make_response(
+                "warning", msg, {"input_topic": topic, "topic": topic_out, "keywords": []}
+            )
+
+        logging.info("[KEYWORD_GEN] Extracted topic=%r, %d keywords", topic_out, len(keywords_out))
+        return helper_func.make_response(
+            "success",
+            f"Extracted keywords for topic '{topic_out}'.",
+            {"input_topic": topic, "topic": topic_out, "keywords": keywords_out},
+        )
+
     except Exception as e:
-        logging.exception(f"[KEYWORD_GEN] Exception during LLM keyword generation for topic '{topic}'")
-        return {
-            "error": f"Could not parse LLM output: {e}",
-            "raw_response": str(response_text)[:500] if 'response_text' in locals() else ""
-        }
-
+        msg = f"Could not parse LLM output: {e}"
+        logging.exception("[KEYWORD_GEN] %s (topic=%r)", msg, topic)
+        safe_raw = (locals().get("response_text") or "")[:500]
+        return helper_func.make_response("error", msg, {"topic": topic, "raw_response": safe_raw})
 
 
 # save_paper_tool = StructuredTool.from_function(
