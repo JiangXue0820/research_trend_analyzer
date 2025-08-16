@@ -2,7 +2,7 @@ from typing import Dict, Any, List, Optional, Literal
 import re
 import os
 
-def _make_response(
+def make_response(
     status: Literal["success", "warning", "error"],
     message: str,
     data: Optional[Dict[str, Any]] = None

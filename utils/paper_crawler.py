@@ -106,7 +106,7 @@ def download_pdf(pdf_url: str, file_path: str = "temp/paper.pdf") -> Dict[str, U
     """
 
     ensure_parent_dir(file_path)
-    
+
     try:
         resp = requests.get(pdf_url, headers=HEADERS, allow_redirects=True, timeout=30)
         resp.raise_for_status()

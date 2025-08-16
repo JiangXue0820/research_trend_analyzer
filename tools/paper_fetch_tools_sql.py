@@ -271,7 +271,7 @@ def filter_paper_by_topic(
     paper_db_path: str
 ) -> Dict[str, Any]:
     """
-    Filter papers for a conference/year by title keywords and/or topic membership (no abstract).
+    Filter papers for a conference/year by title keywords and/or topic membership.
     
     Args:
         conference (str): Conference name.
@@ -497,7 +497,12 @@ def fetch_paper_list(
 ) -> Dict[str, Any]:
     """
     Fetch a paper list for a given conference/year and persist it into the database.
-    Currently supports NeurIPS/NIPS via paper_crawler.fetch_neurips_papers(year).
+
+    Args:
+        conference: The short name of the conference to fetch (e.g., "NeurIPS", "NIPS").
+        year: The four-digit year of the conference edition to fetch (e.g., 2024).
+        paper_db_path: Filesystem path to the database where the paper list should be
+            stored. If the file does not exist, it will be created.
     """
     logging.info(f"[FETCH] Fetching papers for {conference} {year}")
 
@@ -600,6 +605,8 @@ def fetch_paper_list(
         msg,
         {"conference": conference, "year": year, "fetched": 0}
     )
+
+### -----------------
     
 class GenerateKeywordListArgs(BaseModel):
     topic: str = Field(..., description="The research topic or subject to generate keywords for, for instance ['privacy'].")
@@ -626,13 +633,13 @@ Output:
 """
 
     try:
-        logging.info("[KEYWORD_GEN] Sending prompt for topic=%r", topic)
+        logging.info(f"[KEYWORD_GEN] Sending prompt for topic={topic!r}")
 
         try:
             raw = llm.invoke(prompt) if hasattr(llm, "invoke") else llm(prompt)
         except Exception as call_err:
             msg = f"LLM call failed: {call_err}"
-            logging.exception("[KEYWORD_GEN] %s", msg)
+            logging.exception(f"[KEYWORD_GEN] {msg}")
             return helper_func.make_response("error", msg, {"topic": topic})
 
         response_text = (
@@ -643,33 +650,41 @@ Output:
         if response_text is None:
             response_text = str(raw)
 
-        logging.info("[KEYWORD_GEN] Raw response (first 200): %s", response_text[:200])
+        logging.info(f"[KEYWORD_GEN] Raw response (first 200): {response_text[:200]}")
 
         cleaned = helper_func.strip_code_block(response_text)
 
         try:
             parsed = json.loads(cleaned)
             logging.info("[KEYWORD_GEN] Successfully parsed LLM output as JSON.")
-        except Exception:
-            logging.warning("[KEYWORD_GEN] JSON parsing failed: %s; trying ast.literal_eval...", json_err)
+        except Exception as json_err:
+            logging.warning(f"[KEYWORD_GEN] JSON parsing failed: {json_err}; trying ast.literal_eval...")
             try:
                 parsed = ast.literal_eval(cleaned)
                 logging.info("[KEYWORD_GEN] Successfully parsed LLM output with ast.literal_eval.")
             except Exception as parse_err:
                 msg = f"Failed to parse LLM output as JSON or Python: {parse_err}"
-                logging.error("[KEYWORD_GEN] %s", msg)
+                logging.exception(f"[KEYWORD_GEN] {msg}")
                 return helper_func.make_response(
                     "error", msg, {"topic": topic, "raw_response": response_text[:200]}
                 )
 
+
+        # Expect the usual structure but we will ignore the model's 'topic' value
         if not isinstance(parsed, dict) or not isinstance(parsed.get("topic"), str) or not isinstance(parsed.get("keywords"), list):
             msg = "Output did not match expected data structure. Expected a dict with following fields: 'topic' (str) and 'keywords' (list)."
-            logging.error("[KEYWORD_GEN] %s: %r", msg, parsed)
+            logging.error(f"[KEYWORD_GEN] {msg}: {parsed!r}")
             return helper_func.make_response(
                 "error", msg, {"topic": topic, "raw_response": response_text[:500]}
             )
 
-        topic_out = parsed["topic"].strip().lower()
+        parsed_topic = parsed["topic"].strip()
+        if parsed_topic and parsed_topic.strip().lower() != topic.strip().lower():
+            logging.info(f"[KEYWORD_GEN] Ignoring model topic {parsed_topic!r}; using input topic {topic!r}.")
+
+        # Always use the original input topic in outputs
+        output_topic = topic
+        
         keywords_out: List[str] = [
             k.strip().lower()
             for k in helper_func.ensure_list(parsed["keywords"])
@@ -678,24 +693,223 @@ Output:
 
         if not keywords_out:
             msg = "Parsed output but no keywords were extracted."
-            logging.warning("[KEYWORD_GEN] %s (topic=%r)", msg, topic_out)
+            logging.warning(f"[KEYWORD_GEN] {msg} (topic={output_topic!r})")
             return helper_func.make_response(
-                "warning", msg, {"input_topic": topic, "topic": topic_out, "keywords": []}
+                "warning", msg, {"topic": output_topic, "keywords": []}
             )
 
-        logging.info("[KEYWORD_GEN] Extracted topic=%r, %d keywords", topic_out, len(keywords_out))
+        logging.info(f"[KEYWORD_GEN] Extracted {len(keywords_out)} keywords for topic={output_topic!r}")
         return helper_func.make_response(
             "success",
-            f"Extracted keywords for topic '{topic_out}'.",
-            {"input_topic": topic, "topic": topic_out, "keywords": keywords_out},
+            f"Extracted keywords for topic '{output_topic}'.",
+            {"topic": output_topic, "keywords": keywords_out},
         )
 
     except Exception as e:
         msg = f"Could not parse LLM output: {e}"
-        logging.exception("[KEYWORD_GEN] %s (topic=%r)", msg, topic)
+        logging.exception(f"[KEYWORD_GEN] {msg} (topic={topic!r})")
         safe_raw = (locals().get("response_text") or "")[:500]
         return helper_func.make_response("error", msg, {"topic": topic, "raw_response": safe_raw})
 
+### -----------------
+
+class DeleteCriteria(BaseModel):
+    """
+    Deletion criteria. If `all` is True, all rows are deleted and other fields are ignored.
+
+    topic semantics:
+      - topic == "null" or "[]" (case-insensitive) → delete only rows where topic JSON is exactly []
+      - topic == "<label>" → delete rows whose topic list contains <label> (case-insensitive membership)
+      - topic omitted/None/"" → ignore topic filter
+    """
+    all: bool = Field(False, description="Delete all rows when True; ignore other filters.")
+    title: Optional[str] = Field(None, description="Exact title to match.")
+    conference: Optional[str] = Field(None, description="Conference to match (exact).")
+    year: Optional[int] = Field(None, description="Year to match (exact).")
+    topic: Optional[str] = Field(None, description='Either "null"/"[]" or a topic label (string).')
+
+
+class DeletePapersByCriteriaArgs(BaseModel):
+    criteria: DeleteCriteria = Field(..., description="Deletion criteria dict.")
+    paper_db_path: str = Field(..., description="Path to the SQLite database file.")
+
+def delete_papers_by_criteria(
+    criteria: DeleteCriteria,
+    paper_db_path: str,
+) -> Dict[str, Any]:
+    """
+    Delete papers from the database according to the given criteria.
+
+    Args:
+        criteria: Deletion rules as a dict-like object with fields in DeleteCriteria:
+        paper_db_path: Filesystem path to the SQLite database file. If the file
+            does not exist, it will be created.
+    """
+    
+    # Ensure DB/table exists
+    init_resp = data_process.initialize_paper_database(paper_db_path)
+    if init_resp.get("status") == "error":
+        msg = f"Cannot initialize database: {init_resp.get('message')}"
+        logging.error(f"[DELETE][INIT] {msg}")
+        return helper_func.make_response("error", msg, {"criteria": criteria.dict()})
+
+    # Normalize inputs
+    title = criteria.title.strip() if isinstance(criteria.title, str) else None
+    conference = criteria.conference.strip() if isinstance(criteria.conference, str) else None
+    year_val = int(criteria.year) if isinstance(criteria.year, int) else None
+    topic_raw = criteria.topic.strip() if isinstance(criteria.topic, str) else None
+
+    # Safety: if not all=True and no filters, refuse to avoid accidental blanket delete
+    if not criteria.all and not any([title, conference, year_val is not None, topic_raw]):
+        msg = "When 'all' is False, provide at least one of: title, conference, year, topic."
+        logging.error(f"[DELETE] {msg}")
+        return helper_func.make_response("error", msg, {"criteria": criteria.dict()})
+
+    # 1) Delete-all path
+    if criteria.all:
+        try:
+            with sqlite3.connect(paper_db_path) as conn:
+                cur = conn.cursor()
+                cur.execute("DELETE FROM papers")
+                deleted = cur.rowcount or 0
+            status = "success" if deleted > 0 else "warning"
+            msg = f"Deleted {deleted} row(s)." if deleted > 0 else "No rows to delete."
+            return helper_func.make_response(status, msg, {"mode": "all", "deleted": deleted, "path": paper_db_path})
+        except sqlite3.Error as e:
+            msg = f"Database error during delete-all: {e}"
+            logging.exception(f"[DELETE] {msg}")
+            return helper_func.make_response("error", msg, {"mode": "all"})
+
+    # Build base WHERE for title/conference/year
+    where_parts: List[str] = []
+    params: List[Any] = []
+    if title:
+        where_parts.append("title = ?")
+        params.append(title)
+    if conference:
+        where_parts.append("conference = ?")
+        params.append(conference)
+    if year_val is not None:
+        where_parts.append("year = ?")
+        params.append(year_val)
+    where_sql = " AND ".join(where_parts) if where_parts else "1=1"
+
+    # Topic mode
+    topic_mode: Optional[str] = None   # None | 'null' | 'name'
+    topic_name_lc: Optional[str] = None
+    if topic_raw:
+        if topic_raw.lower() in {"null", "[]"}:
+            topic_mode = "null"
+        else:
+            topic_mode = "name"
+            topic_name_lc = topic_raw.lower()
+
+    # 2) null-topic-only: delete rows whose topic JSON is exactly [] (whitespace ignored), with base filters
+    if topic_mode == "null":
+        try:
+            with sqlite3.connect(paper_db_path) as conn:
+                cur = conn.cursor()
+                cur.execute(
+                    f"""
+                    DELETE FROM papers
+                    WHERE {where_sql}
+                      AND REPLACE(TRIM(topic), ' ', '') = '[]'
+                    """,
+                    params,
+                )
+                deleted = cur.rowcount or 0
+            status = "success" if deleted > 0 else "warning"
+            msg = (f"Deleted {deleted} row(s) with null topic."
+                   if deleted > 0 else "No rows with null topic matched the criteria.")
+            return helper_func.make_response(
+                status, msg, {"mode": "null_topic", "deleted": deleted, "path": paper_db_path, "criteria": criteria.dict()}
+            )
+        except sqlite3.Error as e:
+            msg = f"Database error during null-topic deletion: {e}"
+            logging.exception(f"[DELETE] {msg}")
+            return helper_func.make_response("error", msg, {"criteria": criteria.dict()})
+
+    # 3) Topic label membership: select candidates then delete IDs whose topic list contains the label (case-insensitive)
+    if topic_mode == "name" and topic_name_lc:
+        try:
+            with sqlite3.connect(paper_db_path) as conn:
+                cur = conn.cursor()
+                cur.execute(
+                    f"""
+                    SELECT id, topic
+                    FROM papers
+                    WHERE {where_sql}
+                    """,
+                    params,
+                )
+                rows = cur.fetchall()
+        except sqlite3.Error as e:
+            msg = f"Database error during selection: {e}"
+            logging.exception(f"[DELETE] {msg}")
+            return helper_func.make_response("error", msg, {"criteria": criteria.dict()})
+
+        if not rows:
+            return helper_func.make_response(
+                "warning",
+                "No rows matched the selection criteria.",
+                {"criteria": criteria.dict(), "selected": 0, "deleted": 0},
+            )
+
+        ids_to_delete: List[int] = []
+        for row_id, topic_text in rows:
+            try:
+                topic_list = json.loads(topic_text) if topic_text else []
+            except Exception:
+                topic_list = []
+            topic_list_lc = {t.lower() for t in topic_list if isinstance(t, str)}
+            if topic_name_lc in topic_list_lc:  # membership
+                ids_to_delete.append(row_id)
+
+        if not ids_to_delete:
+            return helper_func.make_response(
+                "warning",
+                f"No rows had topic '{criteria.topic}'.",
+                {"criteria": criteria.dict(), "selected": len(rows), "deleted": 0},
+            )
+
+        deleted_total = 0
+        try:
+            with sqlite3.connect(paper_db_path) as conn:
+                cur = conn.cursor()
+                CHUNK = 800
+                for i in range(0, len(ids_to_delete), CHUNK):
+                    chunk = ids_to_delete[i : i + CHUNK]
+                    qmarks = ",".join("?" for _ in chunk)
+                    cur.execute(f"DELETE FROM papers WHERE id IN ({qmarks})", chunk)
+                    deleted_total += cur.rowcount or 0
+        except sqlite3.Error as e:
+            msg = f"Database error during deletion: {e}"
+            logging.exception(f"[DELETE] {msg}")
+            return helper_func.make_response(
+                "error", msg, {"criteria": criteria.dict(), "selected": len(rows), "deleted": deleted_total}
+            )
+
+        status = "success" if deleted_total > 0 else "warning"
+        msg = f"Deleted {deleted_total} row(s)." if deleted_total > 0 else "No rows deleted."
+        return helper_func.make_response(
+            status, msg, {"criteria": criteria.dict(), "selected": len(rows), "deleted": deleted_total, "path": paper_db_path}
+        )
+
+    # 4) No topic filter: delete by base WHERE only
+    try:
+        with sqlite3.connect(paper_db_path) as conn:
+            cur = conn.cursor()
+            cur.execute(f"DELETE FROM papers WHERE {where_sql}", params)
+            deleted = cur.rowcount or 0
+        status = "success" if deleted > 0 else "warning"
+        msg = f"Deleted {deleted} row(s)." if deleted > 0 else "No rows matched the selection criteria."
+        return helper_func.make_response(
+            status, msg, {"mode": "base_where", "deleted": deleted, "path": paper_db_path, "criteria": criteria.dict()}
+        )
+    except sqlite3.Error as e:
+        msg = f"Database error during deletion: {e}"
+        logging.exception(f"[DELETE] {msg}")
+        return helper_func.make_response("error", msg, {"criteria": criteria.dict()})
 
 # save_paper_tool = StructuredTool.from_function(
 #     func=partial(save_paper_info, paper_db_path=config.PAPER_DB_PATH),
@@ -729,11 +943,26 @@ keyword_generation_tool = StructuredTool.from_function(
     description="Given a research topic or concept, generate a list of keywords using an LLM."
 )
 
+delete_papers_by_criteria_tool = StructuredTool.from_function(
+    func=delete_papers_by_criteria,
+    args_schema=DeletePapersByCriteriaArgs,
+    name="delete_papers_by_criteria",
+    description=(
+        "Delete rows from the 'papers' SQLite table using a dict criteria. "
+        "If criteria.all is True, deletes all rows. Otherwise, filters by any of: "
+        "title (exact), conference (exact), year (exact). "
+        'If criteria.topic == "null" or "[]", deletes only rows whose topic JSON is exactly []; '
+        "if it's any other non-null string, deletes rows whose topic list contains that label "
+        "(membership check, case-insensitive). If criteria.topic is omitted, topic is ignored."
+    )
+)
+
 
 paper_fetch_toolkit = [
     # save_paper_tool,
     get_paper_info_tool,
     fetch_paper_list_tool,
     filter_paper_by_topic_tool,
-    keyword_generation_tool
+    keyword_generation_tool,
+    delete_papers_by_criteria_tool
 ]

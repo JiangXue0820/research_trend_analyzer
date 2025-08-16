@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append("../")
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, AnyUrl
 from functools import partial
 import logging
 import sqlite3
@@ -19,25 +19,27 @@ from tools.paper_fetch_tools_sql import load_paper_by_title
 
 class PaperMetaModel(BaseModel):
     title: str = Field(..., description="Title of the paper")
-    authors: str = Field(..., description="Authors of the paper")
+    authors: List[str] = Field(default_factory=list, description="List of authors")
     conference: str = Field(..., description="Publication conference")
-    year: str = Field(..., description="Publication year")
-    paper_url: str = Field(..., description="url for downloading the paper")
+    year: int = Field(..., description="Publication year (4-digit)")
+    paper_url: AnyUrl = Field(..., description="URL for downloading the paper")
+    topic: List[str] = Field(default_factory=list, description="Topics the paper is related to")
+    keywords: List[str] = Field(default_factory=list, description="Keywords matching the topics")
+I
+# def construct_paper_meta(
+#     title: str,
+# ) -> dict:
+#     load_result = load_paper_by_title(title)
+#     if "error" not in load_result.keys() and len(load_result['papers'])==1:
+#         paper_info_dict = load_result['papers'][0]
+#     else:
+#         return {"error": f"{load_result['error']}"}
 
-def construct_paper_meta(
-    title: str,
-) -> dict:
-    load_result = load_paper_by_title(title)
-    if "error" not in load_result.keys() and len(load_result['papers'])==1:
-        paper_info_dict = load_result['papers'][0]
-    else:
-        return {"error": f"{load_result['error']}"}
-
-    meta = {k: paper_info_dict.get(k) for k in ["title", "authors", "conference", "year", "paper_url"]}
-    return {
-        "message": "metadata for paper {} constructed",
-        "meta": meta
-    }
+#     meta = {k: paper_info_dict.get(k) for k in ["title", "authors", "conference", "year", "paper_url"]}
+#     return {
+#         "message": "metadata for paper {} constructed",
+#         "meta": meta
+#     }
 
 # ----------- 2. Tool: Download & Parse & Vectorize Paper -----------
 
