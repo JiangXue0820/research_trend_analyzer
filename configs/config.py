@@ -46,6 +46,7 @@ TEMP_PAPER_PATH = os.path.join(PAPER_ROOT_PATH, "temp.pdf")  # Directory to save
 # Configuration for text splitter 
 CHUNK_SIZE = 700
 CHUNK_OVERLAP = 150
+MAX_TEXT_LENGTH=50000
 
 # Configuration for RAG
 EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # HuggingFace model for embeddings

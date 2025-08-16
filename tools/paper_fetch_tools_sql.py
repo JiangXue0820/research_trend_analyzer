@@ -937,14 +937,16 @@ fetch_paper_list_tool = StructuredTool.from_function(
 )
 
 keyword_generation_tool = StructuredTool.from_function(
-    func=partial(generate_keyword_list, llm=llm_provider.get_llm(config), instruction=prompts.keyword_generation_prompt),
+    func=partial(generate_keyword_list, 
+                 llm=llm_provider.get_llm(config), 
+                 instruction=prompts.KEYWORDS_GENERATION_PROMPT),
     args_schema=GenerateKeywordListArgs,
     name="generate_keyword_list_given_topic",
     description="Given a research topic or concept, generate a list of keywords using an LLM."
 )
 
 delete_papers_by_criteria_tool = StructuredTool.from_function(
-    func=delete_papers_by_criteria,
+    func=partial(delete_papers_by_criteria, paper_db_path=config.PAPER_DB_PATH),
     args_schema=DeletePapersByCriteriaArgs,
     name="delete_papers_by_criteria",
     description=(

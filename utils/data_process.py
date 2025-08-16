@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-from helper_func import *
+from utils.helper_func import *
     
 
 def save_md_file(text: str, md_path: str, mode: str = "w") -> Dict[str, Any]:

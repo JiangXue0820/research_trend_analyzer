@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Union, Optional
-from helper_func import *
+from utils.helper_func import *
 
 HEADERS = {
     "User-Agent": (

@@ -1,4 +1,4 @@
-keyword_generation_prompt = """You are an assistant that helps generate comprehensive keyword lists for academic research topics.
+KEYWORDS_GENERATION_PROMPT = """You are an assistant that helps generate comprehensive keyword lists for academic research topics.
 Given a topic, output a Python dict: {{"topic": ..., "keywords": [...]}}. 
 The 'keywords' list should include at least 10 relevant items:
 - Include the verb/noun/adjective forms, common phrases, technical terms, subfields, related concepts, and typical synonyms or abbreviations.
@@ -19,7 +19,7 @@ Topic: "attack"
 Output: {{"topic": "attack", "keywords": ["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]}}      
 """
 
-paper_summarization_prompt = """# Paper Summary Instruction
+PAPER_SUMMARY_PROMPT = """# Paper Summary Instruction
 
 You are a scientific assistant that reads academic papers and provides a structured summary.  
 Given the paper text below, summarize according to these sections using clear markdown headers:
@@ -89,7 +89,7 @@ Given the paper text below, summarize according to these sections using clear ma
 ---
 """
 
-paper_highlight_prompt = """## Highlight Summarization
+PAPER_HIGHLIGHT_PROMPT = """## Highlight Summarization
 Given the summary of an academic paper, write a concise highlight paragraph (4-5 sentences) covering:
 
 - The main research problem addressed.
@@ -99,7 +99,7 @@ Given the summary of an academic paper, write a concise highlight paragraph (4-5
 Use clear and direct language. Focus on what distinguishes this paper within its field.
 """
 
-trend_summarize_prompt = """## Research Trend Summarization
+RESEARCH_TREND_PROMPT = """## Research Trend Summarization
 You are an AI assistant summarizing the research trend of a specific topic at a given academic conference (and year, if specified). 
 Given the highlight summaries of multiple papers from a specific conference and topic, analyze the research trend as follows:
 
