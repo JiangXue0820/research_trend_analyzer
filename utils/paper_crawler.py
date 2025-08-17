@@ -1,6 +1,7 @@
 # paper_crawler.py
 import os
 import requests
+import pymupdf
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Union, Optional
@@ -94,71 +95,87 @@ def paper_matches_topic(
             None
         )
     
-def download_pdf(pdf_url: str, file_path: str = "temp/paper.pdf") -> Dict[str, Union[Dict[str, str], Optional[str]]]:
+def download_pdf(pdf_url: str, paper_path: str):
     """
     Downloads a PDF from the given URL and saves it locally.
     Returns the save path if successful, or an error message (string starting with 'error: ...').
 
     Args:
         pdf_url (str): The URL pointing to the PDF file.
-        file_path (str, optional): Local file path to save the PDF. Defaults to "temp/paper.pdf".
+        paper_path (str, optional): Local file path to save the PDF. Defaults to "temp/paper.pdf".
 
     """
+    if not isinstance(pdf_url, str) or not pdf_url.strip():
+        return make_response("error", 
+                             "No pdf_url provided.", 
+                             None)
+    
+    if not isinstance(paper_path, str) or not paper_path.strip():
+        return make_response("error", 
+                             "No paper_path provided.", 
+                             None)
 
-    ensure_parent_dir(file_path)
+    ensure_parent_dir(paper_path)
 
     try:
         resp = requests.get(pdf_url, headers=HEADERS, allow_redirects=True, timeout=30)
         resp.raise_for_status()
-
-        # Validate PDF content signature
-        if not resp.content.startswith(b'%PDF'):
-            snippet = resp.content[:300].decode(errors='replace')
-            return make_response(
-                "error",
-                f"Not a valid PDF (possible HTML page). Snippet: {snippet}",
-                None
-            )
-
-        # Save the PDF to file
-        with open(file_path, "wb") as f:
+        if not resp.content.startswith(b"%PDF"):
+            snippet = resp.content[:300].decode(errors="replace")
+            return make_response("error", 
+                                 f"Not a valid PDF (possible HTML page). Snippet: {snippet}",
+                                 None)
+        
+        with open(paper_path, "wb") as f:
             f.write(resp.content)
-
-        return make_response(
-            "success",
-            "Downloaded PDF successfully.",
-            {"path": file_path}
-        )
-
+        return make_response("success", 
+                             "Downloaded PDF successfully.",
+                              {"pdf_url": pdf_url, "path": paper_path, "bytes": len(resp.content)})
+    
     except requests.HTTPError as e:
-        return make_response(
-            "error",
-            f"HTTP error: {e} (status code: {getattr(e.response, 'status_code', None)})",
-            None
-        )
+        return make_response("error",
+                             f"HTTP error while downloading PDF: {e} (status code: {getattr(e.response, 'status_code', None)})",
+                             None)
+    
     except Exception as e:
-        return make_response(
-            "error",
-            f"Failed to download or save PDF: {e}",
-            None
-        )
+        return make_response("error", f"Failed to download or save PDF: {e}", None)
+
+
+def parse_pdf(paper_path: str):
+    """
+        Parse text from a local PDF at `paper_path`, and return the text. 
+
+        Args:
+            paper_path (str): Absolute or relative path to the PDF file on disk.
+    """
+    if not isinstance(paper_path, str) or not paper_path.strip():
+        return make_response("error", "No paper_path provided.", None)
+
+    try:
+        with pymupdf.open(paper_path) as doc:
+            text = "".join(page.get_text() for page in doc)
+            page_count = doc.page_count
+        return make_response("success", f"Parsed {page_count} page(s).",
+                                         {"text": text, "page_count": page_count})
+    except Exception as e:
+        return make_response("error", f"Failed to parse PDF: {e}", None)
 
     
-def delete_pdf(file_path="temp/paper.pdf"):
+def delete_pdf(paper_path="temp/paper.pdf"):
     """
     Deletes the temporary PDF according to the file path.
     Always returns a dict with 'message_type' and 'message_content'.
 
     Args:
-        file_path (str, optional): Path to the PDF file. Defaults to "temp/paper.pdf"
+        paper_path (str, optional): Path to the PDF file. Defaults to "temp/paper.pdf"
     """
     try:
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if os.path.exists(paper_path):
+            os.remove(paper_path)
             return make_response(
                 "success",
                 "Deleted PDF successfully.",
-                {"deleted": True, "path": file_path}
+                {"deleted": True, "path": paper_path}
             )
         else:
             return make_response(
@@ -206,16 +223,16 @@ def fetch_neurips_papers(year: int) -> List[Dict]:
         if not a or not i:
             continue
 
-        paper_title = a.get_text(strip=True)
-        if not paper_title or paper_title in seen_titles:
+        title = a.get_text(strip=True)
+        if not title or title in seen_titles:
             continue  # Skip duplicates and empty titles
-        seen_titles.add(paper_title)
+        seen_titles.add(title)
 
         paper_url = html_to_pdf_link(urljoin(BASE + "/", a["href"]))
-        authors = [name.strip() for name in i.get_text().split(",") if name.strip()]
+        authors = [name.strip().title() for name in i.get_text().split(",") if name.strip()]
 
         results.append({
-            "title": paper_title.strip().lower(),
+            "title": title.strip().title(),
             "authors": authors,
             "paper_url": paper_url if paper_url else "",
         })
@@ -253,11 +270,11 @@ def fetch_aaai_papers(year: int) -> List[Dict]:
 
         # Extract authors
         authors_div = article_div.find('div', class_='authors')
-        authors = [a.strip() for a in authors_div.text.strip().split(',')]
+        authors = [a.strip().title() for a in authors_div.text.strip().split(',')]
 
         # Collect as dict
         results.append({
-            'title': title,
+            'title': title.strip().title(),
             'authors': authors,
             'paper_url': paper_url
         })

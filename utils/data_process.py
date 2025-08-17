@@ -96,43 +96,57 @@ def get_md_section(content: str, section_name: str, level: int = 2) -> Dict[str,
 
 def initialize_paper_database(paper_db_path: str) -> Dict[str, Any]:
     """
-    Initialize (create if not exists) the SQLite paper database and table.
-
-    Args:
-        paper_db_path (str): Path to the SQLite database file.
+    Initialize (create if not exists) the SQLite paper database and indexes.
+    Ensures case-insensitive (NOCASE) comparisons for title, conference, topic, keywords,
+    and creates indexes optimized for typical queries.
     """
     ensure_parent_dir(paper_db_path)
 
     try:
         conn = sqlite3.connect(paper_db_path)
         cursor = conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON;")  # 习惯性打开外键（即使当前表未使用）
+
         cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS papers (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                authors TEXT,
-                abstract TEXT,
-                conference TEXT,
-                year INTEGER,
-                paper_url TEXT,
-                topic TEXT,
-                keywords TEXT
+                title      TEXT COLLATE NOCASE,
+                authors    TEXT,
+                conference TEXT COLLATE NOCASE,
+                year       INTEGER,
+                paper_url  TEXT,
+                topic      TEXT COLLATE NOCASE,
+                keywords   TEXT COLLATE NOCASE
             );
             """
         )
+
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_papers_conf_year_topic_nocase
+            ON papers(conference COLLATE NOCASE, year, topic COLLATE NOCASE);
+        """)
+
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_papers_title_nocase
+            ON papers(title COLLATE NOCASE);
+        """)
+
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_papers_keywords_nocase
+            ON papers(keywords COLLATE NOCASE);
+        """)
+
         conn.commit()
         conn.close()
         return make_response(
             "success",
-            "Table created or already existed.",
+            "Table and case-insensitive indexes created or already existed.",
             {"path": paper_db_path, "created_or_checked": True}
         )
     except Exception as e:
         return make_response(
             "error",
-            f"[CREATE_TABLE] Failed to create/check table: {e}",
+            f"[CREATE_TABLE] Failed to create/check table or indexes: {e}",
             None
         )
-
-

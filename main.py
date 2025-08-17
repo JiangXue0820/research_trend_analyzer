@@ -3,39 +3,64 @@ import logging
 from langfuse import get_client
 from langfuse.langchain import CallbackHandler
 from langchain.memory import ConversationBufferMemory
-from langchain_experimental.plan_and_execute import PlanAndExecute, load_agent_executor, load_chat_planner
+from langchain_experimental.plan_and_execute import (
+    PlanAndExecute,
+    load_agent_executor,
+    load_chat_planner,
+)
 
-from configs import config
-from configs.llm_provider import get_llm
-from configs.logging import configure_logging
-from tools.paper_fetch_tools_sql import paper_fetch_toolkit
-from tools.paper_analyze_tools import paper_analyze_toolkit
+from tools.paper_fetch_tools import paper_fetch_toolkit
+from tools.paper_summary_tools import paper_summary_toolkit
+from tools.paper_rag_tools import paper_rag_toolkit
 
+from configs import config, llm_provider, logging
 
-configure_logging()  # Make sure logging is set up first
+logging.configure_logging()  # Make sure logging is set up first
 
-# 1. Initialize LLM
-config.LLM_PROVIDER = 'gemini'
-llm = get_llm(config)
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+# --- LLM Initialization ---
+config.LLM_PROVIDER = "gemini"  # 按需切换
+llm = llm_provider.get_llm(config)
 
-# 1. Create the planner (LLM decides on multi-step plan)
+# --- Memory Module ---
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True
+)
+
+# --- Combine tools (remove duplicate names) ---
+def dedupe_tools(tools):
+    seen, out = set(), []
+    for t in tools:
+        name = getattr(t, "name", None)
+        if name and name in seen:
+            continue
+        if name:
+            seen.add(name)
+        out.append(t)
+    return out
+
+tools = dedupe_tools(
+    list(paper_fetch_toolkit) +
+    list(paper_summary_toolkit) +
+    list(paper_rag_toolkit)
+)
+
+# --- Create Planner 与 Executor ---
 planner = load_chat_planner(llm)
-
-# 2. Create the executor (agent capable of tool execution)
 executor = load_agent_executor(
     llm=llm,
-    tools=paper_fetch_toolkit+paper_analyze_toolkit,
+    tools=tools,
     verbose=True
 )
 
-# 3. Combine into plan-and-execute agent
+# --- Build Plan-And-Execute Agent ---
 master_agent = PlanAndExecute(
     planner=planner,
     executor=executor,
     memory=memory,
     verbose=True
 )
+
 
 if __name__ == '__main__':
     langfuse = get_client(public_key=config.LANGFUSE_API_KEY_PUBLIC)
@@ -51,6 +76,7 @@ if __name__ == '__main__':
             print("Exiting.")
             break
         try:
+            # master_agent.run("Please fetch the privacy-related papers from NeurIPS 2024 and generate a trend summary.")
             result = master_agent.run(user_input, callbacks=[langfuse_handler])
             logging.info(f"Agent Response: {result}")
 

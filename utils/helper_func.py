@@ -48,7 +48,7 @@ def strip_code_block(text: str) -> str:
         return match.group(1).strip()
     return text.strip()
 
-def _safe_filename(name: str) -> str:
+def safe_filename(name: str) -> str:
     base = re.sub(r"[^a-zA-Z0-9._-]+", "_", (name or "").strip().lower())
     base = re.sub(r"_+", "_", base).strip("_")
     return base or "paper"
