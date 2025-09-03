@@ -1,23 +1,35 @@
-KEYWORDS_GENERATION_PROMPT = """You are an assistant that helps generate comprehensive keyword lists for academic research topics.
-Given a topic, output a Python dict: {{"topic": ..., "keywords": [...]}}. 
-The 'keywords' list should include at least 10 relevant items:
-- Include the verb/noun/adjective forms, common phrases, technical terms, subfields, related concepts, and typical synonyms or abbreviations.
-- Try to cover both core and popular subtopics.
-- Output strictly as a Python dict (see examples).
-Rethink: Are there any important related keywords or subtopics missing? If yes, please output an updated list with the additions.
+KEYWORDS_GENERATION_PROMPT = """You are an assistant that generates comprehensive keyword lists for academic research topics.
 
-Example 1:
-Topic: "privacy"
-Output: {{"topic": "privacy", "keywords": ["privacy", "private", "anonymity", "anonymous", "data protection", "federated learning"]}}
+TASK:
+Given a topic string, return a Python list of strings.
 
-Example 2:
-Topic: "safety"
-Output: {{"topic": "safety", "keywords": ["safety", "safe", "safety alignment", "robustness", "risk assessment", "safety risk"]}}
+REQUIREMENTS:
+- Include at least 10 relevant keywords.
+- Cover verb, noun, adjective forms, common phrases, technical terms, subfields, related concepts, and synonyms/abbreviations.
+- Include both core terms and popular subtopics.
+- Output only the Python list (no dict, no extra text).
+- Output must be valid Python code.
 
-Example 3:
-Topic: "attack"
-Output: {{"topic": "attack", "keywords": ["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]}}      
+OUTPUT FORMAT (strict):
+["...", "...", "..."]
+
+EXAMPLES:
+
+Topic="privacy"
+Output=["privacy", "private", "anonymity", "anonymous", "data protection", "federated learning"]
+
+Topic="safety"
+Output=["safety", "safe", "safety alignment", "robustness", "risk assessment", "safety risk"]
+
+Topic="attack"
+Output=["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]
+
+
+Now, do the same for this topic:
+Topic="{topic}"
+Output=
 """
+
 
 PAPER_SUMMARY_PROMPT = """# Paper Summary Instruction
 
@@ -87,6 +99,11 @@ Given the paper text below, summarize according to these sections using clear ma
 - ...
 
 ---
+**Paper Context**
+{title}
+{text}
+
+**Summary**
 """
 
 PAPER_HIGHLIGHT_PROMPT = """## Highlight Summarization

@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 
 def configure_logging(
     log_dir: str = "logs",
-    log_file: str = "agent.log",
+    log_file: str = "app.log",
     max_bytes: int = 5 * 1024 * 1024,   # 5MB
     backup_count: int = 5
 ) -> None:
@@ -23,6 +23,5 @@ def configure_logging(
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
-
+# --- auto-run when module is imported ---
 # configure_logging()
-# logging.info("This log only goes to the file, not to stdout.")
