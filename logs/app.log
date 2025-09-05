@@ -2,3 +2,315 @@
 2025-09-03 23:13:27,214 - INFO - [CRAWL] Fetched 2334 papers from neurips 2021.
 2025-09-03 23:13:27,233 - INFO - [CRAWL] No new papers for papers\raw_list\neurips_2021.jsonl (all duplicates).
 2025-09-03 23:13:27,233 - INFO - [CRAWL] Paper list saved into papers\raw_list\neurips_2021.jsonl.
+2025-09-05 22:11:25,170 - INFO - [CRAWL] Fetching papers from neurips 2021.
+2025-09-05 22:11:27,974 - INFO - [CRAWL] Fetched 2334 papers from neurips 2021.
+2025-09-05 22:11:27,991 - INFO - [CRAWL] Added 2334 new papers to papers\raw_list\neurips_2021\full_list.jsonl
+2025-09-05 22:11:27,991 - INFO - [CRAWL] Paper list saved into papers\raw_list\neurips_2021\full_list.jsonl.
+2025-09-05 22:11:49,693 - INFO - [CRAWL] Fetching papers from neurips 2021.
+2025-09-05 22:11:52,258 - INFO - [CRAWL] Fetched 2334 papers from neurips 2021.
+2025-09-05 22:11:52,275 - INFO - [CRAWL] Added 2334 new papers to papers\paper_list\neurips_2021\full_list.jsonl
+2025-09-05 22:11:52,276 - INFO - [CRAWL] Paper list saved into papers\paper_list\neurips_2021\full_list.jsonl.
+2025-09-05 22:19:31,201 - INFO - [CRAWL] Fetching papers from neurips 2020.
+2025-09-05 22:19:33,352 - INFO - [CRAWL] Fetched 1898 papers from neurips 2020.
+2025-09-05 22:19:33,367 - INFO - [JSONL] Wrote 1898 rows to papers\paper_list\neurips_2020\full_list.jsonl (append=True)
+2025-09-05 22:19:33,367 - INFO - [CRAWL] Added 1898 new papers to papers\paper_list\neurips_2020\full_list.jsonl
+2025-09-05 22:19:33,367 - INFO - [CRAWL] Paper list saved into papers\paper_list\neurips_2020\full_list.jsonl.
+2025-09-05 22:55:24,048 - INFO - [CRAWL] Fetching papers from neurips 2020.
+2025-09-05 22:55:26,181 - INFO - [CRAWL] Fetched 1898 papers from neurips 2020.
+2025-09-05 22:55:26,190 - INFO - [CRAWL] No new papers for papers\paper_list\neurips_2020\full_list.jsonl (all duplicates).
+2025-09-05 22:55:26,190 - INFO - [CRAWL] Paper list saved into papers\paper_list\neurips_2020\full_list.jsonl.
+2025-09-05 23:04:41,453 - INFO - [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-05 23:04:43,438 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-05 23:04:49,145 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-05 23:04:49,158 - INFO - AFC remote call 1 is done.
+2025-09-05 23:04:49,159 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "data protection", "anonymity", "anonymous", "confidentiality", "differential privacy", "federated learning", "homomorphic encryption", "secure multi-party computation", "pseudo
+2025-09-05 23:04:49,159 - INFO - [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-05 23:04:49,159 - INFO - [KEYWORD_GEN] Extracted 18 keywords for topic='privacy'
+2025-09-05 23:04:49,160 - ERROR - [KEYWORD_GEN] Failed for topic='privacy': 'KeywordsGenerator' object has no attribute 'save_keywords'
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light\keywords_generator.py", line 120, in <module>
+    keyword_gen.save_keywords(topic, kws)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'KeywordsGenerator' object has no attribute 'save_keywords'
+2025-09-05 23:05:15,502 - INFO - [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-05 23:05:15,994 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-05 23:05:20,209 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-05 23:05:20,213 - INFO - AFC remote call 1 is done.
+2025-09-05 23:05:20,213 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "anonymous", "data protection", "differential privacy", "federated learning", "confidentiality", "anonymization", "pseudonymization", "GDPR", "zero-knowledge proofs
+2025-09-05 23:05:20,213 - INFO - [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-05 23:05:20,214 - INFO - [KEYWORD_GEN] Extracted 16 keywords for topic='privacy'
+2025-09-05 23:05:20,216 - INFO - [JSONL] Wrote 16 rows to configs\topic_keywords.jsonl (append=False)
+2025-09-05 23:05:20,216 - INFO - [JSONL] Updated configs\topic_keywords.jsonl with 16 new rows (total 16)
+2025-09-05 23:05:20,216 - INFO - [KEYWORD_GEN] Saved 16 new keyword rows for topic 'privacy' to configs\topic_keywords.jsonl
+2025-09-05 23:05:32,632 - WARNING - [PAPER_FILTER] Keywords file does not exist: configs\topic_keywords.json. Cannot load keywords.
+2025-09-05 23:08:23,319 - WARNING - [PAPER_FILTER] Keywords file does not exist: configs\topic_keywords.json. Cannot load keywords.
+2025-09-05 23:08:31,493 - INFO - [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-05 23:08:31,974 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-05 23:08:36,778 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-05 23:08:36,783 - INFO - AFC remote call 1 is done.
+2025-09-05 23:08:36,784 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "anonymous", "data protection", "differential privacy", "federated learning", "homomorphic encryption", "secure multi-party computation", "pseudonymization", "de-id
+2025-09-05 23:08:36,785 - INFO - [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-05 23:08:36,785 - INFO - [KEYWORD_GEN] Extracted 17 keywords for topic='privacy'
+2025-09-05 23:08:36,789 - INFO - [KEYWORD_GEN] Saved 17 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-05 23:09:24,187 - INFO - [PAPER_FILTER] Found 42 papers matching topic 'privacy' out of 1898 total papers.
+2025-09-05 23:09:24,188 - INFO - [JSONL] Wrote 42 rows to papers\paper_list\neurips_2020\filtered_privacy.jsonl (append=False)
+2025-09-05 23:09:24,188 - INFO - [JSONL] Updated papers\paper_list\neurips_2020\filtered_privacy.jsonl with 42 new rows (total 42)
+2025-09-05 23:09:24,189 - INFO - [PAPER_FILTER] Added 42 new filtered papers to papers\paper_list\neurips_2020\filtered_privacy.jsonl
+2025-09-06 00:19:56,600 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:20:12,678 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:20:12,686 - INFO - AFC remote call 1 is done.
+2025-09-06 00:20:12,686 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Adversarially Robust Streaming Algorithms via Differential Privacy
+
+## Authors
+[Avinatan Hassidim, Haim Kaplan, Yishay Mansour, Yossi Matias, Uri Stemmer]
+
+## Affiliations
+[(Bar
+2025-09-06 00:20:12,691 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\EN\adversarially_robust_streaming_algorithms_via_differential_privacy.md
+2025-09-06 00:20:12,999 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:20:32,413 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:20:32,419 - INFO - AFC remote call 1 is done.
+2025-09-06 00:20:32,420 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+通过差分隐私实现对抗性鲁棒流算法
+
+## Authors
+[Avinatan Hassidim, Haim Kaplan, Yishay Mansour, Yossi Matias, Uri Stemmer]
+
+## Affiliations
+[(Bar-Ilan University, Israel), (Google, USA), (Tel Avi
+2025-09-06 00:20:32,424 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\CH\adversarially_robust_streaming_algorithms_via_differential_privacy.md
+2025-09-06 00:20:34,366 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:20:51,177 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:20:51,181 - INFO - AFC remote call 1 is done.
+2025-09-06 00:20:51,182 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-and-Flip: A new mechanism for differentially private selection
+
+## Authors
+[Ryan McKenna, Daniel Sheldon]
+
+## Affiliations
+[(University of Massachusetts Amherst, United 
+2025-09-06 00:20:51,186 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\EN\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:20:51,477 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:21:09,181 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:21:09,188 - INFO - AFC remote call 1 is done.
+2025-09-06 00:21:09,188 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-and-Flip: A new mechanism for differentially private selection
+
+## Authors
+[Ryan McKenna, Daniel Sheldon]
+
+## Affiliations
+[(College of Information and Computer Sciences
+2025-09-06 00:21:09,192 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:21:11,179 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:21:32,400 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:21:32,401 - INFO - AFC remote call 1 is done.
+2025-09-06 00:21:32,401 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Lower Bounds and Optimal Algorithms for Personalized Federated Learning
+
+## Authors
+[Filip Hanzely, Slavomír Hanzely, Samuel Horváth, Peter Richtárik]
+
+## Affiliations
+[(KAUST, 
+2025-09-06 00:21:32,403 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\EN\lower_bounds_and_optimal_algorithms_for_personalized_federated_learning.md
+2025-09-06 00:21:32,673 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:21:54,775 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:21:54,780 - INFO - AFC remote call 1 is done.
+2025-09-06 00:21:54,780 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+个性化联邦学习的下界与最优算法
+
+## Authors
+[Filip Hanzely, Slavomír Hanzely, Samuel Horváth, Peter Richtárik]
+
+## Affiliations
+[(KAUST, 沙特阿拉伯)]
+
+# Brief Summary
+
+## Highlight
+本文针对最近提出的个性化联邦学习优
+2025-09-06 00:21:54,784 - INFO - [SUMMARIZER] Summary saved to papers\paper_summary\neurips_2020\CH\lower_bounds_and_optimal_algorithms_for_personalized_federated_learning.md
+2025-09-06 00:34:35,651 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:34:51,464 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:34:51,468 - INFO - AFC remote call 1 is done.
+2025-09-06 00:34:51,469 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Adversarially Robust Streaming Algorithms Via Differential Privacy
+
+## Authors
+['Avinatan Hassidim', 'Haim Kaplan', 'Yishay Mansour', 'Yossi Matias', 'Uri Stemmer']
+
+## Affiliat
+2025-09-06 00:34:51,470 - INFO - [SUMMARIZER] Saved EN summary for 'Adversarially Robust Streaming Algorithms Via Differential Privacy' → papers\paper_summary\neurips_2020\EN\adversarially_robust_streaming_algorithms_via_differential_privacy.md
+2025-09-06 00:34:52,414 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:35:12,640 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:35:12,642 - INFO - AFC remote call 1 is done.
+2025-09-06 00:35:12,643 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+通过差分隐私实现对抗性鲁棒流算法
+
+## Authors
+['Avinatan Hassidim', 'Haim Kaplan', 'Yishay Mansour', 'Yossi Matias', 'Uri Stemmer']
+
+## Affiliations
+[('Bar-Ilan University', 'Israel'), ('Tel Avi
+2025-09-06 00:35:12,643 - INFO - [SUMMARIZER] Saved CH summary for 'Adversarially Robust Streaming Algorithms Via Differential Privacy' → papers\paper_summary\neurips_2020\CH\adversarially_robust_streaming_algorithms_via_differential_privacy.md
+2025-09-06 00:35:15,340 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:35:30,344 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:35:30,345 - INFO - AFC remote call 1 is done.
+2025-09-06 00:35:30,345 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-and-Flip: A New Mechanism for Differentially Private Selection
+
+## Authors
+['Ryan McKenna', 'Daniel Sheldon']
+
+## Affiliations
+[('College of Information and Computer Sci
+2025-09-06 00:35:30,347 - INFO - [SUMMARIZER] Saved EN summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\EN\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:35:30,810 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:38:09,397 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:38:28,655 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:38:28,663 - INFO - AFC remote call 1 is done.
+2025-09-06 00:38:28,664 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+(马萨诸塞大学阿默斯特分校信息与计算机科学学院, 美国)
+
+# Brief S
+2025-09-06 00:38:28,666 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:38:30,724 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:38:50,453 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:38:50,457 - INFO - AFC remote call 1 is done.
+2025-09-06 00:38:50,457 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Lower Bounds And Optimal Algorithms For Personalized Federated Learning
+
+## Authors
+['Filip Hanzely', 'Slavomír Hanzely', 'Samuel Horváth', 'Peter Richtarik']
+
+## Affiliations
+[
+2025-09-06 00:38:50,459 - INFO - [SUMMARIZER] Saved EN summary for 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning' → papers\paper_summary\neurips_2020\EN\lower_bounds_and_optimal_algorithms_for_personalized_federated_learning.md
+2025-09-06 00:38:50,803 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:39:42,275 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:40:08,295 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:40:08,298 - INFO - AFC remote call 1 is done.
+2025-09-06 00:40:08,298 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Lower Bounds And Optimal Algorithms For Personalized Federated Learning (英文原文)
+
+## Authors
+['Filip Hanzely', 'Slavomír Hanzely', 'Samuel Horváth', 'Peter Richtarik'] (英文原文)
+
+## 
+2025-09-06 00:40:08,299 - INFO - [SUMMARIZER] Saved CH summary for 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning' → papers\paper_summary\neurips_2020\CH\lower_bounds_and_optimal_algorithms_for_personalized_federated_learning.md
+2025-09-06 00:41:40,058 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:41:58,533 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:41:58,539 - INFO - AFC remote call 1 is done.
+2025-09-06 00:41:58,539 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[('College of Information and Computer 
+2025-09-06 00:41:58,541 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:43:21,220 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:43:44,063 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:43:44,065 - INFO - AFC remote call 1 is done.
+2025-09-06 00:43:44,066 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection 
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon'] 
+
+## Affiliations
+[(College of Information and Computer
+2025-09-06 00:43:44,067 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:43:46,139 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:44:14,080 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:44:40,659 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:44:40,660 - INFO - AFC remote call 1 is done.
+2025-09-06 00:44:40,660 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Lower Bounds And Optimal Algorithms For Personalized Federated Learning 
+
+## Authors
+['Filip Hanzely', 'Slavomír Hanzely', 'Samuel Horváth', 'Peter Richtarik'] 
+
+## Affiliations
+2025-09-06 00:44:40,661 - INFO - [SUMMARIZER] Saved CH summary for 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning' → papers\paper_summary\neurips_2020\CH\lower_bounds_and_optimal_algorithms_for_personalized_federated_learning.md
+2025-09-06 00:45:17,863 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:45:34,057 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:45:34,059 - INFO - AFC remote call 1 is done.
+2025-09-06 00:45:34,059 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[('College of Information and Computer 
+2025-09-06 00:45:34,060 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 00:46:59,712 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:47:17,968 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:47:17,976 - INFO - AFC remote call 1 is done.
+2025-09-06 00:47:17,977 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Adversarially Robust Streaming Algorithms Via Differential Privacy 
+
+## Authors
+['Avinatan Hasidim', 'Haim Kaplan', 'Yishay Mansour', 'Yossi Matias', 'Uri Stemmer'] 
+
+## Affilia
+2025-09-06 00:47:17,979 - INFO - [SUMMARIZER] Saved CH summary for 'Adversarially Robust Streaming Algorithms Via Differential Privacy' → papers\paper_summary\neurips_2020\CH\adversarially_robust_streaming_algorithms_via_differential_privacy.md
+2025-09-06 00:47:19,963 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 00:47:35,918 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 00:47:35,925 - INFO - AFC remote call 1 is done.
+2025-09-06 00:47:35,926 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[('College of Information and Computer 
+2025-09-06 00:47:35,928 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md

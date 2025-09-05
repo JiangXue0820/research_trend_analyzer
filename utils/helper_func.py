@@ -1,6 +1,9 @@
-from typing import Dict, Any, List, Optional, Literal
+from typing import Dict, Any, List, Optional, Literal, Generator, Union
 import re
 import os
+from pathlib import Path
+import json
+import logging
 
 def make_response(
     status: Literal["success", "warning", "error"],
@@ -106,6 +109,131 @@ def load_md_file(md_path: str) -> Dict[str, Any]:
             f"Failed to load markdown: {e}",
             None
         )
+    
+def load_jsonl(
+    path: Union[str, Path],
+    return_generator: bool = False
+) -> Union[List[Dict[str, Any]], Generator[Dict[str, Any], None, None]]:
+    """
+    Load a JSONL (JSON Lines) file.
+
+    Args:
+        path: Path to the .jsonl file.
+        return_generator: If True, return a generator (streaming).
+                          If False, return a list (default).
+
+    Returns:
+        List[dict] or generator of dicts.
+    """
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"File not found: {path}")
+
+    def _iter_jsonl() -> Generator[Dict[str, Any], None, None]:
+        with path.open("r", encoding="utf-8") as f:
+            for i, line in enumerate(f, 1):
+                s = line.strip()
+                if not s:
+                    continue
+                try:
+                    obj = json.loads(s)
+                    if isinstance(obj, dict):
+                        yield obj
+                    else:
+                        logging.warning(f"[JSONL] Skipping non-dict row at line {i} in {path}")
+                except json.JSONDecodeError:
+                    logging.warning(f"[JSONL] Skipping malformed line {i} in {path}")
+
+    return _iter_jsonl() if return_generator else list(_iter_jsonl())
+
+
+def save_jsonl(path: Union[str, Path], rows: List[Dict[str, Any]], append: bool = True) -> int:
+    """
+    Save rows to a JSONL file.
+
+    Args:
+        path: Path to the .jsonl file.
+        rows: List of dict rows.
+        append: If True, append to file; if False, overwrite.
+
+    Returns:
+        Number of rows actually written.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    mode = "a" if append else "w"
+    written = 0
+
+    try:
+        with path.open(mode, encoding="utf-8") as f:
+            for row in rows:
+                if not isinstance(row, dict):
+                    logging.warning("[JSONL] Skipping non-dict row.")
+                    continue
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+                written += 1
+        logging.info(f"[JSONL] Wrote {written} rows to {path} (append={append})")
+        return written
+    except Exception as e:
+        logging.exception(f"[JSONL] Failed to write {path}: {e}")
+        return 0
+
+    
+def update_jsonl(path: Union[str, Path], rows: List[Dict[str, Any]]) -> int:
+    """
+    Update a JSONL file with new rows:
+      - If the file exists: load, dedupe by full row content, then add new rows.
+      - If not: create with the given rows.
+      - Saves result back to the same path (overwrite).
+
+    Args:
+        path: Path to the .jsonl file.
+        rows: List of dict rows to add.
+
+    Returns:
+        Number of new rows added.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    candidates = [r for r in rows if isinstance(r, dict)]
+    if not candidates:
+        logging.info(f"[JSONL] No valid rows to add to {path}")
+        return 0
+
+    # Load existing rows (if any)
+    existing: List[Dict[str, Any]] = []
+    if path.exists():
+        try:
+            existing = load_jsonl(path)  # list mode
+        except Exception as e:
+            logging.exception(f"[JSONL] Failed to read {path}: {e}")
+
+    # Deduplicate using canonical JSON strings
+    canon = lambda obj: json.dumps(obj, sort_keys=True, ensure_ascii=False)
+    seen = {canon(r) for r in existing}
+
+    added = 0
+    for r in candidates:
+        c = canon(r)
+        if c not in seen:
+            existing.append(r)
+            seen.add(c)
+            added += 1
+
+    if added == 0:
+        logging.info(f"[JSONL] No new rows to add for {path} (all duplicates).")
+        return 0
+
+    try:
+        save_jsonl(path, existing, append=False)  # overwrite with deduped content
+        logging.info(f"[JSONL] Updated {path} with {added} new rows (total {len(existing)})")
+        return added
+    except Exception as e:
+        logging.exception(f"[JSONL] Failed to update {path}: {e}")
+        return 0
+
 
 def parse_markdown_summary(md_text: str) -> Dict:
     # 目标结构

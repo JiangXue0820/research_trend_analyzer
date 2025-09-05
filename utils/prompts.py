@@ -64,13 +64,16 @@ PAPER_SUMMARY_PROMPT_CH="""<Instructions>
 **注意事项：**
 * 严格遵守<Output Format (Markdown)>中列出的Markdown部分标题。
 * 每个部分都必须以指定的标题开头，内容以bullet point或简洁段落的形式呈现。
+* Title, Authors, Affiliations(包括机构和国家）和Keywords部分，直接提供英文原文
 * 对论文内容进行释义和综合，禁止直接抄袭原文。
 * 使用清晰、易懂的技术语言。
 * 仅输出总结内容，不添加任何无关信息或额外解释。
 </Instructions>
 
 <Article Content>
-{text}
+title: {title}
+authors: {authors}
+content: {text}
 </Article Content>
 
 <Output Format (Markdown)>
@@ -78,13 +81,13 @@ PAPER_SUMMARY_PROMPT_CH="""<Instructions>
 # Paper Info
 
 ## Title
-文章题目。
+{title} 
 
 ## Authors
-文章作者，按照 [作者 1, 作者 2] 的形式。
+{authors} 
 
 ## Affiliations
-作者所属机构，按照 [(机构 1, 国家 1), (机构 2, 国家 2)] 的形式。
+[(作者机构 1, 国家 1), (作者机构 2, 国家 2)] 
 
 # Brief Summary
 
@@ -92,7 +95,7 @@ PAPER_SUMMARY_PROMPT_CH="""<Instructions>
 撰写一段 4-5 句话的内容，需涵盖论文所解决的主要研究问题、核心方法及创新贡献，以及相比现有技术的优势（需包含关键结果数据）。
 
 ## Keywords
-按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的中文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。
+按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的英文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。
 
 # Detailed Summary
 
@@ -159,7 +162,9 @@ It is crucial to strictly follow all the Markdown headings, structure, and requi
 </Instructions>
 
 <Article Content>
-{text}
+title: {title}
+authors: {authors}
+content: {text}
 </Article Content>
 
 <Output Format (Markdown)>
@@ -167,13 +172,13 @@ It is crucial to strictly follow all the Markdown headings, structure, and requi
 # Paper Info
 
 ## Title
-Title of the article.
+{title} 
 
 ## Authors
-Authors of the article, in the form of [Author 1, Author 2, ...].
+{authors}
 
 ## Affiliations
-Affiliations of the authors, in the form of [(Institution 1, Country 1), (Institution 2, Country 2)...].
+[(Author institution 1, Country 1), (Author institution 2, Country 2)...].
 
 # Brief Summary
 

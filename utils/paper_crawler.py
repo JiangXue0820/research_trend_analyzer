@@ -18,7 +18,7 @@ HEADERS = {
 
 def paper_matches_topic(
     paper: Dict[str, Any],
-    topic_keywords: List[str],
+    keywords: List[str],
     fields: List[str] = ["title"]
 ) -> Dict[str, Any]:
     """
@@ -27,12 +27,12 @@ def paper_matches_topic(
 
     Args:
         paper (dict): Dictionary containing paper information (e.g., title, abstract).
-        topic_keywords (list[str]): Keywords to search for.
+        keywords (list[str]): Keywords to search for.
         fields (list[str], optional): Fields to search in. Defaults to ["title"].
 
     """
     try:
-        if not topic_keywords:
+        if not keywords:
             # TODO: warning or error?
             return make_response(
                 "warning",
@@ -58,7 +58,7 @@ def paper_matches_topic(
         # Find all matching keywords (case-insensitive, substring match)
         matched_keywords: List[str] = []
         seen = set()  # de-duplicate while preserving order
-        for kw in topic_keywords:
+        for kw in keywords:
             if not isinstance(kw, str):
                 continue
             kw_lower = kw.lower().strip()

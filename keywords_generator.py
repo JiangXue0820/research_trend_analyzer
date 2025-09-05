@@ -9,18 +9,18 @@ from utils.prompts import KEYWORDS_GENERATION_PROMPT
 from configs.env_config import Config
 from configs.log_config import configure_logging
 from utils.call_llms import get_llm
+from utils.helper_func import save_jsonl, update_jsonl
 
 
-
-class KeywordGenerator:
+class KeywordsGenerator:
     def __init__(
         self,
-        llm: str,
+        model_name: str,
         api: str = "mlops",
-        save_path: Union[os.PathLike, str, None] = None
+        keywords_path: Union[os.PathLike, str] = os.path.join("configs", "topic_keywords.json")
     ):
-        self.save_path = Path(save_path) if save_path is not None else Path("configs") / "topic_keywords.json"
-        self.llm = get_llm(api, llm)
+        self.keywords_path = Path(keywords_path) 
+        self.llm = get_llm(api, model_name)
         
     def generate_keywords(self, topic: str) -> List[str]:
         topic = (topic or "").strip()
@@ -63,61 +63,63 @@ class KeywordGenerator:
 
     def save_keywords(self, topic: str, keywords: List[str]) -> None:
         """
-        Merge `keywords` into JSON mapping at self.save_path: { "<topic>": [kw1, kw2, ...], ... }
-        - If topic exists: union old + new (set dedupe), then sort.
-        - If not: create new entry.
+        Save keywords to a JSON file in the format:
+            {
+            "<topic1>": ["kw1", "kw2", ...],
+            "<topic2>": [...]
+            }
+
+        - Normalizes topic/keywords to lowercase and strips whitespace.
+        - Merges with existing file contents if present.
+        - Dedupes with set() and sorts before saving.
         """
-        topic = (topic or "").strip()
-        if not keywords:
-            logging.info("[KEYWORD_GEN] No keywords to save; skipping.")
-            return
-        if not topic:
+        topic_key = (topic or "").strip().lower()
+        if not topic_key:
             logging.warning("[KEYWORD_GEN] Empty topic; cannot save keywords.")
             return
 
-        # Load existing mapping (or start fresh)
+        new_set = {k.strip().lower() for k in (keywords or []) if isinstance(k, str) and k.strip()}
+        if not new_set:
+            logging.info("[KEYWORD_GEN] No valid keywords to save; skipping.")
+            return
+
+        path: Path = Path(self.keywords_path)
+        if path.suffix.lower() != ".json":
+            path = path.with_suffix(".json")
+            self.keywords_path = path
+
         data: Dict[str, List[str]] = {}
-        if self.save_path.exists():
+        if path.exists():
             try:
-                with self.save_path.open("r", encoding="utf-8") as f:
+                with path.open("r", encoding="utf-8") as f:
                     loaded = json.load(f)
                 if isinstance(loaded, dict):
-                    data = {str(k): (v if isinstance(v, list) else []) for k, v in loaded.items()}
-                else:
-                    logging.warning(f"[KEYWORD_GEN] Expected dict at root of {self.save_path}; starting fresh.")
+                    data = {str(k).lower(): (v if isinstance(v, list) else []) for k, v in loaded.items()}
             except Exception as e:
-                logging.exception(f"[KEYWORD_GEN] Failed to read {self.save_path}: {e}")
+                logging.exception(f"[KEYWORD_GEN] Failed to read {path}: {e}")
 
-        # Normalize topic key to a single canonical form (lowercase)
-        # If you want to preserve original casing, you can drop the `.lower()` here.
-        topic_key = topic.lower()
-
-        # Merge with set (dedupe). Lowercase old values to avoid case-dup bugs.
-        old_set = set(s.strip().lower() for s in data.get(topic_key, []) if isinstance(s, str))
-        new_set = set(k for k in keywords if isinstance(k, str) and k.strip())
+        old_set = {kw.strip().lower() for kw in data.get(topic_key, []) if isinstance(kw, str)}
         merged = sorted(old_set | new_set)
-
         data[topic_key] = merged
 
-        # Save back
         try:
-            self.save_path.parent.mkdir(parents=True, exist_ok=True)
-            with self.save_path.open("w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            logging.info(f"[KEYWORD_GEN] Saved {len(merged)} keywords for topic '{topic_key}' to {self.save_path}")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with path.open("w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            logging.info(f"[KEYWORD_GEN] Saved {len(merged)} keywords for topic '{topic_key}' to {path}")
         except Exception as e:
             logging.exception(f"[KEYWORD_GEN] Failed to save keywords: {e}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Keyword Generator for Research Topics")
-    parser.add_argument("--llm", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
+    parser.add_argument("--model_name", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
     parser.add_argument("--api", type=str, default="mlops", help="The API to use ('mlops' or 'gemini')")
-    parser.add_argument("--save_path", type=str, default=None, help="Path to save the keywords JSON file")
+    parser.add_argument("--keywords_path", type=str, default=os.path.join("configs", "topic_keywords.json"), help="Path to save the keywords JSON file")
     args = parser.parse_args()
 
     configure_logging()
-    keyword_gen = KeywordGenerator(llm=args.llm, api=args.api, save_path=args.save_path)
+    keyword_gen = KeywordsGenerator(model_name=args.model_name, api=args.api, keywords_path=args.keywords_path)
 
     while True:
         topic = input("[Input] Please enter a research topic (or type 'quit' to exit): ").strip()
