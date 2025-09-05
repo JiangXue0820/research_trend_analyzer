@@ -87,7 +87,7 @@ PAPER_SUMMARY_PROMPT_CH="""<Instructions>
 撰写一段 4-5 句话的内容，需涵盖论文所解决的主要研究问题、核心方法及创新贡献，以及相比现有技术的优势（需包含关键结果数据）。
 
 ## Keywords
-按照 [术语1, 术语2]的格式，列出 5 个最能描述论文的关键技术术语（仅为名词），重点聚焦与人工智能、自然语言处理、可信度（如隐私、安全性、公平性）相关的技术术语。
+按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的中文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。
 
 # Detailed Summary
 
@@ -176,7 +176,7 @@ Affiliations of the authors, in the form of [(Institution 1, Country 1), (Instit
 Write a 4-5 sentence section that covers the main research problems addressed by the paper, the core methods and innovative contributions, as well as the advantages over existing technologies (including key result data).
 
 ## Keywords
-List 5 key technical terms that best describe the paper in the form of [Term 1, Term 2...]. These terms should only be nouns, with a focus on those related to artificial intelligence, natural language processing, and trustworthiness (such as privacy, security, fairness).
+Following the format of [Term 1, Term 2...], list five English keywords (nouns only) that can best describe the paper and best match its research branch, research topic, and key technology of the article.
 
 # Detailed Summary
 
