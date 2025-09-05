@@ -53,21 +53,33 @@ Use clear section headings for each technology direction. Be concise, objective,
 """
 
 
-PAPER_SUMMARY_PROMPT_CH="""作为计算机科学专家，请对我提供的一篇学术论文进行详细分析，并严格遵循下面的格式输出中文总结：
+PAPER_SUMMARY_PROMPT_CH="""<Instructions>
+作为计算机科学领域的专家，请对<Article Content>中提供的学术论文进行详细分析，并输出中文总结。请务必严格遵循后续<Output Format (Markdown)>部分中规定的所有Markdown标题、结构和要求——确保总结的每一部分都与提供的模板完全一致。
 
-**文章内容**
+**注意事项：**
+* 严格遵守<Output Format (Markdown)>中列出的Markdown部分标题。
+* 每个部分都必须以指定的标题开头，内容以项目符号或简洁段落的形式呈现。
+* 对论文内容进行释义和综合，禁止直接抄袭原文。
+* 使用清晰、易懂的技术语言。
+* 仅输出总结内容，不添加任何无关信息或额外解释。
+</Instructions>
+
+<Article Content>
 {text}
+</Article Content>
 
-**输出格式 (Markdown格式）**
+<Output Format (Markdown)>
 
 # Paper Info
 
 ## Title
-文章题目
+文章题目。
+
 ## Authors
-文章作者，按照 [作者 1, 作者 2, ...] 的形式
+文章作者，按照 [作者 1, 作者 2, ...] 的形式。
+
 ## Affiliations
-作者所属机构，按照 [(机构 1, 国家 1), (机构 2, 国家 2)...] 的形式
+作者所属机构，按照 [(机构 1, 国家 1), (机构 2, 国家 2)...] 的形式。
 
 # Brief Summary
 
@@ -80,62 +92,83 @@ PAPER_SUMMARY_PROMPT_CH="""作为计算机科学专家，请对我提供的一�
 # Detailed Summary
 
 ## 1. Motivation
+
 ### 1.1 背景
 简要描述研究的背景和动机。
+
 ### 1.2 问题
 明确阐述论文所解决的主要问题或挑战（问题陈述）。
 
 ## 2. State-of-the-Art Methods
+
 ### 2.1 现有方法
 总结与该问题相关的当前最先进方法。
+
 ### 2.2 局限性
 指出现有方法的主要局限性。
 
 ## 3. Proposed Method
+
 ### 3.1 主要贡献
 清晰说明论文通过提出什么方案，解决了什么关键问题。
+
 ### 3.2 核心思想
 概述方案的核心设计思路或原理（如技术框架、关键机制等）。
+
 ### 3.3 新颖性
 阐述方案相比现有技术的创新点（如首次提出的技术、组合方式或优化方向）。
 
 ## 4. Experiment Results
+
 ### 4.1 实验设置
 概述实验所用数据集、对比的基线方法及关键评价指标。
+
 ### 4.2 实验结果
 说明主要结果和发现，以及该方法与基线方法的对比情况。
 
 ## 5. Limitations and Future Work
-5.1 局限性
+
+### 5.1 局限性
 指出当前研究存在的不足或未解决的问题。
-5.2 未来方向
+
+### 5.2 未来方向
 说明论文提出的后续研究方向或改进思路。
 
-**注意事项：**
-*   严格使用上述所示的 markdown 部分标题。
-*   每个部分均以标题开头，后续内容使用 bullet points 或简洁段落呈现。
-*   对内容进行释义和综合，不得直接抄袭论文原文。
-*   使用清晰、易懂的技术语言。
-*   直接输出总结内容，不添加任何无关信息。
+</Output Format (Markdown)>
 
-**请总结**
+<Summary>
+[请提供符合上述要求的高质量总结]
+</Summary>
 """
 
-PAPER_SUMMARY_PROMPT_EN="""As an expert in computer science, please conduct a detailed analysis of an academic paper I will provide and output a Chinese summary in strict accordance with the following format:
+PAPER_SUMMARY_PROMPT_EN="""<Instructions>
+As an expert in computer science, please conduct a detailed analysis of the academic paper provided in <Article Content> and output an English summary. 
+It is crucial to strictly follow all the Markdown headings, structure, and requirements specified in the subsequent <Output Format (Markdown)> section—ensure every part of the summary aligns perfectly with the template provided.
 
-**Article Content**
+**Notes:**
+* Adhere strictly to the markdown section headings as outlined in <Output Format>.
+* Each section must start with the specified heading, with content presented as bullet points or concise paragraphs.
+* Paraphrase and synthesize the paper's content; direct copying of the original text is prohibited.
+* Use clear, accessible technical language.
+* Output only the summary content without any irrelevant information or additional explanations.
+</Instructions>
+
+<Article Content>
 {text}
+</Article Content>
 
-**Output Format (Markdown Format)**
+<Output Format (Markdown)>
 
 # Paper Info
 
 ## Title
-Title of the article
+Title of the article.
+
 ## Authors
-Authors of the article, in the form of [Author 1, Author 2, ...]
+Authors of the article, in the form of [Author 1, Author 2, ...].
+
 ## Affiliations
-Affiliations of the authors, in the form of [(Institution 1, Country 1), (Institution 2, Country 2)...]
+Affiliations of the authors, in the form of [(Institution 1, Country 1), (Institution 2, Country 2)...].
 
 # Brief Summary
 
@@ -150,43 +183,50 @@ List 5 key technical terms that best describe the paper in the form of [Term 1, 
 ## 1. Motivation
 ### 1.1 Background
 Briefly describe the background and motivation of the research.
+
 ### 1.2 Problem
 Clearly state the main problems or challenges addressed in the paper (problem statement).
 
 ## 2. State-of-the-Art Methods
+
 ### 2.1 Existing Methods
 Summarize the current state-of-the-art methods related to the problem.
+
 ### 2.2 Limitations
 Point out the main limitations of existing methods.
 
 ## 3. Proposed Method
+
 ### 3.1 Main Contributions
 Clearly explain what solution the paper proposes to solve key problems.
+
 ### 3.2 Core Idea
 Outline the core design ideas or principles of the solution (such as technical frameworks, key mechanisms, etc.).
+
 ### 3.3 Novelty
 Elaborate on the innovations of the proposed method compared to existing technologies (such as newly proposed technologies, combination methods, or optimization directions).
 
 ## 4. Experiment Results
+
 ### 4.1 Experimental Setup
 Outline the datasets used in the experiments, the baseline methods for comparison, and key evaluation metrics.
+
 ### 4.2 Experimental Results
 Explain the main results and findings, as well as the comparison between this method and baseline methods.
 
 ## 5. Limitations and Future Work
-5.1 Limitations
+
+### 5.1 Limitations
 Point out the shortcomings or unsolved problems of the current research.
-5.2 Future Directions
+
+### 5.2 Future Directions
 Explain the proposed future research directions or improvement ideas in the paper.
 
-**Notes:**
-* Strictly use the markdown section headings as shown above.
-* Each section starts with a heading, and the subsequent content is presented using bullet points or concise paragraphs.
-* Paraphrase and synthesize the content; do not directly copy the original text of the paper.
-* Use clear and understandable technical language.
-* Output the summary content directly without adding any irrelevant information.
+</Output Format (Markdown)>
 
-**Please summarize**
+<Summary>
+[Please provide a high-quality summary that fulfills the above requirements]
+</Summary>
 """
 
 
