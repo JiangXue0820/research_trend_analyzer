@@ -1,50 +1,48 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Union, Callable
 from pathlib import Path
 import logging
 import ast
 import json
 import os
+import argparse
 from utils.prompts import KEYWORDS_GENERATION_PROMPT
-from configs import config, llm_provider
+from configs.env_config import Config
 from configs.log_config import configure_logging
+from utils.call_llms import get_llm
+
 
 
 class KeywordGenerator:
-    def __init__(self, llm: Any, save_path: os.PathLike | str = os.path.join("configs", "keywords.json")):
-        self.llm = self._validate_llm(llm)
-        self.save_path = Path(save_path)
-
-    @staticmethod
-    def _validate_llm(llm: Any) -> Any:
-        if llm is None or not (hasattr(llm, "invoke") or callable(llm)):
-            logging.error("[KEYWORD_GEN] No usable LLM provided")
-            raise ValueError("Invalid LLM provided.")
-        return llm
-
+    def __init__(
+        self,
+        llm: str,
+        api: str = "mlops",
+        save_path: Union[os.PathLike, str, None] = None
+    ):
+        self.save_path = Path(save_path) if save_path is not None else Path("configs") / "topic_keywords.json"
+        self.llm = get_llm(api, llm)
+        
     def generate_keywords(self, topic: str) -> List[str]:
         topic = (topic or "").strip()
         logging.info(f"[KEYWORD_GEN] Generating keywords for topic={topic!r}")
         prompt = KEYWORDS_GENERATION_PROMPT.format(topic=topic)
 
         # Call the model
-        try:
-            raw = self.llm.invoke(prompt) if hasattr(self.llm, "invoke") else self.llm(prompt)
-        except Exception as call_err:
-            msg = f"LLM call failed: {call_err}"
-            logging.exception(f"[KEYWORD_GEN] {msg}")
-            raise RuntimeError(msg) from call_err
+        resp_msg = self.llm(prompt)
+        if resp_msg.get("status") != "success":
+            msg = f"LLM call failed: {resp_msg.get('message', 'unknown error')}"
+            logging.error(f"[KEYWORD_GEN] {msg}")
+            raise RuntimeError(msg)
 
         # Extract text (ensure string)
-        response_text = (
-            getattr(raw, "content", None)
-            or getattr(raw, "text", None)
-            or (raw.get("content") if isinstance(raw, dict) else None)
-            or (raw.get("text") if isinstance(raw, dict) else None)
-        )
-        response_text = str(raw) if response_text is None else str(response_text)
-        logging.info(f"[KEYWORD_GEN] Raw response (first 200): {response_text[:200]}")
-
+        response_text = resp_msg.get("data", "")
+        if not isinstance(response_text, str) or not response_text.strip():
+            msg = f"LLM response is empty or not a string: {response_text!r}"
+            logging.error(f"[KEYWORD_GEN] {msg}")
+            raise ValueError(msg)
+        
         # Parse as Python list
+        response_text = response_text.strip()
         try:
             parsed = ast.literal_eval(response_text)
             logging.info("[KEYWORD_GEN] Parsed with ast.literal_eval.")
@@ -112,9 +110,14 @@ class KeywordGenerator:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Keyword Generator for Research Topics")
+    parser.add_argument("--llm", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
+    parser.add_argument("--api", type=str, default="mlops", help="The API to use ('mlops' or 'gemini')")
+    parser.add_argument("--save_path", type=str, default=None, help="Path to save the keywords JSON file")
+    args = parser.parse_args()
+
     configure_logging()
-    llm = llm_provider.get_llm(config)
-    keyword_gen = KeywordGenerator(llm=llm)
+    keyword_gen = KeywordGenerator(llm=args.llm, api=args.api, save_path=args.save_path)
 
     while True:
         topic = input("[Input] Please enter a research topic (or type 'quit' to exit): ").strip()
@@ -130,6 +133,7 @@ if __name__ == "__main__":
             kws = keyword_gen.generate_keywords(topic)
             keyword_gen.save_keywords(topic, kws)
             print(f"==> [Success] Extracted and saved {len(kws)} keywords for '{topic}'.\n")
+            print(f"Keywords: {kws}\n")
         except Exception as e:
             logging.exception(f"[KEYWORD_GEN] Failed for topic={topic!r}: {e}")
             print(f"==> [Error] {e} generating keywords for '{topic}'. \n")
