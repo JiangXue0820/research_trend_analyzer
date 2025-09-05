@@ -4,11 +4,16 @@ TASK:
 Given a topic string, return a Python list of strings.
 
 REQUIREMENTS:
-- Include at least 10 relevant keywords.
-- Cover verb, noun, adjective forms, common phrases, technical terms, subfields, related concepts, and synonyms/abbreviations.
-- Include both core terms and popular subtopics.
-- Output only the Python list (no dict, no extra text).
-- Output must be valid Python code.
+- Include AT LEAST 10 unique, relevant keywords.
+- Keywords should be primarily single words, but include common multi-word technical phrases if necessary.
+- Cover:
+  * Core terms (directly matching the topic)
+  * Variants (noun, verb, adjective forms, abbreviations, synonyms)
+  * Subfields and branches
+  * Technical terms, methods, and related concepts
+- Ensure coverage across both foundational and emerging subtopics.
+- Output ONLY the Python list (no dicts, no explanations, no formatting beyond the list).
+- Output MUST be valid Python code.
 
 OUTPUT FORMAT (strict):
 ["...", "...", "..."]
