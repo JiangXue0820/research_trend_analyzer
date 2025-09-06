@@ -568,3 +568,17 @@ ZeroDivisionError: division by zero
 2025-09-06 23:18:10 | INFO     | root:65 | [RESULT_VISUALIZER] Successfully parsed summary for paper Lower Bounds And Optimal Algorithms For Personalized Federated Learning.
 2025-09-06 23:18:10 | INFO     | root:121 | [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
 2025-09-06 23:18:10 | INFO     | root:127 | [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 23:42:35 | INFO     | root:26 | [CRAWL] Fetching papers from neurips 2022.
+2025-09-06 23:42:35 | DEBUG    | urllib3.connectionpool:1049 | Starting new HTTPS connection (1): papers.nips.cc:443
+2025-09-06 23:42:36 | DEBUG    | urllib3.connectionpool:544 | https://papers.nips.cc:443 "GET /paper_files/paper/2022 HTTP/1.1" 200 None
+2025-09-06 23:42:37 | INFO     | root:177 | [JSONL] Wrote 2834 rows to papers\paper_list\neurips_2022\full_list.jsonl (append=False)
+2025-09-06 23:42:37 | INFO     | root:232 | [JSONL] Updated papers\paper_list\neurips_2022\full_list.jsonl with 2834 new rows (total 2834)
+2025-09-06 23:42:37 | INFO     | root:52 | [CRAWL] Added 2834 new papers to papers\paper_list\neurips_2022\full_list.jsonl
+2025-09-06 23:42:37 | INFO     | root:40 | [CRAWL] Paper list saved into papers\paper_list\neurips_2022\full_list.jsonl.
+2025-09-07 00:10:23 | INFO     | root:18 | [CRAWL] Fetching papers from neurips 2023.
+2025-09-07 00:10:23 | DEBUG    | urllib3.connectionpool:1049 | Starting new HTTPS connection (1): papers.nips.cc:443
+2025-09-07 00:10:25 | DEBUG    | urllib3.connectionpool:544 | https://papers.nips.cc:443 "GET /paper_files/paper/2023 HTTP/1.1" 200 None
+2025-09-07 00:10:26 | INFO     | root:177 | [JSONL] Wrote 3540 rows to papers\paper_list\neurips_2023\full_list.jsonl (append=False)
+2025-09-07 00:10:26 | INFO     | root:232 | [JSONL] Updated papers\paper_list\neurips_2023\full_list.jsonl with 3540 new rows (total 3540)
+2025-09-07 00:10:26 | INFO     | root:43 | [CRAWL] Added 3540 new papers to papers\paper_list\neurips_2023\full_list.jsonl
+2025-09-07 00:10:26 | INFO     | root:31 | [CRAWL] Paper list saved into papers\paper_list\neurips_2023\full_list.jsonl.
