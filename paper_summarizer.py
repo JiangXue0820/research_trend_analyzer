@@ -235,7 +235,7 @@ class PaperSummarizer:
         logging.info(f"[SUMMARIZER] Finished summarizing '{title}': {added} added, {fail} failed. Check log for more details")
 
 if __name__ == "__main__":
-    configure_logging()
+    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
 
     parser = argparse.ArgumentParser(description="Keyword Generator for Research Topics")
     parser.add_argument("--model_name", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")

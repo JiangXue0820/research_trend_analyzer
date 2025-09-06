@@ -182,6 +182,6 @@ class PaperFilter:
 
 if __name__ == "__main__":
     from configs.log_config import configure_logging
-    configure_logging()
+    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
     filter = PaperFilter()
     filter.main("neurips", 2020, "privacy")

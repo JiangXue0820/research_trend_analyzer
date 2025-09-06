@@ -61,7 +61,7 @@ class SummaryAggregator:
         keywords = parsed_content.get("Brief Summary", {}).get("Keywords", [])
         highlights = parsed_content.get("Brief Summary", {}).get("Highlight", "")
 
-        msg = "[RESULT_VISUALIZER] Successfully parsed summary."
+        msg = f"[RESULT_VISUALIZER] Successfully parsed summary for paper {paper_title}."
         logging.info(msg)
         return make_response("success", msg, {
             "Title": paper_title,
@@ -96,7 +96,6 @@ class SummaryAggregator:
             title = str(paper.get("title", "untitled")).strip()
             authors = str(paper.get("authors", "[]")).strip()
             fname = safe_filename(title)  # sanitize title for use as filename
-            print(fname)
 
             summary_path = os.path.join(self.paper_summary_path, f"{fname}.md")
             if not os.path.isfile(summary_path):
@@ -129,7 +128,7 @@ class SummaryAggregator:
 
 
 if __name__ == "__main__":
-    configure_logging()
+    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
     aggregator = SummaryAggregator()
     aggregator.aggregate_brief_summary(conference="neurips", year=2020, topic="privacy", language="CH")
     aggregator.aggregate_brief_summary(conference="neurips", year=2020, topic="privacy", language="EN")

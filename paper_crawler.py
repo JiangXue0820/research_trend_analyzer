@@ -54,6 +54,6 @@ class PaperCrawler:
 
 
 if __name__ == "__main__":
-    configure_logging()
+    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
     crawler = PaperCrawler()
     crawler.crawl_papers("neurips", 2020)

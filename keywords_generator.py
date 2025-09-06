@@ -118,7 +118,7 @@ if __name__ == "__main__":
     parser.add_argument("--keywords_path", type=str, default=os.path.join("configs", "topic_keywords.json"), help="Path to save the keywords JSON file")
     args = parser.parse_args()
 
-    configure_logging()
+    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
     keyword_gen = KeywordsGenerator(model_name=args.model_name, api=args.api, keywords_path=args.keywords_path)
 
     while True:
