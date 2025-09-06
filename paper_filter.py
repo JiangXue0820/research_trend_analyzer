@@ -136,19 +136,19 @@ class PaperFilter:
         conf_key = (conference or "").strip().lower()
         topic_key = "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in (topic or "").strip().lower()).strip("_") or "topic"
 
-        path = os.path.join(self.paper_list_root, f"{conf_key}_{year}", f"filtered_{topic_key}.jsonl")
-        path.parent.mkdir(parents=True, exist_ok=True)
+        filtered_list_path = os.path.join(self.paper_list_root, f"{conf_key}_{year}", f"filtered_{topic_key}.jsonl")
+        filtered_list_path.parent.mkdir(parents=True, exist_ok=True)
 
         try:
             # update_jsonl handles create/merge/dedupe
-            added = update_jsonl(path, [p for p in filtered_papers if isinstance(p, dict)])
+            added = update_jsonl(filtered_list_path, [p for p in filtered_papers if isinstance(p, dict)])
             if added > 0:
-                logging.info(f"[PAPER_FILTER] Added {added} new filtered papers to {path}")
+                logging.info(f"[PAPER_FILTER] Added {added} new filtered papers to {filtered_list_path}")
             else:
-                logging.info(f"[PAPER_FILTER] No new filtered papers to add for {path}")
+                logging.info(f"[PAPER_FILTER] No new filtered papers to add for {filtered_list_path}")
         except Exception as e:
             raise RuntimeError(
-                f"[PAPER_FILTER] Failed to update filtered paper list at '{path}': {e}"
+                f"[PAPER_FILTER] Failed to update filtered paper list at '{filtered_list_path}': {e}"
             ) from e
 
     def main(self, conference: str, year: int, topic: str) -> List[Dict[str, Any]]:
@@ -164,6 +164,8 @@ class PaperFilter:
         if not topic:
             logging.error("[PAPER_FILTER] No topic specified.")
             raise ValueError("Topic must be specified.")
+        
+        logging.info(f"[PAPER_FILTER] Filtering papers for {conference}, {year}, {topic}")
 
         keywords = self.load_keywords_of_topic(topic)
         full_paper_list = self.load_full_paper_list(conference, year)

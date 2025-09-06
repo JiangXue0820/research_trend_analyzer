@@ -52,9 +52,10 @@ def strip_code_block(text: str) -> str:
     return text.strip()
 
 def safe_filename(name: str) -> str:
-    base = re.sub(r"[^a-zA-Z0-9._-]+", "_", (name or "").strip().lower())
-    base = re.sub(r"_+", "_", base).strip("_")
-    return base or "paper"
+    s = (name or "").strip()
+    s = "".join(c if c.isalnum() or c in ("-", "_", " ") else "_" for c in s)
+    s = "_".join(s.split())[:180]  # collapse spaces, trim long names
+    return s.lower() or "untitled"
 
 def save_md_file(text: str, md_path: str, mode: str = "w") -> Dict[str, Any]:
     """
@@ -94,8 +95,8 @@ def load_md_file(md_path: str) -> Dict[str, Any]:
             content = f.read()
         return make_response(
             "success",
-            "File loaded.",
-            {"path": md_path, "content": content}
+            f"File loaded from {md_path}.",
+            content
         )
     except FileNotFoundError:
         return make_response(
@@ -236,92 +237,164 @@ def update_jsonl(path: Union[str, Path], rows: List[Dict[str, Any]]) -> int:
 
 
 def parse_markdown_summary(md_text: str) -> Dict:
-    # 目标结构
-    parsed = {
-        "Paper Info": {"Title": "", "Authors": "", "Affiliations": ""},
-        "Brief Summary": {"Highlight": "", "Keywords": ""},
-        "Detailed Summary": {
-            "1. Motivation": {"1.1 Background": "", "1.2 Problem Statement": ""},
-            "2. State-of-the-Art Methods": {"2.1 Existing Methods": "", "2.2 Limitations of Existing Methods": ""},
-            "3. Proposed Method": {"3.1 Main Contributions": "", "3.2 Core Idea": "", "3.3 Novelty": ""},
-            "4. Experiment Results": {"4.1 Experimental Setup": "", "4.2 Experimental Results": ""},
-            "5. Limitations and Future Work": {"5.1 Limitations": "", "5.2 Future Directions": ""},
-        },
-    }
+    # validate input
+    if not isinstance(md_text, str) or not md_text.strip():
+        return make_response("error", "md_text must be a non-empty string.", None)
 
-    # parse Paper info code block
-    code_blocks = re.findall(r"```(?:\w+)?\n(.*?)\n```", md_text, flags=re.S)
-    md = next((b for b in code_blocks if "# Paper Info" in b), code_blocks[0] if code_blocks else md_text)
+    try:
+        # target structure
+        parsed = {
+            "Paper Info": {"Title": "", "Authors": "", "Affiliations": ""},
+            "Brief Summary": {"Highlight": "", "Keywords": ""},
+            "Detailed Summary": {
+                "1. Motivation": {"1.1 Background": "", "1.2 Problem Statement": ""},
+                "2. State-of-the-Art Methods": {
+                    "2.1 Existing Methods": "",
+                    "2.2 Limitations of Existing Methods": "",
+                },
+                "3. Proposed Method": {
+                    "3.1 Main Contributions": "",
+                    "3.2 Core Idea": "",
+                    "3.3 Novelty": "",
+                },
+                "4. Experiment Results": {
+                    "4.1 Experimental Setup": "",
+                    "4.2 Experimental Results": "",
+                },
+                "5. Limitations and Future Work": {
+                    "5.1 Limitations": "",
+                    "5.2 Future Directions": "",
+                },
+            },
+        }
 
-    # aggregate titles
-    h1 = re.compile(r"^#\s+(.+?)\s*$")
-    h2 = re.compile(r"^##\s+(.+?)\s*$")
-    h3 = re.compile(r"^###\s+(.+?)\s*$")
-    TOP = {"Paper Info", "Brief Summary", "Detailed Summary"}
-    PI = {"Title", "Authors", "Affiliations"}
-    BS = {"Highlight", "Keywords"}
-    DS = {
-        "1. Motivation": {"1.1 Background", "1.2 Problem Statement"},
-        "2. State-of-the-Art Methods": {"2.1 Existing Methods", "2.2 Limitations of Existing Methods"},
-        "3. Proposed Method": {"3.1 Main Contributions", "3.2 Core Idea", "3.3 Novelty"},
-        "4. Experiment Results": {"4.1 Experimental Setup", "4.2 Experimental Results"},
-        "5. Limitations and Future Work": {"5.1 Limitations", "5.2 Future Directions"},
-    }
+        # parse Paper info code block
+        code_blocks = re.findall(r"```(?:\w+)?\n(.*?)\n```", md_text, flags=re.S)
+        md = next(
+            (b for b in code_blocks if "# Paper Info" in b),
+            code_blocks[0] if code_blocks else md_text,
+        )
 
-    # clean and connect
-    CJK_PUNCT, OPENERS = "，。；：！？、）】》％%", "（【《“\"'([{" 
+        # aggregate titles
+        h1 = re.compile(r"^#\s+(.+?)\s*$")
+        h2 = re.compile(r"^##\s+(.+?)\s*$")
+        h3 = re.compile(r"^###\s+(.+?)\s*$")
+        TOP = {"Paper Info", "Brief Summary", "Detailed Summary"}
+        PI = {"Title", "Authors", "Affiliations"}
+        BS = {"Highlight", "Keywords"}
+        DS = {
+            "1. Motivation": {"1.1 Background", "1.2 Problem Statement"},
+            "2. State-of-the-Art Methods": {
+                "2.1 Existing Methods",
+                "2.2 Limitations of Existing Methods",
+            },
+            "3. Proposed Method": {
+                "3.1 Main Contributions",
+                "3.2 Core Idea",
+                "3.3 Novelty",
+            },
+            "4. Experiment Results": {
+                "4.1 Experimental Setup",
+                "4.2 Experimental Results",
+            },
+            "5. Limitations and Future Work": {
+                "5.1 Limitations",
+                "5.2 Future Directions",
+            },
+        }
 
-    def clean(s: str) -> str:
-        s = re.sub(r":contentReference\[.*?\]\{.*?\}", "", s)
-        s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", s)
-        return s.replace("`", "").strip()
+        # clean and connect
+        CJK_PUNCT, OPENERS = "，。；：！？、）】》％%", "（【《“\"'([{" 
 
-    def smart_join(a: str, b: str) -> str:
-        b = clean(b)
-        if not b: return a
-        if not a: return b
-        last, first = a[-1], b[0]
-        glue = "" if (first in CJK_PUNCT or last in OPENERS or (last == "-" and first.isalpha())) else " "
-        out = a + glue + b
-        out = re.sub(r"\s+([{}])".format(CJK_PUNCT), r"\1", out)
-        out = re.sub(r"\s+([)\]】》}])", r"\1", out)
-        return re.sub(r"[ \t]+", " ", out).strip()
+        def clean(s: str) -> str:
+            try:
+                s = re.sub(r":contentReference\[.*?\]\{.*?\}", "", s)
+                s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", s)
+                return s.replace("`", "").strip()
+            except re.error as e:
+                # If a regex engine error occurs, fall back to a minimal clean
+                return s.replace("`", "").strip()
 
-    # pointer
-    cur_top = cur_pi_bs = cur_ds_grp = cur_ds_sub = None
+        def smart_join(a: str, b: str) -> str:
+            b = clean(b)
+            if not b:
+                return a
+            if not a:
+                return b
+            last, first = a[-1], b[0]
+            glue = "" if (first in CJK_PUNCT or last in OPENERS or (last == "-" and first.isalpha())) else " "
+            out = a + glue + b
+            try:
+                out = re.sub(r"\s+([{}])".format(CJK_PUNCT), r"\1", out)
+                out = re.sub(r"\s+([)\]】》}])", r"\1", out)
+                return re.sub(r"[ \t]+", " ", out).strip()
+            except re.error:
+                # If post-joins regex fails, return a simple whitespace-normalized string
+                return " ".join(out.split())
 
-    for raw in md.splitlines():
-        line = raw.rstrip()
-        if not line.strip(): continue
+        # pointers
+        cur_top = cur_pi_bs = cur_ds_grp = cur_ds_sub = None
 
-        if h1.match(line):
-            t = h1.match(line).group(1).strip()
-            cur_top = t if t in TOP else None
-            cur_pi_bs = cur_ds_grp = cur_ds_sub = None
-            continue
-        if h2.match(line):
-            sub = h2.match(line).group(1).strip()
-            if cur_top == "Paper Info" and sub in PI:
-                cur_pi_bs, cur_ds_grp, cur_ds_sub = sub, None, None
-            elif cur_top == "Brief Summary" and sub in BS:
-                cur_pi_bs, cur_ds_grp, cur_ds_sub = sub, None, None
-            elif cur_top == "Detailed Summary" and sub in DS:
-                cur_ds_grp, cur_ds_sub, cur_pi_bs = sub, None, None
+        # guard: ensure md is string (it should be)
+        if not isinstance(md, str):
+            return make_response("error", "Failed to isolate markdown block.", None)
+
+        for raw in md.splitlines():
+            # robust line handling
+            if not isinstance(raw, str):
+                continue
+            line = raw.rstrip()
+            if not line.strip():
+                continue
+
+            m1 = h1.match(line)
+            if m1:
+                t = m1.group(1).strip()
+                cur_top = t if t in TOP else None
+                cur_pi_bs = cur_ds_grp = cur_ds_sub = None
+                continue
+
+            m2 = h2.match(line)
+            if m2:
+                sub = m2.group(1).strip()
+                if cur_top == "Paper Info" and sub in PI:
+                    cur_pi_bs, cur_ds_grp, cur_ds_sub = sub, None, None
+                elif cur_top == "Brief Summary" and sub in BS:
+                    cur_pi_bs, cur_ds_grp, cur_ds_sub = sub, None, None
+                elif cur_top == "Detailed Summary" and sub in DS:
+                    cur_ds_grp, cur_ds_sub, cur_pi_bs = sub, None, None
+                else:
+                    cur_pi_bs = cur_ds_sub = None
+                continue
+
+            m3 = h3.match(line)
+            if m3:
+                subsub = m3.group(1).strip()
+                # guard DS indexing
+                if cur_top == "Detailed Summary" and cur_ds_grp in DS and subsub in DS[cur_ds_grp]:
+                    cur_ds_sub = subsub
+                else:
+                    cur_ds_sub = None
+                continue
+
+            # aggregate content with guards
+            if cur_top == "Paper Info" and cur_pi_bs in PI:
+                parsed["Paper Info"][cur_pi_bs] = smart_join(parsed["Paper Info"].get(cur_pi_bs, ""), line)
+            elif cur_top == "Brief Summary" and cur_pi_bs in BS:
+                parsed["Brief Summary"][cur_pi_bs] = smart_join(parsed["Brief Summary"].get(cur_pi_bs, ""), line)
+            elif cur_top == "Detailed Summary" and cur_ds_grp in DS and cur_ds_sub in DS[cur_ds_grp]:
+                parsed["Detailed Summary"][cur_ds_grp][cur_ds_sub] = smart_join(
+                    parsed["Detailed Summary"][cur_ds_grp].get(cur_ds_sub, ""),
+                    line,
+                )
             else:
-                cur_pi_bs = cur_ds_sub = None
-            continue
-        if h3.match(line):
-            subsub = h3.match(line).group(1).strip()
-            cur_ds_sub = subsub if (cur_top == "Detailed Summary" and cur_ds_grp and subsub in DS[cur_ds_grp]) else None
-            continue
+                # line outside recognized sections — ignore gracefully
+                continue
 
-        if cur_top == "Paper Info" and cur_pi_bs in PI:
-            parsed["Paper Info"][cur_pi_bs] = smart_join(parsed["Paper Info"][cur_pi_bs], line)
-        elif cur_top == "Brief Summary" and cur_pi_bs in BS:
-            parsed["Brief Summary"][cur_pi_bs] = smart_join(parsed["Brief Summary"][cur_pi_bs], line)
-        elif cur_top == "Detailed Summary" and cur_ds_grp and cur_ds_sub:
-            parsed["Detailed Summary"][cur_ds_grp][cur_ds_sub] = smart_join(
-                parsed["Detailed Summary"][cur_ds_grp][cur_ds_sub], line
-            )
+        # success
+        return make_response("success", "Parsed markdown summary.", parsed)
 
-    return parsed
+    except re.error as e:
+        return make_response("error", f"Regex error while parsing: {e}", None)
+    except Exception as e:
+        return make_response("error", f"Failed to parse markdown summary: {e}", None)

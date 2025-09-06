@@ -8,7 +8,7 @@ from tqdm import tqdm
 from configs.log_config import configure_logging
 from utils.prompts import PAPER_SUMMARY_PROMPT_CH, PAPER_SUMMARY_PROMPT_EN
 from utils.call_llms import get_llm
-from utils.paper_crawler import download_pdf, delete_pdf, parse_pdf
+from utils.paper_process import download_pdf, delete_pdf, parse_pdf
 from utils.helper_func import make_response, save_md_file, safe_filename
 
 
@@ -82,7 +82,9 @@ class PaperSummarizer:
             download_pdf(paper_url, str(pdf_path))
             res = parse_pdf(str(pdf_path))  # expected: {"status": "...", "data": "...", "message": "..."}
             if res.get("status") == "success":
-                return make_response("success", "Paper content extracted successfully.", res.get("data"))
+                msg = f"[SUMMARIZER] Extracted content for '{paper_title}', {res.get('message', '')} ({len(res.get('data', '') or '')} chars)."
+                logging.info(msg)
+                return make_response("success", msg, res.get("data"))
             else:
                 msg = "Failed to extract paper content: " + (res.get("message") or "Unknown error")
                 logging.error(f"[SUMMARIZER] {msg}")
@@ -141,6 +143,10 @@ class PaperSummarizer:
         - Skips summaries that already exist on disk.
         - Saves summaries as Markdown files in paper_summary_root.
         """
+        if topic:
+            logging.info(f"[SUMMARIZER] Summarizing papers for {conference}, {year}, {topic}")
+        else:
+            logging.info(f"[SUMMARIZER] Summarizing papers for {conference}, {year}")
 
         # Decide which paper list to load and where summaries should go
         if customize_list:
@@ -174,6 +180,7 @@ class PaperSummarizer:
             raise ValueError(f"[SUMMARIZER] No papers in: {raw_list_path}")
 
         # --- Process each paper ---------------------------------------------------
+        added, fail,  = 0, 0
         for paper in tqdm(papers, desc="Summarizing papers"):
             title = str(paper.get("title", "untitled")).strip()
             authors = str(paper.get("authors", "[]")).strip()
@@ -196,8 +203,9 @@ class PaperSummarizer:
             content_rsp = self.get_paper_content(title, url)
             if content_rsp.get("status") != "success":
                 logging.warning(
-                    f"[SUMMARIZER] Content failed for '{title}': {content_rsp.get('message')}"
+                    f"[SUMMARIZER] Failed in getting paper content for '{title}': {content_rsp.get('message')}"
                 )
+                fail += 1
                 continue
 
             text = content_rsp.get("data") or ""
@@ -207,19 +215,24 @@ class PaperSummarizer:
                 summary_rsp = self.make_summary(title, authors, text, self.LANG_PROMPTS[suf])
                 if summary_rsp.get("status") != "success":
                     logging.warning(
-                        f"[SUMMARIZER] Summary failed for '{title}' ({suf}): "
+                        f"[SUMMARIZER] Failed in making summary for '{title}' ({suf}): "
                         f"{summary_rsp.get('message')}"
                     )
+                    fail += 1
                     continue
 
                 summary = summary_rsp.get("data", "")
                 if not summary:
                     logging.warning(f"[SUMMARIZER] Empty summary for '{title}' ({suf})")
+                    fail += 1
                     continue
 
                 # Save summary as Markdown
                 save_md_file(summary, str(targets[suf]))
+                added += 1    
                 logging.info(f"[SUMMARIZER] Saved {suf} summary for '{title}' → {targets[suf]}")
+                
+        logging.info(f"[SUMMARIZER] Finished summarizing '{title}': {added} added, {fail} failed. Check log for more details")
 
 if __name__ == "__main__":
     configure_logging()

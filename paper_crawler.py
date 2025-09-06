@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 import logging
 from configs.log_config import configure_logging
-from utils.paper_crawler import fetch_neurips_papers, fetch_aaai_papers
+from utils.paper_process import fetch_neurips_papers, fetch_aaai_papers
 from utils.helper_func import load_jsonl, save_jsonl, update_jsonl
 
 

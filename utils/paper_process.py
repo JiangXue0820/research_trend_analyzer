@@ -1,7 +1,8 @@
 # paper_crawler.py
 import os
 import requests
-import pymupdf
+import fitz
+import re
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Union, Optional
@@ -141,22 +142,111 @@ def download_pdf(pdf_url: str, paper_path: str):
         return make_response("error", f"Failed to download or save PDF: {e}", None)
 
 
-def parse_pdf(paper_path: str):
-    """
-        Parse text from a local PDF at `paper_path`, and return the text. 
+# Compile once
+ACK_PAT = re.compile(r"^\s*acknowledg(e)?ment(s)?\s*$", re.IGNORECASE)
+REF_PAT = re.compile(r"^\s*(references?|bibliography|works\s+cited)\s*$", re.IGNORECASE)
 
-        Args:
-            paper_path (str): Absolute or relative path to the PDF file on disk.
+def validate_pdf_path(pdf_path: str) -> None:
+    if not isinstance(pdf_path, str) or not pdf_path.strip():
+        raise ValueError("pdf_path must be a non-empty string.")
+    if not os.path.exists(pdf_path):
+        raise FileNotFoundError(f"File not found: {pdf_path}")
+    if not os.path.isfile(pdf_path):
+        raise ValueError(f"Not a file: {pdf_path}")
+    if not pdf_path.lower().endswith(".pdf"):
+        raise ValueError("The provided path does not have a .pdf extension.")
+
+def parse_pdf(
+    pdf_path: str,
+    include_anchor_page: bool = False, 
+    early_stop: bool = True,
+):
     """
-    if not isinstance(paper_path, str) or not paper_path.strip():
-        return make_response("error", "No paper_path provided.", None)
+    Extract text from the PDF. By default, stops BEFORE the first line that looks like an
+    'Acknowledgments' or 'References' heading (case-insensitive, whole-line match) and
+    EXCLUDES that heading and everything after it on that page.
+
+    Args:
+        pdf_path (str): The path to the PDF file.
+        include_anchor_page (bool): Whether to also include the content of anchor page in the output.
+        early_stop (bool): Whether to stop parsing at the first acknowledgment or reference section.
+    """
+    try:
+        validate_pdf_path(pdf_path)
+    except Exception as e:
+        return make_response("error", str(e), None)
 
     try:
-        with pymupdf.open(paper_path) as doc:
-            text = "".join(page.get_text() for page in doc)
+        with fitz.open(pdf_path) as doc:
             page_count = doc.page_count
-        return make_response("success", f"Parsed {page_count} page(s).",
-                                         {"text": text, "page_count": page_count})
+            if page_count == 0:
+                return make_response("warning", "Empty PDF (0 pages).", None)
+
+            # If not stopping early, return the entire document text
+            if not early_stop:
+                try:
+                    text = "".join(doc[pno].get_text("text") for pno in range(page_count))
+                except Exception as e:
+                    return make_response("error", f"Failed to extract text: {e}", None)
+                return make_response("success", f"Parsed {page_count} page(s).", text)
+
+            # early_stop=True: stop at first matching heading
+            parts = []
+            stop_section: Optional[str] = None
+            stop_page: Optional[int] = None
+
+            for pno in range(page_count):
+                try:
+                    page_text = doc[pno].get_text("text")
+                except Exception as e:
+                    return make_response("error", f"Failed to read page {pno}: {e}", None)
+
+                lines = page_text.splitlines()
+
+                hit_idx = None
+                hit_label = None
+                for i, ln in enumerate(lines):
+                    if ACK_PAT.match(ln):
+                        hit_idx, hit_label = i, "acknowledgments"
+                        break
+                    if REF_PAT.match(ln):
+                        hit_idx, hit_label = i, "references"
+                        break
+
+                if hit_idx is None:
+                    parts.append(page_text)
+                    continue
+
+                # Found a stop section on this page
+                stop_section = hit_label
+                stop_page = pno
+
+                if include_anchor_page:
+                    # Include entire anchor page, then stop
+                    parts.append(page_text)
+                else:
+                    # EXCLUDE the heading and everything after it on this page
+                    before = "\n".join(lines[:hit_idx]).rstrip()
+                    parts.append(before)
+
+                break  # stop after handling the anchor page
+
+            text_out = "\n".join(parts).strip() if parts else None
+
+            if stop_section is not None and stop_page is not None:
+                return make_response(
+                    "success",
+                    f"Stopped at {stop_section} on page {stop_page}",
+                    text_out,
+                )
+            else:
+                # No stop section found — return everything read
+                return make_response(
+                    "success",
+                    "Reached end of document without finding a stop section.",
+                    text_out,
+                )
+
     except Exception as e:
         return make_response("error", f"Failed to parse PDF: {e}", None)
 

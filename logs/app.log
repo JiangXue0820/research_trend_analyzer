@@ -314,3 +314,199 @@ Permute-And-Flip: A New Mechanism For Differentially Private Selection
 ## Affiliations
 [('College of Information and Computer 
 2025-09-06 00:47:35,928 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip_a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:23:49,770 - ERROR - [RESULT_VISUALIZER] Conference or year is not specified.
+2025-09-06 22:25:10,466 - ERROR - [RESULT_VISUALIZER] Conference or year is not specified, get conference=neurips, year=2020
+2025-09-06 22:25:38,582 - ERROR - [RESULT_VISUALIZER] Conference or year is not specified, get conference=neurips, year=2020
+2025-09-06 22:26:55,031 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:27:17,659 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:27:17,683 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:27:17,683 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Adversarially Robust Streaming Algorithms Via Differential Privacy with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:27:17,683 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:27:17,696 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:27:17,697 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Lower Bounds And Optimal Algorithms For Personalized Federated Learning with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:27:17,697 - INFO - [RESULT_VISUALIZER] Successfully parsed 0 summaries, 3 failures. Check log for more details.
+2025-09-06 22:27:20,000 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:27:20,001 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:27:20,002 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Adversarially Robust Streaming Algorithms Via Differential Privacy with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:27:20,002 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:27:20,015 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:27:20,015 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Lower Bounds And Optimal Algorithms For Personalized Federated Learning with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:27:20,015 - INFO - [RESULT_VISUALIZER] Successfully parsed 0 summaries, 3 failures. Check log for more details.
+2025-09-06 22:27:20,029 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:32:20,591 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:32:20,602 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:32:20,602 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Adversarially Robust Streaming Algorithms Via Differential Privacy with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:32:20,602 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:32:20,603 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:32:20,603 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Lower Bounds And Optimal Algorithms For Personalized Federated Learning with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:32:20,604 - INFO - [RESULT_VISUALIZER] Successfully parsed 0 summaries, 3 failures. Check log for more details.
+2025-09-06 22:32:20,965 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:32:20,967 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:32:20,967 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Adversarially Robust Streaming Algorithms Via Differential Privacy with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:32:20,967 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:32:20,968 - ERROR - [RESULT_VISUALIZER] Failed to parse summary.: md_text must be a non-empty string.
+2025-09-06 22:32:20,969 - WARNING - [RESULT_VISUALIZER] Failed to parse summary for paper: Lower Bounds And Optimal Algorithms For Personalized Federated Learning with error: [RESULT_VISUALIZER] Failed to parse summary.
+2025-09-06 22:32:20,969 - INFO - [RESULT_VISUALIZER] Successfully parsed 0 summaries, 3 failures. Check log for more details.
+2025-09-06 22:32:21,004 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:34:15,851 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:34:15,862 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:34:15,862 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:34:15,864 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:34:15,864 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:34:16,136 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:34:16,139 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:34:16,139 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper: Permute-And-Flip: A New Mechanism For Differentially Private Selection
+2025-09-06 22:34:16,143 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:34:16,144 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:34:16,167 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:36:41,893 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:36:41,908 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:36:41,909 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper Permute-And-Flip: A New Mechanism For Differentially Private Selection with path papers\paper_summary\neurips_2020\CH\Permute-And-Flip__A_New_Mechanism_For_Differentially_Private_Selection.md
+2025-09-06 22:36:41,911 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:36:41,912 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:36:42,228 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:36:42,230 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:36:42,231 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper Permute-And-Flip: A New Mechanism For Differentially Private Selection with path papers\paper_summary\neurips_2020\EN\Permute-And-Flip__A_New_Mechanism_For_Differentially_Private_Selection.md
+2025-09-06 22:36:42,233 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:36:42,234 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:36:42,246 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:38:36,820 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:38:36,829 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:38:36,829 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper Permute-And-Flip: A New Mechanism For Differentially Private Selection with path papers\paper_summary\neurips_2020\CH\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:38:36,830 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:38:36,831 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:38:37,060 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:38:37,062 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:38:37,062 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper Permute-And-Flip: A New Mechanism For Differentially Private Selection with path papers\paper_summary\neurips_2020\EN\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:38:37,064 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:38:37,065 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:38:37,075 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:40:59,820 - INFO - [SUMMARIZER] Extracted content for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' (33028 chars).
+2025-09-06 22:41:01,777 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 22:41:18,722 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 22:41:18,738 - INFO - AFC remote call 1 is done.
+2025-09-06 22:41:18,738 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection 
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[(College of Information and Computer 
+2025-09-06 22:41:55,016 - INFO - [SUMMARIZER] Extracted content for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' (33028 chars).
+2025-09-06 22:41:55,440 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 22:42:12,422 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 22:42:12,424 - INFO - AFC remote call 1 is done.
+2025-09-06 22:42:12,425 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[(University of Massachusetts, Amherst,
+2025-09-06 22:42:12,426 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:42:12,427 - INFO - [SUMMARIZER] Finished summarizing 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning': 1 added, 0 failed. Check log for more details
+2025-09-06 22:44:18,413 - INFO - [SUMMARIZER] Extracted content for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' (33028 chars).
+2025-09-06 22:44:18,849 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 22:44:36,993 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 22:44:36,997 - INFO - AFC remote call 1 is done.
+2025-09-06 22:44:36,997 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[('College of Information and Computer 
+2025-09-06 22:44:36,999 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:44:37,001 - INFO - [SUMMARIZER] Finished summarizing 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning': 1 added, 0 failed. Check log for more details
+2025-09-06 22:45:29,909 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:45:29,922 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:29,940 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:29,942 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:29,942 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:45:30,292 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:45:30,294 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:30,314 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:30,322 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:45:30,323 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:45:30,357 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:46:49,519 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:46:49,534 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:46:49,534 - WARNING - [RESULT_VISUALIZER] Summary file not found for paper Permute-And-Flip: A New Mechanism For Differentially Private Selection with path papers\paper_summary\neurips_2020\CH\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:46:49,536 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:46:49,537 - INFO - [RESULT_VISUALIZER] Successfully parsed 2 summaries, 1 failures. Check log for more details.
+2025-09-06 22:46:49,880 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:46:49,882 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:46:49,885 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:46:49,888 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:46:49,889 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:46:49,903 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:47:09,250 - INFO - [SUMMARIZER] Extracted content for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection', Stopped at acknowledgments on page 8 (33028 chars).
+2025-09-06 22:47:09,672 - INFO - AFC is enabled with max remote calls: 10.
+2025-09-06 22:47:26,111 - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-06 22:47:26,116 - INFO - AFC remote call 1 is done.
+2025-09-06 22:47:26,117 - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): # Paper Info
+
+## Title
+Permute-And-Flip: A New Mechanism For Differentially Private Selection
+
+## Authors
+['Ryan Mckenna', 'Daniel R. Sheldon']
+
+## Affiliations
+[("College of Information and Computer 
+2025-09-06 22:47:26,118 - INFO - [SUMMARIZER] Saved CH summary for 'Permute-And-Flip: A New Mechanism For Differentially Private Selection' → papers\paper_summary\neurips_2020\CH\permute-and-flip__a_new_mechanism_for_differentially_private_selection.md
+2025-09-06 22:47:26,121 - INFO - [SUMMARIZER] Finished summarizing 'Lower Bounds And Optimal Algorithms For Personalized Federated Learning': 1 added, 0 failed. Check log for more details
+2025-09-06 22:48:48,017 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:48:48,033 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:48,034 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:48,036 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:48,037 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:48:58,642 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:48:58,657 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:58,659 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:58,662 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:48:58,662 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:49:06,781 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:49:06,795 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:06,797 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:06,800 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:06,801 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:49:07,091 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:49:07,092 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:07,095 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:07,100 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:49:07,100 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:49:07,111 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 22:57:34,312 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:57:34,321 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,322 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,324 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,324 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:57:34,569 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 22:57:34,569 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 22:57:34,572 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,575 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,578 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 22:57:34,578 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 22:57:34,590 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
+2025-09-06 23:08:15,089 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 23:08:15,116 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,118 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,122 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,123 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 23:08:15,466 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\CH\summary.xlsx
+2025-09-06 23:08:15,466 - INFO - [RESULT_VISUALIZER] Aggregating summary for conference=neurips, year=2020
+2025-09-06 23:08:15,469 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,472 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,475 - INFO - [RESULT_VISUALIZER] Successfully parsed summary.
+2025-09-06 23:08:15,475 - INFO - [RESULT_VISUALIZER] Successfully parsed 3 summaries, 0 failures. Check log for more details.
+2025-09-06 23:08:15,488 - INFO - [RESULT_VISUALIZER] Aggregated summary saved to papers\paper_summary\neurips_2020\EN\summary.xlsx
