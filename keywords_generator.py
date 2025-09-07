@@ -113,29 +113,24 @@ class KeywordsGenerator:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Keyword Generator for Research Topics")
-    parser.add_argument("--model_name", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
-    parser.add_argument("--api", type=str, default="mlops", help="The API to use ('mlops' or 'gemini')")
+    parser.add_argument("--topic", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
+    parser.add_argument("--model_name", type=str, default='gemini-2.5-flash', help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
+    parser.add_argument("--api", type=str, default="gemini", help="The API to use ('mlops' or 'gemini')")
     parser.add_argument("--keywords_path", type=str, default=os.path.join("configs", "topic_keywords.json"), help="Path to save the keywords JSON file")
+    parser.add_argument("--repeat", type=int, default=5, help="Number of repeat rounds for generating keywords. Increase the repeat rounds to generate more keywords for a given topic.")
     args = parser.parse_args()
 
     configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
     keyword_gen = KeywordsGenerator(model_name=args.model_name, api=args.api, keywords_path=args.keywords_path)
 
-    while True:
-        topic = input("[Input] Please enter a research topic (or type 'quit' to exit): ").strip()
-        if topic.lower() == "quit":
-            print("==> [Info] Exiting keyword generator.")
-            break
-
-        if not topic:
-            print("==> [Error] Please enter a non-empty topic.")
-            continue
-
-        try:
-            kws = keyword_gen.generate_keywords(topic)
-            keyword_gen.save_keywords(topic, kws)
-            print(f"==> [Success] Extracted and saved {len(kws)} keywords for '{topic}'.\n")
-            print(f"Keywords: {kws}\n")
-        except Exception as e:
-            logging.exception(f"[KEYWORD_GEN] Failed for topic={topic!r}: {e}")
-            print(f"==> [Error] {e} generating keywords for '{topic}'. \n")
+    try:
+        keywords = []
+        for _ in range(args.repeat):
+            kws = keyword_gen.generate_keywords(args.topic)
+            keywords.extend(kws)
+            keyword_gen.save_keywords(args.topic, kws)
+        print(f"==> [Success] Extracted and saved {len(keywords)} keywords for '{args.topic}'.\n")
+        print(f"Keywords: {set(keywords)}\n")
+    except Exception as e:
+        logging.exception(f"[KEYWORD_GEN] Failed for topic={args.topic!r}: {e}")
+        print(f"==> [Error] {e} generating keywords for '{args.topic}'. \n")

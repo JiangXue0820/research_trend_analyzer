@@ -582,3 +582,321 @@ ZeroDivisionError: division by zero
 2025-09-07 00:10:26 | INFO     | root:232 | [JSONL] Updated papers\paper_list\neurips_2023\full_list.jsonl with 3540 new rows (total 3540)
 2025-09-07 00:10:26 | INFO     | root:43 | [CRAWL] Added 3540 new papers to papers\paper_list\neurips_2023\full_list.jsonl
 2025-09-07 00:10:26 | INFO     | root:31 | [CRAWL] Paper list saved into papers\paper_list\neurips_2023\full_list.jsonl.
+2025-09-07 15:50:11 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:50:14 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:50:14 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:50:14 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002AA9BB26E40>
+2025-09-07 15:50:14 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x000002AA9B681EF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:50:15 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002AA9BAF5D10>
+2025-09-07 15:50:15 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:15 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:50:15 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:50:15 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:50:15 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:18 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:50:18 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=3873'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:50:18 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:50:18 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:50:18 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:50:18 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:50:18 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:50:18 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:50:18 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "data protection", "anonymity", "confidentiality", "differential privacy", "federated learning", "GDPR", "homomorphic encryption", "pseudonymization", "data minimization", "consent", "priv
+2025-09-07 15:50:18 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:50:18 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy'
+2025-09-07 15:50:18 | INFO     | root:109 | [KEYWORD_GEN] Saved 23 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:50:18 | ERROR    | root:135 | [KEYWORD_GEN] Failed for topic='privacy': unhashable type: 'list'
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light\keywords_generator.py", line 133, in <module>
+    print(f"Keywords: {set(keywords)}\n")
+                       ~~~^^^^^^^^^^
+TypeError: unhashable type: 'list'
+2025-09-07 15:50:47 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:50:48 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:50:48 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:50:49 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352E6E40>
+2025-09-07 15:50:49 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000022E33E51EF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:50:49 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352B9D10>
+2025-09-07 15:50:49 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:49 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:50:49 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:50:49 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:50:49 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:50:53 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=4011'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:50:53 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:50:53 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:50:53 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "data protection", "differential privacy", "federated learning", "confidentiality", "anonymization", "GDPR", "privacy by design", "homomorphic encryption", "secure 
+2025-09-07 15:50:53 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:50:53 | INFO     | root:61 | [KEYWORD_GEN] Extracted 14 keywords for topic='privacy'
+2025-09-07 15:50:53 | INFO     | root:109 | [KEYWORD_GEN] Saved 24 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:50:53 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:50:53 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:50:53 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:50:53 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E35304B90>
+2025-09-07 15:50:53 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000022E352F5770> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:50:53 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E35292780>
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:50:53 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:58 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:50:58 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=4940'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:50:58 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:50:58 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:50:58 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:50:58 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:50:58 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:50:58 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:50:58 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "anonymous", "data protection", "confidentiality", "differential privacy", "federated learning", "homomorphic encryption", "secure multi-party computation", "pseudo
+2025-09-07 15:50:58 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:50:58 | INFO     | root:61 | [KEYWORD_GEN] Extracted 19 keywords for topic='privacy'
+2025-09-07 15:50:58 | INFO     | root:109 | [KEYWORD_GEN] Saved 28 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:50:58 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:50:59 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:50:59 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:50:59 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E35292B10>
+2025-09-07 15:50:59 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000022E352F5EF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:50:59 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352B3890>
+2025-09-07 15:50:59 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:50:59 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:50:59 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:50:59 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:50:59 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:51:04 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=4518'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:51:04 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:51:04 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:51:04 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "data protection", "confidentiality", "differential privacy", "federated learning", "homomorphic encryption", "secure multi-party computation", "GDPR", "privacy-pre
+2025-09-07 15:51:04 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:51:04 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy'
+2025-09-07 15:51:04 | INFO     | root:109 | [KEYWORD_GEN] Saved 28 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:51:04 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:51:04 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:51:04 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:51:04 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352BE140>
+2025-09-07 15:51:04 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000022E352F65D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:51:04 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352BE250>
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:51:04 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:51:11 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:51:11 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=7127'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:51:11 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:51:11 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:51:11 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:51:11 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:51:11 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:51:11 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:51:11 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "anonymous", "data protection", "confidentiality", "differential privacy", "federated learning", "homomorphic encryption", "secure multi-party computation", "GDPR",
+2025-09-07 15:51:11 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:51:11 | INFO     | root:61 | [KEYWORD_GEN] Extracted 20 keywords for topic='privacy'
+2025-09-07 15:51:11 | INFO     | root:109 | [KEYWORD_GEN] Saved 29 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:51:11 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy'
+2025-09-07 15:51:13 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:51:13 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:51:13 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352E1B50>
+2025-09-07 15:51:13 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000022E352F6CB0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:51:13 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000022E352E1C50>
+2025-09-07 15:51:13 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:51:13 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:51:13 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:51:13 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:51:13 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:51:18 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:51:18 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=5568'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:51:18 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:51:18 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:51:18 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:51:18 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:51:18 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:51:18 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:51:18 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy", "private", "anonymity", "data protection", "differential privacy", "federated learning", "confidentiality", "security", "de-identification", "homomorphic encryption", "secure multi-party c
+2025-09-07 15:51:18 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:51:18 | INFO     | root:61 | [KEYWORD_GEN] Extracted 16 keywords for topic='privacy'
+2025-09-07 15:51:18 | INFO     | root:109 | [KEYWORD_GEN] Saved 31 keywords for topic 'privacy' to configs\topic_keywords.json
+2025-09-07 15:52:06 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy_attacks'
+2025-09-07 15:52:07 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:52:07 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:52:07 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BE6E40>
+2025-09-07 15:52:07 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024824751D10> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:52:07 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BB5D10>
+2025-09-07 15:52:07 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:07 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:52:07 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:52:07 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:52:07 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:52:13 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=6032'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:52:13 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:52:13 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:52:13 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy attacks", "membership inference", "model inversion", "data leakage", "re-identification", "de-anonymization", "attribute inference", "reconstruction attack", "gradient inversion", "inference
+2025-09-07 15:52:13 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:52:13 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy_attacks'
+2025-09-07 15:52:13 | INFO     | root:109 | [KEYWORD_GEN] Saved 15 keywords for topic 'privacy_attacks' to configs\topic_keywords.json
+2025-09-07 15:52:13 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy_attacks'
+2025-09-07 15:52:13 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:52:13 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:52:13 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824C04B90>
+2025-09-07 15:52:13 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024824BF56D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:52:13 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824B92780>
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:52:13 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:52:18 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=4285'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:52:18 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:52:18 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:52:18 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy attacks", "privacy", "attacks", "membership inference", "model inversion", "data reconstruction", "deanonymization", "attribute inference", "information leakage", "adversarial machine learni
+2025-09-07 15:52:18 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:52:18 | INFO     | root:61 | [KEYWORD_GEN] Extracted 18 keywords for topic='privacy_attacks'
+2025-09-07 15:52:18 | INFO     | root:109 | [KEYWORD_GEN] Saved 26 keywords for topic 'privacy_attacks' to configs\topic_keywords.json
+2025-09-07 15:52:18 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy_attacks'
+2025-09-07 15:52:18 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:52:18 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:52:18 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824B92B10>
+2025-09-07 15:52:18 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024824BF5E50> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:52:18 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BB3890>
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:52:18 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:25 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:52:25 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=7341'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:52:25 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:52:25 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:52:25 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:52:25 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:52:25 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:52:25 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:52:25 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy attacks", "data privacy", "membership inference", "model inversion", "reconstruction attack", "deanonymization", "attribute inference", "data leakage", "adversarial machine learning", "feder
+2025-09-07 15:52:25 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:52:25 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy_attacks'
+2025-09-07 15:52:25 | INFO     | root:109 | [KEYWORD_GEN] Saved 29 keywords for topic 'privacy_attacks' to configs\topic_keywords.json
+2025-09-07 15:52:25 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy_attacks'
+2025-09-07 15:52:26 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:52:26 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:52:26 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BBE140>
+2025-09-07 15:52:26 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024824BF6530> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:52:26 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BBE250>
+2025-09-07 15:52:26 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:26 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:52:26 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:52:26 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:52:26 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:32 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:52:32 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=5784'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:52:32 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:52:32 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:52:32 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:52:32 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:52:32 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:52:32 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:52:32 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy attacks", "membership inference", "model inversion", "reconstruction attack", "deanonymization", "data leakage", "sensitive data", "adversarial machine learning", "vulnerability", "different
+2025-09-07 15:52:32 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:52:32 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy_attacks'
+2025-09-07 15:52:32 | INFO     | root:109 | [KEYWORD_GEN] Saved 31 keywords for topic 'privacy_attacks' to configs\topic_keywords.json
+2025-09-07 15:52:32 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='privacy_attacks'
+2025-09-07 15:52:33 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:52:33 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:52:33 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BE1B50>
+2025-09-07 15:52:33 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024824BF6C10> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:52:33 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024824BE1C50>
+2025-09-07 15:52:33 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:33 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:52:33 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:52:33 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:52:33 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:52:40 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:52:40 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=6928'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:52:40 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:52:40 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:52:40 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:52:40 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:52:40 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:52:40 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:52:40 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["privacy attacks", "privacy attack", "data privacy", "attack", "vulnerability", "membership inference", "model inversion", "data reconstruction", "property inference", "re-identification", "data leak
+2025-09-07 15:52:40 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:52:40 | INFO     | root:61 | [KEYWORD_GEN] Extracted 15 keywords for topic='privacy_attacks'
+2025-09-07 15:52:40 | INFO     | root:109 | [KEYWORD_GEN] Saved 35 keywords for topic 'privacy_attacks' to configs\topic_keywords.json
+2025-09-07 15:54:04 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='llm_safety'
+2025-09-07 15:54:06 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:54:06 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:54:06 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016B586E6E40>
+2025-09-07 15:54:06 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016B58251EF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:54:06 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016B586B5D10>
+2025-09-07 15:54:06 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:54:06 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:54:06 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:54:06 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:54:06 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:54:16 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:54:16 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=9526'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:54:16 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-07 15:54:16 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:54:16 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:54:16 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:54:16 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:54:16 | INFO     | google_genai.models:4802 | AFC remote call 1 is done.
+2025-09-07 15:54:16 | INFO     | root:56 | [GEMINI] Gemini inference successful, model=gemini-2.5-flash, response (first 200): ["LLM safety", "safety alignment", "robustness", "trustworthiness", "responsible AI", "ethics", "hallucination", "jailbreak", "prompt injection", "bias", "privacy", "red teaming", "guardrails", "large
+2025-09-07 15:54:16 | INFO     | root:48 | [KEYWORD_GEN] Parsed with ast.literal_eval.
+2025-09-07 15:54:16 | INFO     | root:61 | [KEYWORD_GEN] Extracted 20 keywords for topic='llm_safety'
+2025-09-07 15:54:16 | INFO     | root:109 | [KEYWORD_GEN] Saved 20 keywords for topic 'llm_safety' to configs\topic_keywords.json
+2025-09-07 15:54:16 | INFO     | root:27 | [KEYWORD_GEN] Generating keywords for topic='llm_safety'
+2025-09-07 15:54:17 | INFO     | google_genai.models:4791 | AFC is enabled with max remote calls: 10.
+2025-09-07 15:54:17 | DEBUG    | httpcore.connection:47 | connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-07 15:54:17 | DEBUG    | httpcore.connection:47 | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016B58704B90>
+2025-09-07 15:54:17 | DEBUG    | httpcore.connection:47 | start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016B586F5810> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-07 15:54:17 | DEBUG    | httpcore.connection:47 | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016B58692780>
+2025-09-07 15:54:17 | DEBUG    | httpcore.http11:47 | send_request_headers.started request=<Request [b'POST']>
+2025-09-07 15:54:17 | DEBUG    | httpcore.http11:47 | send_request_headers.complete
+2025-09-07 15:54:17 | DEBUG    | httpcore.http11:47 | send_request_body.started request=<Request [b'POST']>
+2025-09-07 15:54:17 | DEBUG    | httpcore.http11:47 | send_request_body.complete
+2025-09-07 15:54:17 | DEBUG    | httpcore.http11:47 | receive_response_headers.started request=<Request [b'POST']>
+2025-09-07 15:54:21 | DEBUG    | httpcore.http11:47 | receive_response_headers.complete return_value=(b'HTTP/1.1', 503, b'Service Unavailable', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 07 Sep 2025 13:54:21 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=3849'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-07 15:54:21 | INFO     | httpx:1025 | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2025-09-07 15:54:21 | DEBUG    | httpcore.http11:47 | receive_response_body.started request=<Request [b'POST']>
+2025-09-07 15:54:21 | DEBUG    | httpcore.http11:47 | receive_response_body.complete
+2025-09-07 15:54:21 | DEBUG    | httpcore.http11:47 | response_closed.started
+2025-09-07 15:54:21 | DEBUG    | httpcore.http11:47 | response_closed.complete
+2025-09-07 15:54:21 | ERROR    | root:51 | [GEMINI] Gemini API call failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 103, in raise_for_response
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+2025-09-07 15:54:21 | ERROR    | root:34 | [KEYWORD_GEN] LLM call failed: Gemini API call failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+2025-09-07 15:54:21 | ERROR    | root:135 | [KEYWORD_GEN] Failed for topic='llm_safety': LLM call failed: Gemini API call failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light\keywords_generator.py", line 129, in <module>
+    kws = keyword_gen.generate_keywords(args.topic)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light\keywords_generator.py", line 35, in generate_keywords
+    raise RuntimeError(msg)
+RuntimeError: LLM call failed: Gemini API call failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}

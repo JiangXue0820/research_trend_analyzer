@@ -1,10 +1,10 @@
 KEYWORDS_GENERATION_PROMPT = """You are an assistant that generates comprehensive keyword lists for academic research topics.
 
 TASK:
-Given a topic string, return a Python list of strings.
-
+Given a topic, output keywords that are likely to appear in paper TITLES so that title-based filtering retrieves most relevant papers with few false positives.
 REQUIREMENTS:
 - Include AT LEAST 10 unique, relevant keywords.
+- Prioritize terms that commonly appear in paper titles.
 - Keywords should be primarily single words, but include common multi-word technical phrases if necessary.
 - Cover:
   * Core terms (directly matching the topic)
