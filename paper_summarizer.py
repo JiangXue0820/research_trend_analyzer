@@ -112,7 +112,7 @@ class PaperSummarizer:
             return make_response("warning", msg, None)
 
         try:
-            rsp = self.llm(prompt.format(text=paper_content, title=paper_title, authors=authors))
+            rsp = self.llm(prompt.format(text=paper_content, title=paper_title))
             if not isinstance(rsp, dict) or rsp.get("status") != "success":
                 msg = f"[SUMMARIZER] LLM call failed: {rsp.get('message', 'unknown error') if isinstance(rsp, dict) else rsp}"
                 logging.error(msg)

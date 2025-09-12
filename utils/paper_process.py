@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from typing import List, Dict, Any, Union, Optional
 from utils.helper_func import *
+from tqdm import tqdm
 
 
 def paper_matches_topic(
@@ -373,7 +374,7 @@ class NeuripsFetcher(BaseFetcher):
         seen = set()
 
         items = soup.find_all("li")
-        for li in items:
+        for li in tqdm(items, f"Fetching NeurIPS {year} papers"):
             try:
                 a = li.find("a", href=True)
                 i = li.find("i")
@@ -400,62 +401,234 @@ class NeuripsFetcher(BaseFetcher):
         return results
 
 
-# ------------------------- AAAI -------------------------
+# ------------------------- PETS -------------------------
 
-class AAAIFetcher(BaseFetcher):
-    SITE = "AAAI"
-    BASE = "https://aaai.org/proceeding/aaai-39-2025/"  # kept as in your code
+class PoPETsFetcher(BaseFetcher):
+    SITE = "PoPETs"
+    BASE = "https://petsymposium.org/popets"
+
+    def _toc_url(self, year: int) -> str:
+        return f"{self.BASE}/{year}/"
 
     def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
-        base_html = self._fetch_html(self.BASE, headers, f"{self.SITE} listing for {year}")
-        base_soup = self._soup(base_html)
-
-        issue_urls: List[str] = []
-        for a in base_soup.find_all("a", href=True):
-            href = a["href"]
-            if "ojs.aaai.org/index.php/AAAI/issue/view/" in href:
-                issue_urls.append(urljoin(self.BASE, href))
+        toc = self._toc_url(year)
+        html = self._fetch_html(toc, headers, f"{self.SITE} {year} listing")
+        soup = self._soup(html)
 
         results: List[Dict[str, Any]] = []
-        seen = set()
 
-        def parse_issue(html: str) -> None:
-            s = self._soup(html)
-            for art in s.select(".obj_article_summary"):
-                try:
-                    h3 = art.find("h3", class_="title")
-                    a = h3.find("a", href=True) if h3 else None
-                    if not a:
-                        continue
-                    title = (a.text or "").strip()
-                    if not title or title in seen:
-                        continue
-                    seen.add(title)
+        for li in soup.select("li"):
+            try:
+                a_tags = li.select("a[href]")
+                if not a_tags:
+                    continue
 
-                    paper_url = urljoin(self.BASE, a["href"])
-                    authors_div = art.find("div", class_="authors")
-                    authors = self._split_authors(authors_div.get_text(" ", strip=True) if authors_div else "")
+                # ---- choose title anchor (not PDF / not nav / not roots)
+                def is_title_anchor(a):
+                    t = (a.get_text(strip=True) or "").strip()
+                    h = (a.get("href") or "").strip()
+                    if not t or t.lower() in {"pdf", "home", "proceedings"}:
+                        return False
+                    if h.lower().endswith(".pdf"):
+                        return False
+                    bad_roots = {
+                        "https://petsymposium.org/",
+                        "https://petsymposium.org/popets/",
+                        "/popets/",
+                        "/",
+                    }
+                    if h in bad_roots:
+                        return False
+                    return True
 
-                    results.append({
-                        "title": title.strip().title(),
-                        "authors": authors,
-                        "paper_url": paper_url,
-                    })
-                except Exception as e:
-                    logging.warning("Skipping one AAAI entry: %s", e)
+                title_a = next((a for a in a_tags if is_title_anchor(a)), None)
+                if not title_a:
+                    continue
 
-        if issue_urls:
-            for iu in issue_urls:
-                try:
-                    html = self._fetch_html(iu, headers, f"{self.SITE} issue page for {year}")
-                    parse_issue(html)
-                except Exception as e:
-                    logging.warning("Issue fetch failed (%s): %s", iu, e)
-        else:
-            parse_issue(base_html)
+                title = (title_a.get_text(strip=True) or "").strip()
+                if title.lower() in {"home", "proceedings"}:
+                    continue
+
+                # ---- pick PDF link (if missing, derive from article link)
+                pdf_a = next(
+                    (a for a in a_tags
+                     if (a.get_text(strip=True) or "").upper() == "PDF"
+                     or (a.get("href") or "").lower().endswith(".pdf")),
+                    None
+                )
+                if pdf_a:
+                    paper_url = urljoin(toc, pdf_a.get("href") or "")
+                else:
+                    href = title_a.get("href") or ""
+                    paper_url = urljoin(toc, href[:-4] + "pdf") if href.lower().endswith(".php") else urljoin(toc, href)
+
+                # Filter out invalid roots defensively
+                if paper_url in ("https://petsymposium.org/", "https://petsymposium.org/popets/"):
+                    continue
+
+                # ---- authors: take DOM text *after* the PDF anchor; fallback to split('PDF')
+                authors_text = ""
+                if pdf_a is not None:
+                    parts = []
+                    for sib in pdf_a.next_siblings:
+                        # include text in following siblings (strings or tags)
+                        if getattr(sib, "get_text", None):
+                            parts.append(sib.get_text(" ", strip=True))
+                        else:
+                            s = str(sib).strip()
+                            if s:
+                                parts.append(s)
+                    authors_text = " ".join(parts)
+                if not authors_text:
+                    # fallback: everything after 'PDF'
+                    raw = li.get_text(" ", strip=True)
+                    authors_text = re.split(r"\bPDF\b", raw, flags=re.I)[-1]
+
+                # cleanup
+                authors_text = re.sub(r"^\s*[\]\)\-–—:|]+", " ", authors_text)           # trim leading ] ) : -
+                authors_text = re.sub(r"\[[^\]]*\]", " ", authors_text)                  # drop bracketed tokens
+                authors_text = re.sub(r"\([^)]*\)", " ", authors_text)                   # drop affiliations
+                authors_text = re.sub(r"\b(Artifact|Artifacts?|Code|Dataset|Video|Slides|Source|Supplementary)\b.*$", " ", authors_text, flags=re.I)
+                authors_text = re.sub(r"\s+", " ", authors_text).strip(" ,;:-")
+
+                authors = [re.sub(r"\s+", " ", s).strip(" ,;") for s in re.split(r",|;|\band\b", authors_text, flags=re.I) if s.strip()]
+
+                results.append({"title": title, "authors": authors, "paper_url": paper_url})
+            except Exception as e:
+                logging.warning("Skipping one PoPETs entry: %s", e)
 
         return results
 
+# ------------------------- USENIX-------------------------
+
+class UsenixSecurityFetcher(BaseFetcher):
+    SITE = "USENIX Security"
+    BASE = "https://www.usenix.org"
+
+    def _sessions_url(self, year: int) -> str:
+        yy = f"{year % 100:02d}"
+        return f"{self.BASE}/conference/usenixsecurity{yy}/technical-sessions"
+
+    def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
+        # 1) collect presentation page URLs for the year
+        sessions_url = self._sessions_url(year)
+        html = self._fetch_html(sessions_url, headers, f"{self.SITE} technical sessions {year}")
+        soup = self._soup(html)
+
+        yy = f"{year % 100:02d}"
+        pres_links = []
+        for a in soup.select(f'a[href*="/conference/usenixsecurity{yy}/presentation/"]'):
+            href = a.get("href")
+            if href:
+                pres_links.append(urljoin(sessions_url, href))
+        pres_links = sorted(set(pres_links))
+
+        # 2) parse each presentation page for title, authors, pdf
+        results: List[Dict[str, Any]] = []
+        for url in tqdm(pres_links, f"Fetching USENIX {year} papers"):
+            try:
+                phtml = self._fetch_html(url, headers, "presentation page")
+                psoup = self._soup(phtml)
+
+                # title
+                h1 = psoup.find("h1")
+                title = (h1.get_text(strip=True) if h1 else "").strip()
+                if not title:
+                    continue
+
+                # authors (prefer meta tags; fallback to BibTeX)
+                authors = [m.get("content").strip() for m in psoup.select('meta[name="citation_author"]') if m.get("content")]
+                if not authors:
+                    # try BibTeX: author = {A and B and C}
+                    m = re.search(r"author\s*=\s*\{([^}]+)\}", psoup.get_text("\n", strip=True), flags=re.IGNORECASE | re.DOTALL)
+                    if m:
+                        authors = [a.strip() for a in m.group(1).split(" and ") if a.strip()]
+
+                # pdf url (skip slides if both exist)
+                pdf_url = ""
+                for a in psoup.select('a[href$=".pdf"], a[href*=".pdf?"]'):
+                    href = a.get("href") or ""
+                    if href:
+                        cand = urljoin(url, href)
+                        name = cand.lower()
+                        if "slides" in name or "talk" in name:
+                            continue
+                        pdf_url = cand
+                        break
+                if not pdf_url:
+                    continue
+
+                results.append({"title": title, "authors": authors, "paper_url": pdf_url})
+            except Exception as e:
+                logging.warning("Skipping one presentation (%s): %s", url, e)
+
+        return results
+    
+class UsenixSoupsFetcher(BaseFetcher):
+    SITE = "USENIX SOUPS"
+    BASE = "https://www.usenix.org"
+
+    def _sessions_url(self, year: int) -> str:
+        return f"{self.BASE}/conference/soups{year}/technical-sessions"
+
+    def _parse_authors(self, page_text: str) -> List[str]:
+        # Grab text after "Authors:" up to "Abstract:" or "Open Access Media"
+        m = re.search(r"Authors:\s*(.*?)\s*(Abstract:|Open Access Media|$)",
+                      page_text, flags=re.I | re.S)
+        chunk = m.group(1) if m else ""
+        # Strip affiliations in parentheses/brackets; normalize separators
+        chunk = re.sub(r"\[[^\]]*\]|\([^)]*\)", " ", chunk)
+        chunk = re.sub(r"\s+and\s+", ",", chunk, flags=re.I)
+        # Split and keep person-like tokens
+        names = [re.sub(r"\s+", " ", s).strip(" ,;:-") for s in chunk.split(",")]
+        names = [n for n in names if n and len(n.split()) >= 2]
+        return names
+
+    def _pick_pdf(self, soup, base_url: str) -> str:
+        # Prefer first .pdf that doesn't look like slides
+        for a in soup.select('a[href$=".pdf"], a[href*=".pdf?"]'):
+            href = (a.get("href") or "").strip()
+            if not href:
+                continue
+            cand = urljoin(base_url, href)
+            if "slides" in cand.lower():
+                continue
+            return cand
+        return ""
+
+    def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
+        sessions = self._sessions_url(year)
+        soup = self._soup(self._fetch_html(sessions, headers, f"{self.SITE} {year} technical sessions"))
+
+        # Collect links to presentation pages for the given year
+        pres = []
+        for a in soup.select(f'a[href*="/conference/soups{year}/presentation/"]'):
+            href = a.get("href") or ""
+            if href:
+                pres.append(urljoin(sessions, href))
+        pres = sorted(set(pres))
+
+        results: List[Dict[str, Any]] = []
+        for url in tqdm(pres, f"Fetching {self.SITE} {year} papers"):
+            try:
+                psoup = self._soup(self._fetch_html(url, headers, "presentation page"))
+                # Title
+                h1 = psoup.find("h1")
+                title = (h1.get_text(strip=True) if h1 else "").strip()
+                if not title:
+                    continue
+                # Authors (from "Authors:" block)
+                authors = self._parse_authors(psoup.get_text("\n", strip=True))
+                # PDF
+                pdf = self._pick_pdf(psoup, url)
+                if not pdf:
+                    # fallback: keep landing if no pdf found (rare after proceedings go live)
+                    pdf = url
+                results.append({"title": title, "authors": authors, "paper_url": pdf})
+            except Exception:
+                continue
+        return results
+    
 
 # ------------------------- Public entry points -------------------------
 
@@ -463,15 +636,26 @@ def fetch_neurips_papers(year: int) -> Dict[str, Any]:
     """Backwards-compatible function that returns make_response(...)."""
     return NeuripsFetcher().fetch(year)
 
-def fetch_aaai_papers(year: int) -> Dict[str, Any]:
+def fetch_popets_papers(year: int) -> Dict[str, Any]:
     """Backwards-compatible function that returns make_response(...)."""
-    return AAAIFetcher().fetch(year)
+    return PoPETsFetcher().fetch(year)
+
+def fetch_usenix_security_papers(year: int) -> Dict[str, Any]:
+    """Backwards-compatible function that returns make_response(...)."""
+    return UsenixSecurityFetcher().fetch(year)
+
+def fetch_usenix_soups_papers(year: int) -> Dict[str, Any]:
+    """Backwards-compatible function that returns make_response(...)."""
+    return UsenixSoupsFetcher().fetch(year)
+
 
 def fetch_papers(venue: str, year: int) -> Dict[str, Any]:
     """Generic factory-based fetch, returns make_response(...)."""
     registry = {
         "neurips": NeuripsFetcher(),
-        "aaai": AAAIFetcher(),
+        "popets": PoPETsFetcher(),
+        "usenix_security": UsenixSecurityFetcher(),
+        "usenix_soup": UsenixSoupsFetcher(),
     }
     f = registry.get((venue or "").lower())
     if not f:
