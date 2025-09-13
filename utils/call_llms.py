@@ -53,7 +53,7 @@ def gemini_inference(user_input, api_key, model=None):
     
     try:
         content = response.text
-        logging.info(f"[GEMINI] Gemini inference successful, model={model}, response (first 200): {content[:200]}")
+        logging.info(f"[GEMINI] Gemini inference successful, model={model}.")
         return make_response("success", "Gemini inference successful", content)
     except Exception as e:
         logging.exception(f"[GEMINI] Failed to parse Gemini response: {e}")

@@ -241,7 +241,8 @@ class PaperFilter:
             if not isinstance(text, str) or not text.strip():
                 logging.error(f"[PAPER_FILTER] LLM response empty for '{title}': {text!r}")
                 fail += 1; continue
-
+            
+            logging.info(f"[PAPER_FILTER] LLM response for '{title}': {text!r}")
             decision = self.parse_llm_decision(text)
             if decision is None:
                 logging.error(f"[PAPER_FILTER] Unparsable LLM response for '{title}': {text!r}")
