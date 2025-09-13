@@ -75,7 +75,7 @@ def configure_logging(
 
 # --- Example ---
 if __name__ == "__main__":
-    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
+    configure_logging(console=True, console_level=logging.INFO, colored_console=True)
     log = logging.getLogger(__name__)
     log.debug("debug message")
     log.info("info message")

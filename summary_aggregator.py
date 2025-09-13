@@ -128,7 +128,7 @@ class SummaryAggregator:
 
 
 if __name__ == "__main__":
-    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
+    configure_logging(console=True, console_level=logging.INFO, colored_console=True)
     aggregator = SummaryAggregator()
     aggregator.aggregate_brief_summary(conference="neurips", year=2020, topic="privacy", language="CH")
     aggregator.aggregate_brief_summary(conference="neurips", year=2020, topic="privacy", language="EN")

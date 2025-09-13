@@ -6,7 +6,7 @@ import re
 from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from typing import List, Dict, Any, Union, Optional
+from typing import List, Dict, Any, Union, Optional, Iterable
 from utils.helper_func import *
 from tqdm import tqdm
 
@@ -570,65 +570,230 @@ class UsenixSoupsFetcher(BaseFetcher):
 
     def _sessions_url(self, year: int) -> str:
         return f"{self.BASE}/conference/soups{year}/technical-sessions"
+    
+    def _uniq(self, seq: Iterable[str]) -> List[str]:
+        out, seen = [], set()
+        for s in seq:
+            if s and s not in seen:
+                seen.add(s); out.append(s)
+        return out
 
-    def _parse_authors(self, page_text: str) -> List[str]:
-        # Grab text after "Authors:" up to "Abstract:" or "Open Access Media"
-        m = re.search(r"Authors:\s*(.*?)\s*(Abstract:|Open Access Media|$)",
-                      page_text, flags=re.I | re.S)
-        chunk = m.group(1) if m else ""
-        # Strip affiliations in parentheses/brackets; normalize separators
-        chunk = re.sub(r"\[[^\]]*\]|\([^)]*\)", " ", chunk)
-        chunk = re.sub(r"\s+and\s+", ",", chunk, flags=re.I)
-        # Split and keep person-like tokens
-        names = [re.sub(r"\s+", " ", s).strip(" ,;:-") for s in chunk.split(",")]
-        names = [n for n in names if n and len(n.split()) >= 2]
-        return names
+    # ----- authors extraction (simple & robust) -----
+    def _authors(self, soup) -> List[str]:
+        # 1) structured meta tags
+        meta = [m.get("content", "").strip() for m in soup.select('meta[name="citation_author"]')]
+        if meta:
+            return self._uniq([m for m in meta if m])
 
-    def _pick_pdf(self, soup, base_url: str) -> str:
-        # Prefer first .pdf that doesn't look like slides
+        # 2) common author containers with <a> per person
+        anchors = [a.get_text(strip=True) for a in soup.select(
+            ".field-name-field-paper-authors a, .field-name-field-author a, .view-authors a")]
+        anchors = [a for a in anchors if len(a.split()) >= 2]
+        if anchors:
+            return self._uniq(anchors)
+
+        # 3) byline: first non-empty text after H1 (often "Name, Affil; Name, Affil")
+        h1 = soup.find("h1")
+        if h1:
+            byline = ""
+            for el in h1.next_elements:
+                if el == h1: continue
+                txt = (el.get_text(" ", strip=True) if getattr(el, "get_text", None) else str(el)).strip()
+                if not txt: continue
+                if re.match(r"(Abstract|Open Access Media|Resources|Session)", txt, re.I):
+                    break
+                byline = txt
+                break
+            if byline:
+                # normalize and split into people; keep text before first comma (drop affiliations)
+                byline = re.sub(r"\[[^\]]*\]|\([^)]*\)", " ", byline)
+                byline = re.sub(r"\s+and\s+", ";", byline, flags=re.I)
+                parts = [p.strip(" ;,") for p in re.split(r";|\n|•|\u2022", byline) if p.strip()]
+                names = []
+                for p in parts:
+                    name = p.split(",")[0].strip()
+                    if len([w for w in name.split() if re.match(r"[A-Z][\w'’\-]+", w)]) >= 2:
+                        names.append(name)
+                if names:
+                    return self._uniq(names)
+
+        return []
+
+    # ----- pdf picker -----
+    def _pdf(self, soup, base_url: str) -> str:
         for a in soup.select('a[href$=".pdf"], a[href*=".pdf?"]'):
             href = (a.get("href") or "").strip()
-            if not href:
-                continue
+            if not href: continue
             cand = urljoin(base_url, href)
-            if "slides" in cand.lower():
+            if "slides" in cand.lower():  # avoid slide decks
                 continue
             return cand
         return ""
 
+    # ----- main scrape -----
     def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
         sessions = self._sessions_url(year)
         soup = self._soup(self._fetch_html(sessions, headers, f"{self.SITE} {year} technical sessions"))
 
-        # Collect links to presentation pages for the given year
-        pres = []
-        for a in soup.select(f'a[href*="/conference/soups{year}/presentation/"]'):
-            href = a.get("href") or ""
-            if href:
-                pres.append(urljoin(sessions, href))
-        pres = sorted(set(pres))
+        links = sorted({
+            urljoin(sessions, a.get("href"))
+            for a in soup.select(f'a[href*="/conference/soups{year}/presentation/"]')
+            if a.get("href")
+        })
 
         results: List[Dict[str, Any]] = []
-        for url in tqdm(pres, f"Fetching {self.SITE} {year} papers"):
+        for url in tqdm(links, f"Fetching {self.SITE} {year} papers"):
             try:
                 psoup = self._soup(self._fetch_html(url, headers, "presentation page"))
-                # Title
                 h1 = psoup.find("h1")
                 title = (h1.get_text(strip=True) if h1 else "").strip()
                 if not title:
                     continue
-                # Authors (from "Authors:" block)
-                authors = self._parse_authors(psoup.get_text("\n", strip=True))
-                # PDF
-                pdf = self._pick_pdf(psoup, url)
-                if not pdf:
-                    # fallback: keep landing if no pdf found (rare after proceedings go live)
-                    pdf = url
+                authors = self._authors(psoup)
+                pdf = self._pdf(psoup, url) or url
                 results.append({"title": title, "authors": authors, "paper_url": pdf})
             except Exception:
                 continue
         return results
+
+
+class ACLLongFetcher(BaseFetcher):
+    SITE = "ACL Anthology (Long)"
+    BASE = "https://aclanthology.org"
+
+    def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
+        vol_url = f"{self.BASE}/volumes/{year}.acl-long/"
+        html = self._fetch_html(vol_url, headers, f"{self.SITE} listing for {year}")
+        soup = self._soup(html)
+
+        results: List[Dict[str, Any]] = []
+        seen_titles = set()
+
+        # Each paper block on the volume page starts with an "pdf" link,
+        # then (optionally) "bib"/"abs", then the title link, then author links.
+        for pdf_tag in tqdm(soup.find_all("a", string=lambda t: t and t.strip().lower() == "pdf"), f"Fetching ACL {year} papers"):
+            try:
+                pdf_href = urljoin(self.BASE + "/", pdf_tag.get("href", ""))
+                # only keep real papers like /{year}.acl-long.N.pdf (skip the proceedings front matter)
+                if not re.search(rf"/{year}\.acl-long\.\d+\.pdf$", pdf_href):
+                    continue
+
+                # find the title anchor for this paper
+                title_a = None
+                t = pdf_tag
+                while True:
+                    t = t.find_next("a", href=True)
+                    if not t:
+                        break
+                    txt = (t.get_text(" ", strip=True) or "").strip()
+                    if txt.lower() in {"pdf", "bib", "abs"}:
+                        continue
+                    if re.search(rf"/{year}\.acl-long\.\d+/?$", t.get("href", "")):
+                        title_a = t
+                        break
+                if not title_a:
+                    continue
+
+                title = re.sub(r"\s+", " ", title_a.get_text(strip=True))
+                if not title or title in seen_titles:
+                    continue
+                seen_titles.add(title)
+
+                # collect authors until we hit the next control link or next paper
+                authors: List[str] = []
+                p = title_a
+                while True:
+                    p = p.find_next()
+                    if p is None:
+                        break
+                    # stop when the next paper's pdf shows up
+                    if getattr(p, "name", None) == "a" and (p.get_text(strip=True).lower() == "pdf" or p.get("href", "").endswith(".pdf")):
+                        break
+                    if getattr(p, "name", None) == "a":
+                        name = (p.get_text(" ", strip=True) or "").strip()
+                        href = p.get("href", "") or ""
+                        if name and ("/people/" in href or "/author/" in href or "/authors/" in href):
+                            authors.append(re.sub(r"\s+", " ", name))
+
+                results.append({
+                    "title": title,
+                    "authors": authors,
+                    "paper_url": pdf_href,
+                })
+            except Exception as e:
+                logging.warning("Skipping one ACL-long entry: %s", e)
+
+        return results
     
+class ACLFindingsFetcher(BaseFetcher):
+    SITE = "ACL Anthology (Findings)"
+    BASE = "https://aclanthology.org"
+
+    def _scrape(self, year: int, headers: Dict[str, str]) -> List[Dict[str, Any]]:
+        vol_url = f"{self.BASE}/volumes/{year}.findings-acl/"
+        html = self._fetch_html(vol_url, headers, f"{self.SITE} listing for {year}")
+        soup = self._soup(html)
+
+        results: List[Dict[str, Any]] = []
+        seen_titles = set()
+        pdf_re = re.compile(rf"/{year}\.findings-acl\.(\d+)\.pdf$")  # capture ID
+
+        for pdf_tag in tqdm(soup.find_all("a", string=lambda t: t and t.strip().lower() == "pdf"), f"Fetching {self.SITE} {year} papers"):
+            try:
+                pdf_href = urljoin(self.BASE + "/", pdf_tag.get("href", ""))
+                m = pdf_re.search(pdf_href)
+                if not m:
+                    continue
+                if m.group(1) == "0":  # skip front matter
+                    continue
+
+                # find the title anchor for this paper
+                title_a = None
+                t = pdf_tag
+                while True:
+                    t = t.find_next("a", href=True)
+                    if not t:
+                        break
+                    txt = (t.get_text(" ", strip=True) or "")
+                    if txt.lower() in {"pdf", "bib", "abs"}:
+                        continue
+                    if re.search(rf"/{year}\.findings-acl\.\d+/?$", t.get("href", "")):
+                        title_a = t
+                        break
+                if not title_a:
+                    continue
+
+                title = re.sub(r"\s+", " ", title_a.get_text(strip=True))
+                if not title or title in seen_titles:
+                    continue
+                seen_titles.add(title)
+
+                # collect author anchors until the next paper block (next "pdf")
+                authors: List[str] = []
+                p = title_a
+                while True:
+                    p = p.find_next()
+                    if p is None:
+                        break
+                    if getattr(p, "name", None) == "a":
+                        # stop when next paper's pdf appears
+                        if (p.get_text(strip=True).lower() == "pdf") or p.get("href", "").endswith(".pdf"):
+                            break
+                        href = p.get("href", "")
+                        if any(seg in href for seg in ("/people/", "/author/", "/authors/")):
+                            name = re.sub(r"\s+", " ", p.get_text(" ", strip=True)).strip()
+                            if name:
+                                authors.append(name)
+
+                results.append({
+                    "title": title,
+                    "authors": authors,
+                    "paper_url": pdf_href,
+                })
+            except Exception as e:
+                logging.warning("Skipping one ACL Findings entry: %s", e)
+
+        return results
 
 # ------------------------- Public entry points -------------------------
 
@@ -648,6 +813,14 @@ def fetch_usenix_soups_papers(year: int) -> Dict[str, Any]:
     """Backwards-compatible function that returns make_response(...)."""
     return UsenixSoupsFetcher().fetch(year)
 
+def fetch_acl_long_papers(year: int) -> Dict[str, Any]:
+    """Backwards-compatible function that returns make_response(...)."""
+    return ACLLongFetcher().fetch(year)
+
+def fetch_acl_findings_papers(year: int) -> Dict[str, Any]:
+    """Backwards-compatible function that returns make_response(...)."""
+    return ACLFindingsFetcher().fetch(year)
+
 
 def fetch_papers(venue: str, year: int) -> Dict[str, Any]:
     """Generic factory-based fetch, returns make_response(...)."""
@@ -656,6 +829,8 @@ def fetch_papers(venue: str, year: int) -> Dict[str, Any]:
         "popets": PoPETsFetcher(),
         "usenix_security": UsenixSecurityFetcher(),
         "usenix_soup": UsenixSoupsFetcher(),
+        "acl_long": ACLLongFetcher(),
+        "acl_findings": ACLFindingsFetcher(),
     }
     f = registry.get((venue or "").lower())
     if not f:

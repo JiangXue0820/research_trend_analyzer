@@ -17,11 +17,13 @@ class PaperSummarizer:
         self,
         model_name: str,
         api: str = "mlops",
+        scope_list_path: os.PathLike | str = os.path.join("configs", "analysis_scope.json"),
         paper_list_root: os.PathLike | str = os.path.join("papers", "paper_list"),
         paper_summary_root: os.PathLike | str = os.path.join("papers", "paper_summary"),
         temp_pdf_root: os.PathLike | str = os.path.join("temp", "pdfs"),
     ):
         self.llm = get_llm(api, model_name)
+        self.scope_list_path = Path(scope_list_path)
         self.paper_list_root = Path(paper_list_root)
         self.paper_summary_root = Path(paper_summary_root)
         self.temp_pdf_root = Path(temp_pdf_root)
@@ -30,6 +32,14 @@ class PaperSummarizer:
                 "CH": PAPER_SUMMARY_PROMPT_CH,
             }
 
+        if not self.scope_list_path.is_file():
+            msg = (
+                f"[PAPER_FILTER] Scope list file does not exist: {self.scope_list_path}. "
+                "Cannot load scope and keywords."
+            )
+            logging.warning(msg)
+            raise ValueError(msg)
+        
         # Expect: paper_list_root must exist and be a directory
         if not self.paper_list_root.is_dir():
             msg = f"[SUMMARIZER] Paper list directory does not exist: {self.paper_list_root}"
@@ -100,7 +110,7 @@ class PaperSummarizer:
             except Exception:
                 pass
 
-    def make_summary(self, paper_title: str, authors: str, paper_content: str, prompt: str) -> Dict[str, Any]:
+    def make_summary(self, paper_title: str, authors: str, paper_content: str, keywords: str, prompt: str) -> Dict[str, Any]:
         """Call LLM to summarize content; return make_response dict with 'data' = summary text."""
         if not paper_content:
             msg = f"[SUMMARIZER] No paper content for '{paper_title}'."
@@ -112,7 +122,8 @@ class PaperSummarizer:
             return make_response("warning", msg, None)
 
         try:
-            rsp = self.llm(prompt.format(text=paper_content, title=paper_title))
+            rsp = self.llm(prompt.format(text=paper_content, title=paper_title, authors=authors, keywords=keywords))
+            
             if not isinstance(rsp, dict) or rsp.get("status") != "success":
                 msg = f"[SUMMARIZER] LLM call failed: {rsp.get('message', 'unknown error') if isinstance(rsp, dict) else rsp}"
                 logging.error(msg)
@@ -170,6 +181,18 @@ class PaperSummarizer:
             # Summaries for this conf/year go here
             summary_base = self.paper_summary_root / f"{conf_key}_{year}"
 
+        # Load scope and keywords if topic is provided
+        try:
+            with self.scope_list_path.open("r", encoding="utf-8") as f:
+                scope = json.load(f)
+        except Exception as e:
+            msg = f"[PAPER_FILTER] Error loading scope list file '{self.scope_list_path}': {e}"
+            logging.error(msg)
+            raise RuntimeError(msg) from e
+        
+        keywords_list = scope.get(topic, []) if topic else []
+        keywords = ", ".join(keywords_list) if keywords_list else ""
+
         # --- Load paper list ------------------------------------------------------
 
         if not raw_list_path.exists():
@@ -212,7 +235,7 @@ class PaperSummarizer:
 
             # --- Generate summaries for missing languages -------------------------
             for suf in missing:
-                summary_rsp = self.make_summary(title, authors, text, self.LANG_PROMPTS[suf])
+                summary_rsp = self.make_summary(title, authors, text, keywords, self.LANG_PROMPTS[suf])
                 if summary_rsp.get("status") != "success":
                     logging.warning(
                         f"[SUMMARIZER] Failed in making summary for '{title}' ({suf}): "
@@ -235,9 +258,9 @@ class PaperSummarizer:
         logging.info(f"[SUMMARIZER] Finished summarizing '{title}': {added} added, {fail} failed. Check log for more details")
 
 if __name__ == "__main__":
-    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
+    configure_logging(console=True, console_level=logging.INFO, colored_console=True)
 
-    parser = argparse.ArgumentParser(description="Keyword Generator for Research Topics")
+    parser = argparse.ArgumentParser(description="Paper Summarizer for Research Topics")
     parser.add_argument("--model_name", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
     parser.add_argument("--api", type=str, default="mlops", help="The API to use ('mlops' or 'gemini')")
     parser.add_argument("--conference", type=str, default=None, help="The conference to focus on")

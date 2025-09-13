@@ -17,9 +17,9 @@ class KeywordsGenerator:
         self,
         model_name: str,
         api: str = "mlops",
-        keywords_path: Union[os.PathLike, str] = os.path.join("configs", "topic_keywords.json")
+        scope_list_path: Union[os.PathLike, str] = os.path.join("configs", "analysis_scope.json")
     ):
-        self.keywords_path = Path(keywords_path) 
+        self.scope_list_path = Path(scope_list_path) 
         self.llm = get_llm(api, model_name)
         
     def generate_keywords(self, topic: str) -> List[str]:
@@ -83,10 +83,10 @@ class KeywordsGenerator:
             logging.info("[KEYWORD_GEN] No valid keywords to save; skipping.")
             return
 
-        path: Path = Path(self.keywords_path)
+        path: Path = Path(self.scope_list_path)
         if path.suffix.lower() != ".json":
             path = path.with_suffix(".json")
-            self.keywords_path = path
+            self.scope_list_path = path
 
         data: Dict[str, List[str]] = {}
         if path.exists():
@@ -116,12 +116,12 @@ if __name__ == "__main__":
     parser.add_argument("--topic", type=str, required=True, help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
     parser.add_argument("--model_name", type=str, default='gemini-2.5-flash', help="The LLM to use (e.g., 'gemini-2.5-flash', 'llama3.3-70b')")
     parser.add_argument("--api", type=str, default="gemini", help="The API to use ('mlops' or 'gemini')")
-    parser.add_argument("--keywords_path", type=str, default=os.path.join("configs", "topic_keywords.json"), help="Path to save the keywords JSON file")
+    parser.add_argument("--scope_list_path", type=str, default=os.path.join("configs", "analysis_scope.json"), help="Path to save the keywords JSON file")
     parser.add_argument("--repeat", type=int, default=5, help="Number of repeat rounds for generating keywords. Increase the repeat rounds to generate more keywords for a given topic.")
     args = parser.parse_args()
 
-    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
-    keyword_gen = KeywordsGenerator(model_name=args.model_name, api=args.api, keywords_path=args.keywords_path)
+    configure_logging(console=True, console_level=logging.INFO, colored_console=True)
+    keyword_gen = KeywordsGenerator(model_name=args.model_name, api=args.api, scope_list_path=args.scope_list_path)
 
     try:
         keywords = []

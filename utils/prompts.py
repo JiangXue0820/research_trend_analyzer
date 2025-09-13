@@ -35,6 +35,56 @@ Topic="{topic}"
 Output=
 """
 
+# PAPER_FILTER_PROMPT = """<Instructions>You are an expert paper screener.
+# Given a TITLE plus a TOPIC's DEFINITION and KEYWORDS, decide if the paper is centrally about the TOPIC.
+# Goal: print 1 if the TITLE fits the DEFINITION; else 0. Print only a single character (0 or 1).</Instructions>
+
+# <Input>
+# topic: {topic}
+# definition: {definition}
+# keywords: {keywords}
+# title: {title}
+# </Input>
+
+# <Rules (concise)>
+# - Boundary: DEFINITION sets scope/orientation; mismatch → 0.
+# - Normalize: lowercase title; ignore punctuation.
+# - Match: need ≥1 exact/near keyword phrase or clear synonym/abbrev (llm↔large language model; rag↔retrieval-augmented generation; dp↔differential privacy); allow morphology.
+# - Anchors: if DEFINITION limits to LLM/Agent/RAG/DP, TITLE must include that anchor (or synonym); otherwise 0.
+# - Surveys: survey/review/overview/taxonomy allowed only if DEFINITION permits and orientation matches; else 0.
+# - Decision: return 1 only if boundary OK AND ≥1 strong, specific semantic hit; otherwise 0.
+# </Rules (concise)>
+
+# <Output>
+# """
+
+PAPER_FILTER_PROMPT = """<Instructions>
+You are an expert paper screener.
+Decide if TITLE is centrally about the TOPIC. Output a brief reason <=25 words, and a final sentence "decision=0" or "decision=1".
+</Instructions>
+
+<Input>
+topic: {topic}
+definition: {definition}
+keywords: {keywords}
+title: {title}
+</Input>
+
+<Rules>
+- Scope: follow DEFINITION; orientation mismatch → 0.
+- Normalize: lowercase title; ignore punctuation.
+- Hit: need ≥1 strong match to KEYWORDS (or clear synonym/abbr).
+- Anchors: if DEFINITION limits to LLM/Agent/RAG/DP, TITLE must mention it.
+- Surveys: allowed only if DEFINITION permits.
+- Decide: 1 if scope OK AND a hit; else 0. If unsure → 0.
+</Rules>
+
+<Output>
+- reason: a reason <=25 words.
+- "decision=0" or "decision=1".
+</Output>
+"""
+
 PAPER_HIGHLIGHT_PROMPT = """## Highlight Summarization
 Given the summary of an academic paper, write a concise highlight paragraph (4-5 sentences) covering:
 
@@ -73,6 +123,7 @@ PAPER_SUMMARY_PROMPT_CH="""<Instructions>
 <Article Content>
 title: {title}
 authors: {authors}
+keywords: {keywords}
 content: {text}
 </Article Content>
 
@@ -95,7 +146,7 @@ content: {text}
 撰写一段 4-5 句话的内容，需涵盖论文所解决的主要研究问题、核心方法及创新贡献，以及相比现有技术的优势（需包含关键结果数据）。
 
 ## Keywords
-按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的英文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。
+按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的英文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。可参考已有{keywords}，或结合论文内容重新生成。
 
 # Detailed Summary
 
@@ -164,6 +215,7 @@ It is crucial to strictly follow all the Markdown headings, structure, and requi
 <Article Content>
 title: {title}
 authors: {authors}
+keywords: {keywords}
 content: {text}
 </Article Content>
 
@@ -186,7 +238,7 @@ content: {text}
 Write a 4-5 sentence section that covers the main research problems addressed by the paper, the core methods and innovative contributions, as well as the advantages over existing technologies (including key result data).
 
 ## Keywords
-Following the format of [Term 1, Term 2...], list five English keywords (nouns only) that can best describe the paper and best match its research branch, research topic, and key technology of the article.
+Following the format of [Term 1, Term 2...], list five English keywords (nouns only) that can best describe the paper and best match its research branch, research topic, and key technology of the article. You may refer to the existing {keywords} or regenerate based on the paper content.
 
 # Detailed Summary
 

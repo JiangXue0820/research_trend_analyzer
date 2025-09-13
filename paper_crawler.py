@@ -5,6 +5,7 @@ import logging
 from configs.log_config import configure_logging
 from utils.paper_process import fetch_papers
 from utils.helper_func import load_jsonl, save_jsonl, update_jsonl
+import argparse
 
 
 class PaperCrawler:
@@ -45,6 +46,11 @@ class PaperCrawler:
 
 
 if __name__ == "__main__":
-    configure_logging(console=True, console_level=logging.DEBUG, colored_console=True)
+    parser = argparse.ArgumentParser(description="Paper Crawler")
+    parser.add_argument("--conf", type=str, required=True, help="Conference to analyze")
+    parser.add_argument("--year", type=int, default=2025, help="Year of the conference")
+    args = parser.parse_args()
+
+    configure_logging(console=True, console_level=logging.INFO, colored_console=True)
     crawler = PaperCrawler()
-    crawler.crawl_papers("neurips", 2023)
+    crawler.crawl_papers(args.conf, args.year)
