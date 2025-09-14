@@ -1,0 +1,1375 @@
+2025-09-14 14:35:04 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 14:35:04 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 14:35:04 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 14:49:45 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 14:49:45 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 14:49:45 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 14:58:03 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 14:58:03 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 14:58:03 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 14:59:35 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 14:59:35 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 14:59:35 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:05:56 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:05:56 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:05:56 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:06:40 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:06:40 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:06:40 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:16:55 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:16:55 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:16:55 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:19:47 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:19:47 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:19:47 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:32:10 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:32:10 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:32:10 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:38:24 - root - INFO - [CRAWL] Fetching papers from neurips 2023.
+2025-09-14 15:38:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): papers.nips.cc:443
+2025-09-14 15:38:26 - urllib3.connectionpool - DEBUG - https://papers.nips.cc:443 "GET /paper_files/paper/2023 HTTP/1.1" 200 None
+2025-09-14 15:38:28 - root - INFO - [JSONL] No new rows to add for papers\paper_list\neurips_2023\full_list.jsonl (all duplicates).
+2025-09-14 15:38:28 - root - INFO - [CRAWL] Added 0 new papers to papers\paper_list\neurips_2023\full_list.jsonl
+2025-09-14 15:42:04 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 15:42:04 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 15:42:04 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 15:51:09 - root - INFO - [PAPER_FILTER] Filtering papers for neurips, 2023, privacy using keywords
+2025-09-14 15:52:01 - root - INFO - [PAPER_FILTER] Filtering papers for popets, 2025, DP_theory using keywords
+2025-09-14 15:52:01 - root - INFO - [JSONL] Wrote 10 rows to papers\paper_list\popets_2025\filtered_dp_theory.jsonl (append=False)
+2025-09-14 15:52:01 - root - INFO - [JSONL] Updated papers\paper_list\popets_2025\filtered_dp_theory.jsonl with 10 new rows (total 10)
+2025-09-14 15:52:01 - root - INFO - [PAPER_FILTER] Filtered 10 papers for DP_theory
+2025-09-14 16:01:36 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 16:01:36 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 16:01:36 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 16:07:25 - root - INFO - [CRAWL] Fetching papers from neurips 2023.
+2025-09-14 16:07:25 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): papers.nips.cc:443
+2025-09-14 16:07:27 - urllib3.connectionpool - DEBUG - https://papers.nips.cc:443 "GET /paper_files/paper/2023 HTTP/1.1" 200 None
+2025-09-14 16:07:28 - root - INFO - [JSONL] No new rows to add for papers\paper_list\neurips_2023\full_list.jsonl (all duplicates).
+2025-09-14 16:07:28 - root - INFO - [CRAWL] Added 0 new papers to papers\paper_list\neurips_2023\full_list.jsonl
+2025-09-14 16:09:05 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:09:05 - root - ERROR - [SUMMARIZER] Failed to batch summarize papers for popets, 2025: BaseTool.__call__() got an unexpected keyword argument 'paper'
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 371, in _run
+    result = summarize_paper_tool(
+        paper=paper,
+    ...<3 lines>...
+        temp_pdf_root=temp_pdf_root
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\langchain_core\_api\deprecation.py", line 189, in warning_emitting_wrapper
+    return wrapped(*args, **kwargs)
+TypeError: BaseTool.__call__() got an unexpected keyword argument 'paper'
+2025-09-14 16:10:04 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:10:04 - root - ERROR - [SUMMARIZER] Failed to batch summarize papers for popets, 2025: 'PaperSummarizerTool' object has no attribute '_summarize_paper'
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 371, in _run
+    result = self._summarize_paper(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\pydantic\main.py", line 994, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'PaperSummarizerTool' object has no attribute '_summarize_paper'
+2025-09-14 16:11:21 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:11:21 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:11:21 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:11:22 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:11:23 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BD5550>
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41795BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41B9D810>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:23 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=79'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:23 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:23 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:23 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:23 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41C702D0>
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCA7B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:23 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41B529E0>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:23 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:24 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=141'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:24 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:24 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:24 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:24 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:24 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:11:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:11:24 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:11:25 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:25 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:25 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41B52D70>
+2025-09-14 16:11:25 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCAC10> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:25 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41C784D0>
+2025-09-14 16:11:25 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:25 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:25 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:25 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:25 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:26 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=133'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:26 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:26 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:26 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:26 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:26 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:26 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BDC9E0>
+2025-09-14 16:11:26 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCA5D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:26 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BDCAF0>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:26 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=74'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:26 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:26 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:26 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:26 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:26 - root - INFO - [SUMMARIZER] Summarizing paper: Practical Two-party Computational Differential Privacy with Active Security
+2025-09-14 16:11:26 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:11:26 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0019.pdf HTTP/1.1" 200 869540
+2025-09-14 16:11:27 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:27 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:27 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BBD450>
+2025-09-14 16:11:27 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCAF30> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:27 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BBD650>
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:28 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=72'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:27 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:27 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:27 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:27 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Practical Two-party Computational Differential Privacy with Active Security': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:28 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:28 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:28 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BA1C70>
+2025-09-14 16:11:28 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCA530> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:28 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BA1D60>
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:28 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=72'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:28 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:28 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:28 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:28 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Practical Two-party Computational Differential Privacy with Active Security': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:28 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Computational and Distributed Differential Privacy for MPC
+2025-09-14 16:11:28 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:11:28 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0023.pdf HTTP/1.1" 200 817241
+2025-09-14 16:11:29 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:29 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:29 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41B93BD0>
+2025-09-14 16:11:29 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCB2F0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:29 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41B93CB0>
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:30 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=76'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:29 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:29 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:29 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:29 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'SoK: Computational and Distributed Differential Privacy for MPC': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:30 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:11:30 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:11:30 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41BADB20>
+2025-09-14 16:11:30 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FA41BCAFD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:11:30 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FA41A67950>
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:11:30 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=72'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:11:30 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:11:30 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:11:30 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:30 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'SoK: Computational and Distributed Differential Privacy for MPC': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:11:30 - root - INFO - [SUMMARIZER] Summarizing paper: Efficient Verifiable Differential Privacy with Input Authenticity in the Local and Shuffle Model
+2025-09-14 16:11:30 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:15 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:15:15 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:15:15 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:15 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:15:16 - root - ERROR - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:16 - root - ERROR - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:16 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:15:16 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:17 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:15:18 - root - ERROR - [SUMMARIZER] Failed to generate EN summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:18 - root - ERROR - [SUMMARIZER] Failed to generate CH summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:18 - root - INFO - [SUMMARIZER] Summarizing paper: Practical Two-party Computational Differential Privacy with Active Security
+2025-09-14 16:15:18 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:18 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0019.pdf HTTP/1.1" 200 869540
+2025-09-14 16:15:19 - root - ERROR - [SUMMARIZER] Failed to generate EN summary for 'Practical Two-party Computational Differential Privacy with Active Security': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:19 - root - ERROR - [SUMMARIZER] Failed to generate CH summary for 'Practical Two-party Computational Differential Privacy with Active Security': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:19 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Computational and Distributed Differential Privacy for MPC
+2025-09-14 16:15:19 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:20 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0023.pdf HTTP/1.1" 200 817241
+2025-09-14 16:15:21 - root - ERROR - [SUMMARIZER] Failed to generate EN summary for 'SoK: Computational and Distributed Differential Privacy for MPC': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:21 - root - ERROR - [SUMMARIZER] Failed to generate CH summary for 'SoK: Computational and Distributed Differential Privacy for MPC': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:21 - root - INFO - [SUMMARIZER] Summarizing paper: Efficient Verifiable Differential Privacy with Input Authenticity in the Local and Shuffle Model
+2025-09-14 16:15:21 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:21 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0076.pdf HTTP/1.1" 200 961490
+2025-09-14 16:15:22 - root - ERROR - [SUMMARIZER] Failed to generate EN summary for 'Efficient Verifiable Differential Privacy with Input Authenticity in the Local and Shuffle Model': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:22 - root - ERROR - [SUMMARIZER] Failed to generate CH summary for 'Efficient Verifiable Differential Privacy with Input Authenticity in the Local and Shuffle Model': 
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 497, in _summarize_paper
+    resp_msg = llm_func(prompt)
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 39, in gemini_inference
+    assert 0==1
+           ^^^^
+AssertionError
+2025-09-14 16:15:22 - root - INFO - [SUMMARIZER] Summarizing paper: On the Differential Privacy and Interactivity of Privacy Sandbox Reports
+2025-09-14 16:15:22 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:31 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:15:31 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:15:31 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:31 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:15:33 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000200808D5550>
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000020080495BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000200808A1810>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:15:33 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=141'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:15:33 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:15:33 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:15:33 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:15:33 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000200809742D0>
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000200808CA7B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:15:33 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002008087E650>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:15:34 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=141'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:15:33 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:15:33 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:15:33 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:15:33 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:15:33 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:15:33 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:15:34 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:16:42 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:16:42 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:16:42 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:16:43 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:16:44 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015C6A9D5550>
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000015C6A595BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015C6A9A1810>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:16:44 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=78'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:16:44 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:16:44 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:16:44 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:16:44 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015C6AA702D0>
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000015C6A9CA7B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:16:44 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015C6A97A780>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:16:44 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=77'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:16:44 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:16:44 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:16:44 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:16:44 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:16:44 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:16:44 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:16:45 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:18:05 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:18:05 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:18:05 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:18:06 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:18:08 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A815D5550>
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016A81199BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A8159D810>
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:18:08 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=139'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:18:08 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:18:08 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:18:08 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:08 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:08 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A816702D0>
+2025-09-14 16:18:08 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016A815CA7B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:18:09 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A8157E650>
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:18:09 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=135'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:18:09 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:18:09 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:18:09 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:09 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:09 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:18:09 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:18:09 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:18:10 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:18:10 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:18:10 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A8157E9E0>
+2025-09-14 16:18:10 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016A815CAC10> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:18:10 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A816784D0>
+2025-09-14 16:18:10 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:10 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:18:11 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=67'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:18:11 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:18:11 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:11 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:11 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:18:11 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:18:11 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A815DC9E0>
+2025-09-14 16:18:11 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016A815CA5D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:18:11 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A815DCAF0>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:18:11 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=73'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:18:11 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:18:11 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:18:11 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:11 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'SoK: Descriptive Statistics Under Local Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:11 - root - INFO - [SUMMARIZER] Summarizing paper: Practical Two-party Computational Differential Privacy with Active Security
+2025-09-14 16:18:11 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:18:11 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0019.pdf HTTP/1.1" 200 869540
+2025-09-14 16:18:12 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:18:12 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:18:12 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A815BD650>
+2025-09-14 16:18:12 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000016A815CAF30> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:18:12 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016A815BD850>
+2025-09-14 16:18:12 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:12 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:18:12 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:18:12 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:18:12 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:18:13 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:18:13 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=147'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:18:13 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:18:13 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:18:13 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:18:13 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:18:13 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:18:13 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:18:13 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Practical Two-party Computational Differential Privacy with Active Security': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:28:45 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:28:45 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:28:45 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:28:46 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:28:47 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:28:47 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:28:47 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024B58FD5550>
+2025-09-14 16:28:47 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024B58B95BD0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:28:47 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024B58F9D810>
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:28:47 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=73'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:28:47 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:28:47 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:28:47 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:28:47 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:28:47 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:28:47 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:28:48 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024B5A0702D0>
+2025-09-14 16:28:48 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000024B58FCA7B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:28:48 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000024B58F76780>
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:28:48 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=142'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:28:48 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:28:48 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:28:48 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 48, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:28:48 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:28:48 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:28:48 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:28:48 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 16:33:56 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:33:56 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:33:56 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:33:57 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:33:58 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:33:58 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:33:58 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A27DC1550>
+2025-09-14 16:33:58 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000020A279856D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:33:58 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A27D89810>
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:33:58 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=79'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:33:58 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:33:58 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:33:58 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 49, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:33:58 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:33:59 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:33:59 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:33:59 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A27E602D0>
+2025-09-14 16:33:59 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000020A27DBA5D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:33:59 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A27D6A3F0>
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:33:59 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=85'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:33:59 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:33:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:33:59 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 49, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:33:59 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:33:59 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:33:59 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:34:18 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:34:18 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:34:18 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:34:18 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:34:19 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:34:19 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:34:19 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015EE95C1550>
+2025-09-14 16:34:19 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000015EE91816D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:34:19 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015EE958D810>
+2025-09-14 16:34:19 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:34:19 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:34:19 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:34:19 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:34:19 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:34:20 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=131'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:34:20 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:34:20 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 49, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:34:20 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:34:20 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:34:20 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:34:20 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015EE96602D0>
+2025-09-14 16:34:20 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000015EE95BA5D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:34:20 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000015EE956E2C0>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:34:20 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=139'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:34:20 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:34:20 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:34:20 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 49, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:34:20 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:34:20 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:34:20 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:39:02 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:39:02 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:39:02 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001956B5E8C20>
+2025-09-14 16:39:02 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000195693C96D0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:39:02 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001956B5B9590>
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 503, b'Service Unavailable', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:39:02 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=344'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:39:02 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:39:02 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:39:02 - root - ERROR - [GEMINI] Gemini API call failed: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 103, in raise_for_response
+    raise ServerError(status_code, response_json, response)
+google.genai.errors.ServerError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+2025-09-14 16:39:22 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:39:22 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:39:22 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001956B67C2D0>
+2025-09-14 16:39:22 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001956B5DEA30> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:39:22 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001956B5A1810>
+2025-09-14 16:39:22 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:39:22 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:39:22 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:39:22 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:39:22 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:39:35 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:39:35 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=12656'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:39:35 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-09-14 16:39:35 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:39:35 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:39:35 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:39:35 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:39:35 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 16:39:35 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-pro.
+2025-09-14 16:40:55 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:40:55 - root - ERROR - [SUMMARIZER] Failed to get LLM function: LLM 'gemini-2.5-pro' not found in Gemini model list.
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\tools\paper_summarizer.py", line 134, in _summarize_paper
+    llm_func = get_llm("gemini", "gemini-2.5-pro")
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 75, in get_llm
+    raise ValueError(f"LLM '{llm}' not found in Gemini model list.")
+ValueError: LLM 'gemini-2.5-pro' not found in Gemini model list.
+2025-09-14 16:41:22 - root - INFO - [SUMMARIZER] Batch summarizing papers for popets, 2025, DP_theory
+2025-09-14 16:41:22 - root - INFO - [SUMMARIZER] Summarizing paper: Lightweight Two-Party Secure Sampling Protocol for Differential Privacy
+2025-09-14 16:41:22 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:41:23 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0003.pdf HTTP/1.1" 200 756028
+2025-09-14 16:41:24 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000028B4E3C1550>
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000028B4CF81770> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000028B4E38D810>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:41:24 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=75'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:41:24 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:41:24 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:41:24 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:41:24 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000028B4E4602D0>
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000028B4E3BA670> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 16:41:24 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000028B4E36A3F0>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 14:41:24 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=139'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 16:41:24 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 16:41:24 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 16:41:24 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:41:24 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Lightweight Two-Party Secure Sampling Protocol for Differential Privacy': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 16:41:24 - root - INFO - [SUMMARIZER] Summarizing paper: SoK: Descriptive Statistics Under Local Differential Privacy
+2025-09-14 16:41:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 16:41:25 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0008.pdf HTTP/1.1" 200 2116756
+2025-09-14 17:22:10 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:22:10 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:22:10 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:22:45 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:22:45 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:22:45 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:26:34 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:26:34 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:26:34 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:29:52 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:29:52 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:29:52 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:31:04 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:31:04 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:31:04 - root - INFO - [AGENT] Research workflow agent initialized

@@ -1,0 +1,102 @@
+{
+  "dp_theory": {
+    "definition": "Research on differential privacy mathematical theory: including formal definitions and equivalents/generalizations (such as Rényi/zCDP), composition/amplification and privacy accounting, mechanisms and optimal noise design, privacy-utility/sample complexity bounds, etc., providing rigorous proofs or new theoretical results; exclude empirical papers with only engineering implementations or no new theoretical contributions.",
+    "keywords": [
+      "differential privacy",
+      "rényi differential privacy",
+      "zero-concentrated differential privacy",
+      "privacy accounting",
+      "composition theorem",
+      "privacy amplification",
+      "epsilon-delta differential privacy",
+      "gaussian mechanism",
+      "laplace mechanism",
+      "privacy-utility trade-off",
+      "private aggregation of teacher ensembles (PATE)",
+      "privacy loss distribution",
+      "audit for privacy guarantee"
+    ]
+  },
+  "ai_attacks": {
+    "definition": "Privacy and security attacks targeting LLM/Agent/RAG, covering data extraction, membership/attribute inference, model inversion, data poisoning/backdoor, prompt injection and jailbreak, model extraction, tool/function abuse, runtime leakage, etc.; emphasize proposing or transferring attack methods and providing empirical/theoretical evidence. Exclude pure defense, policy commentary, and traditional attacks unrelated to LLM/Agent/RAG.",
+    "keywords": [
+      "training data extraction",
+      "system prompt leakage",
+      "membership inference",
+      "attribute inference",
+      "model inversion",
+      "data poisoning",
+      "backdoor attack",
+      "prompt injection",
+      "jailbreak",
+      "retrieval poisoning",
+      "model extraction",
+      "red teaming attack",
+      "tool injection",
+      "function calling attack"
+    ]
+  },
+  "ai_defenses": {
+    "definition": "Protection technologies and engineering guardrails for LLM/Agent/RAG, including training-phase privacy protection (data cleaning, differentially private fine-tuning, safety alignment, model unlearning) and inference-phase protection (prompt/injection defense, output control, RAG hardening, permissions and constrained decoding, etc.).",
+    "keywords": [
+      "pii detection",
+      "de-identification",
+      "jailbreak defense/detection",
+      "prompt injection defense/detection",
+      "safety fine-tuning/alignment",
+      "differentially private fine-tuning",
+      "machine unlearning",
+      "inference content protection/sanitization",
+      "rag hardening",
+      "tool permissioning",
+      "function calling guardrails",
+      "constrained decoding",
+      "output guardrails"
+    ]
+  },
+  "ai_audit": {
+    "definition": "Research on continuous privacy/security evaluation and compliance auditing of AI models and systems, emphasizing benchmarks and evaluation methods (benchmark suites/datasets/metrics/protocols, automated evaluation and consistency calibration), rather than proposing new attacks or new defenses.",
+    "keywords": [
+      "safety benchmark",
+      "privacy benchmark",
+      "prompt injection benchmark",
+      "jailbreak benchmark",
+      "benchmark suite",
+      "benchmark dataset",
+      "evaluation framework",
+      "LLM-as-a-Judge",
+      "pairwise comparison",
+      "Elo rating",
+      "leaderboard",
+      "coverage metric",
+      "privacy assessment",
+      "safety assessment"
+    ]
+  },
+  "usable_privacy": {
+    "definition": "Research on privacy/security usability and acceptability from user perspective, covering both user preferences and expectations (user preferences, privacy/safety expectations, contextual integrity: role/relationship/purpose/location/data type, etc.) and their disclosure/sharing decisions in different contexts, as well as related interfaces and processes (privacy notices and consent, permissions and settings, privacy labels, risk communication, anti-dark patterns, data subject rights operations). Typically provide empirical evidence at preference/expectation or behavioral level (surveys/interviews/logs/choice experiments/usability assessments, etc.).",
+    "keywords": [
+      "privacy preferences",
+      "privacy expectations",
+      "perceived acceptability",
+      "privacy concern",
+      "contextual integrity",
+      "information flows",
+      "privacy norms",
+      "data sensitivity",
+      "consent",
+      "privacy policy",
+      "privacy notice",
+      "privacy settings",
+      "privacy dashboard",
+      "data nutrition label",
+      "transparency",
+      "dark patterns",
+      "nudging",
+      "conjoint analysis",
+      "data subject access request (DSAR)",
+      "data deletion request",
+      "portability request"
+    ]
+  }
+}

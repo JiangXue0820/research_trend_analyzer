@@ -1,92 +1,88 @@
-KEYWORDS_GENERATION_PROMPT = """You are an assistant that helps generate comprehensive keyword lists for academic research topics.
-Given a topic, output a Python dict: {{"topic": ..., "keywords": [...]}}. 
-The 'keywords' list should include at least 10 relevant items:
-- Include the verb/noun/adjective forms, common phrases, technical terms, subfields, related concepts, and typical synonyms or abbreviations.
-- Try to cover both core and popular subtopics.
-- Output strictly as a Python dict (see examples).
-Rethink: Are there any important related keywords or subtopics missing? If yes, please output an updated list with the additions.
+KEYWORDS_GENERATION_PROMPT = """You are an assistant that generates comprehensive keyword lists for academic research topics.
 
-Example 1:
-Topic: "privacy"
-Output: {{"topic": "privacy", "keywords": ["privacy", "private", "anonymity", "anonymous", "data protection", "federated learning"]}}
+TASK:
+Given a topic, output keywords that are likely to appear in paper TITLES so that title-based filtering retrieves most relevant papers with few false positives.
+REQUIREMENTS:
+- Include AT LEAST 10 unique, relevant keywords.
+- Prioritize terms that commonly appear in paper titles.
+- Keywords should be primarily single words, but include common multi-word technical phrases if necessary.
+- Cover:
+  * Core terms (directly matching the topic)
+  * Variants (noun, verb, adjective forms, abbreviations, synonyms)
+  * Subfields and branches
+  * Technical terms, methods, and related concepts
+- Ensure coverage across both foundational and emerging subtopics.
+- Output ONLY the Python list (no dicts, no explanations, no formatting beyond the list).
+- Output MUST be valid Python code.
 
-Example 2:
-Topic: "safety"
-Output: {{"topic": "safety", "keywords": ["safety", "safe", "safety alignment", "robustness", "risk assessment", "safety risk"]}}
+OUTPUT FORMAT (strict):
+["...", "...", "..."]
 
-Example 3:
-Topic: "attack"
-Output: {{"topic": "attack", "keywords": ["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]}}      
+EXAMPLES:
+
+Topic="privacy"
+Output=["privacy", "private", "anonymity", "anonymous", "data protection", "federated learning"]
+
+Topic="safety"
+Output=["safety", "safe", "safety alignment", "robustness", "risk assessment", "safety risk"]
+
+Topic="attack"
+Output=["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]
+
+
+Now, do the same for this topic:
+Topic="{topic}"
+Output=
 """
 
-PAPER_SUMMARY_PROMPT = """# Paper Summary Instruction
+# PAPER_FILTER_PROMPT = """<Instructions>You are an expert paper screener.
+# Given a TITLE plus a TOPIC's DEFINITION and KEYWORDS, decide if the paper is centrally about the TOPIC.
+# Goal: print 1 if the TITLE fits the DEFINITION; else 0. Print only a single character (0 or 1).</Instructions>
 
-You are a scientific assistant that reads academic papers and provides a structured summary.  
-Given the paper text below, summarize according to these sections using clear markdown headers:
+# <Input>
+# topic: {topic}
+# definition: {definition}
+# keywords: {keywords}
+# title: {title}
+# </Input>
 
-## 0. Key Words
-- List 5 key technology terms (nouns only) that best describe the paper. Focus on technical terms relevant to AI, NLP, trustworthiness (e.g., privacy, safety, fairness).
+# <Rules (concise)>
+# - Boundary: DEFINITION sets scope/orientation; mismatch → 0.
+# - Normalize: lowercase title; ignore punctuation.
+# - Match: need ≥1 exact/near keyword phrase or clear synonym/abbrev (llm↔large language model; rag↔retrieval-augmented generation; dp↔differential privacy); allow morphology.
+# - Anchors: if DEFINITION limits to LLM/Agent/RAG/DP, TITLE must include that anchor (or synonym); otherwise 0.
+# - Surveys: survey/review/overview/taxonomy allowed only if DEFINITION permits and orientation matches; else 0.
+# - Decision: return 1 only if boundary OK AND ≥1 strong, specific semantic hit; otherwise 0.
+# </Rules (concise)>
 
-## 1. Motivation
-- Briefly describe the background and motivation for the research.
-- What main problem or challenge is addressed (problem statement)?
+# <Output>
+# """
 
-## 2. State-of-the-Art Methods
-- Summarize current state-of-the-art approaches related to this problem.
-- What are the key limitations of existing methods?
+PAPER_FILTER_PROMPT = """<Instructions>
+You are an expert paper screener.
+Decide if TITLE is centrally about the TOPIC. Output a brief reason <=25 words, and a final sentence "decision=0" or "decision=1".
+</Instructions>
 
-## 3. Proposed Method
-- Clearly state the main contribution(s) of the paper.
-- Summarize the main idea, highlights, and what is novel.
+<Input>
+topic: {topic}
+definition: {definition}
+keywords: {keywords}
+title: {title}
+</Input>
 
-## 4. Experiment Results
-- Summarize the experimental setup, datasets, metrics, and baselines.
-- What were the main results and findings? How does the method compare to baselines?
+<Rules>
+- Scope: follow DEFINITION; orientation mismatch → 0.
+- Normalize: lowercase title; ignore punctuation.
+- Hit: need ≥1 strong match to KEYWORDS (or clear synonym/abbr).
+- Anchors: if DEFINITION limits to LLM/Agent/RAG/DP, TITLE must mention it.
+- Surveys: allowed only if DEFINITION permits.
+- Decide: 1 if scope OK AND a hit; else 0. If unsure → 0.
+</Rules>
 
-## 5. Limitations and Future Work
-- Point out any limitations or open questions.
-- Summarize suggested future directions.
-
-## 6. Highlights
-- Given the summary above, write a concise highlight paragraph (4-5 sentences) covering:
-   - The main research problem addressed.
-   - The core method and contribution.
-   - What advantages or improvements this work offers over the state-of-the-art.
----
-
-**Instructions:**
-- Use the markdown section headers exactly as shown above.
-- Present each section with a header followed by bullet points or concise paragraphs.
-- Paraphrase and synthesize; do not copy directly from the paper.
-- Use clear, accessible technical language.
-- Directly start with the summary, don't provide any unrelevant content. 
-
----
-
-**Example Output Format:**
-
-## 0. Key Words
-- ...
-
-## 1. Motivation
-- ...
-
-## 2. State-of-the-Art Methods
-- ...
-
-## 3. Proposed Method
-- ...
-
-## 4. Experiment Results
-- ...
-
-## 5. Limitations and Future Work
-- ...
-
-## 6. Highlights
-- ...
-
----
+<Output>
+- reason: a reason <=25 words.
+- "decision=0" or "decision=1".
+</Output>
 """
 
 PAPER_HIGHLIGHT_PROMPT = """## Highlight Summarization
@@ -110,3 +106,262 @@ Given the highlight summaries of multiple papers from a specific conference and 
 
 Use clear section headings for each technology direction. Be concise, objective, and insightful.
 """
+
+
+PAPER_SUMMARY_PROMPT_CH="""<Instructions>
+作为计算机科学领域的专家，请对<Article Content>中提供的学术论文进行详细分析，并输出中文总结。请务必严格遵循后续 <Output Format (Markdown)> 部分中规定的所有Markdown标题、结构和要求——确保总结的每一部分都与提供的模板完全一致。
+
+**注意事项：**
+* 严格遵守<Output Format (Markdown)>中列出的Markdown部分标题。
+* 每个部分都必须以指定的标题开头，内容以bullet point或简洁段落的形式呈现。
+* Title, Authors, Affiliations(包括机构和国家）和Keywords部分，直接提供英文原文
+* 对论文内容进行释义和综合，禁止直接抄袭原文。
+* 使用清晰、易懂的技术语言。
+* 仅输出总结内容，不添加任何无关信息或额外解释。
+</Instructions>
+
+<Article Content>
+title: {title}
+keywords: {keywords}
+content: {text}
+</Article Content>
+
+<Output Format (Markdown)>
+
+# Paper Info
+
+## Title
+{title} 
+
+## Authors
+[作者1， 作者2]
+
+## Affiliations
+[(作者机构 1, 国家 1), (作者机构 2, 国家 2)] 
+
+# Brief Summary
+
+## Highlight
+撰写一段 4-5 句话的内容，需涵盖论文所解决的主要研究问题、核心方法及创新贡献，以及相比现有技术的优势（需包含关键结果数据）。
+
+## Keywords
+按照 [术语1, 术语2...]的格式，列出 5 个最能描述论文的英文关键词（仅为名词），用于匹配文章的研究分支、研究课题、关键技术。可参考已有{keywords}，或结合论文内容重新生成。
+
+# Detailed Summary
+
+## 1. Motivation
+
+### 1.1 Background
+简要描述研究的背景和动机。
+
+### 1.2 Problem Statement
+明确阐述论文所解决的主要问题或挑战（问题陈述）。
+
+## 2. State-of-the-Art Methods
+
+### 2.1 Existing Methods
+总结与该问题相关的当前最先进方法。
+
+### 2.2 Limitations of Existing Methods
+指出现有方法的主要局限性。
+
+## 3. Proposed Method
+
+### 3.1 Main Contributions
+清晰说明论文通过提出什么方案，解决了什么关键问题。
+
+### 3.2 Core Idea
+概述方案的核心设计思路或原理（如技术框架、关键机制等）。
+
+### 3.3 Novelty
+阐述方案相比现有技术的创新点（如首次提出的技术、组合方式或优化方向）。
+
+## 4. Experiment Results
+
+### 4.1 Experimental Setup
+概述实验所用数据集、对比的基线方法及关键评价指标。
+
+### 4.2 Experimental Results
+说明主要结果和发现，以及该方法与基线方法的对比情况。
+
+## 5. Limitations and Future Work
+
+### 5.1 Limitations
+指出当前研究存在的不足或未解决的问题。
+
+### 5.2 Future Directions
+说明论文提出的后续研究方向或改进思路。
+
+</Output Format (Markdown)>
+
+<Summary>
+[请提供符合上述要求的高质量总结]
+</Summary>
+"""
+
+PAPER_SUMMARY_PROMPT_EN="""<Instructions>
+As an expert in computer science, please conduct a detailed analysis of the academic paper provided in <Article Content> and output an English summary. 
+It is crucial to strictly follow all the Markdown headings, structure, and requirements specified in the subsequent <Output Format (Markdown)> section—ensure every part of the summary aligns perfectly with the template provided.
+
+**Notes:**
+* Adhere strictly to the markdown section headings as outlined in <Output Format (Markdown)>.
+* Each section must start with the specified heading, with content presented as bullet points or concise paragraphs.
+* Paraphrase and synthesize the paper's content; direct copying of the original text is prohibited.
+* Use clear, accessible technical language.
+* Output only the summary content without any irrelevant information or additional explanations.
+</Instructions>
+
+<Article Content>
+title: {title}
+keywords: {keywords}
+content: {text}
+</Article Content>
+
+<Output Format (Markdown)>
+
+# Paper Info
+
+## Title
+{title} 
+
+## Authors
+[Author 1, Author 2]
+
+## Affiliations
+[(Author institution 1, Country 1), (Author institution 2, Country 2)...].
+
+# Brief Summary
+
+## Highlight
+Write a 4-5 sentence section that covers the main research problems addressed by the paper, the core methods and innovative contributions, as well as the advantages over existing technologies (including key result data).
+
+## Keywords
+Following the format of [Term 1, Term 2...], list five English keywords (nouns only) that can best describe the paper and best match its research branch, research topic, and key technology of the article. You may refer to the existing {keywords} or regenerate based on the paper content.
+
+# Detailed Summary
+
+## 1. Motivation
+
+### 1.1 Background
+Briefly describe the background and motivation of the research.
+
+### 1.2 Problem Statement
+Clearly state the main problems or challenges addressed in the paper (problem statement).
+
+## 2. State-of-the-Art Methods
+
+### 2.1 Existing Methods
+Summarize the current state-of-the-art methods related to the problem.
+
+### 2.2 Limitations of Existing Methods
+Point out the main limitations of existing methods.
+
+## 3. Proposed Method
+
+### 3.1 Main Contributions
+Clearly explain what solution the paper proposes to solve key problems.
+
+### 3.2 Core Idea
+Outline the core design ideas or principles of the solution (such as technical frameworks, key mechanisms, etc.).
+
+### 3.3 Novelty
+Elaborate on the innovations of the proposed method compared to existing technologies (such as newly proposed technologies, combination methods, or optimization directions).
+
+## 4. Experiment Results
+
+### 4.1 Experimental Setup
+Outline the datasets used in the experiments, the baseline methods for comparison, and key evaluation metrics.
+
+### 4.2 Experimental Results
+Explain the main results and findings, as well as the comparison between this method and baseline methods.
+
+## 5. Limitations and Future Work
+
+### 5.1 Limitations
+Point out the shortcomings or unsolved problems of the current research.
+
+### 5.2 Future Directions
+Explain the proposed future research directions or improvement ideas in the paper.
+
+</Output Format (Markdown)>
+
+<Summary>
+[Please provide a high-quality summary that fulfills the above requirements]
+</Summary>
+"""
+
+
+# PAPER_SUMMARY_PROMPT = """# Paper Summary Instruction
+
+# You are a scientific assistant that reads academic papers and provides a structured summary.  
+# Given the paper text below, summarize according to these sections using clear markdown headers:
+
+# ## 0. Key Words
+# - List 5 key technology terms (nouns only) that best describe the paper. Focus on technical terms relevant to AI, NLP, trustworthiness (e.g., privacy, safety, fairness).
+
+# ## 1. Motivation
+# - Briefly describe the background and motivation for the research.
+# - What main problem or challenge is addressed (problem statement)?
+
+# ## 2. State-of-the-Art Methods
+# - Summarize current state-of-the-art approaches related to this problem.
+# - What are the key limitations of existing methods?
+
+# ## 3. Proposed Method
+# - Clearly state the main contribution(s) of the paper.
+# - Summarize the main idea, highlights, and what is novel.
+
+# ## 4. Experiment Results
+# - Summarize the experimental setup, datasets, metrics, and baselines.
+# - What were the main results and findings? How does the method compare to baselines?
+
+# ## 5. Limitations and Future Work
+# - Point out any limitations or open questions.
+# - Summarize suggested future directions.
+
+# ## 6. Highlights
+# - Given the summary above, write a concise highlight paragraph (4-5 sentences) covering:
+#    - The main research problem addressed.
+#    - The core method and contribution.
+#    - What advantages or improvements this work offers over the state-of-the-art.
+# ---
+
+# **Instructions:**
+# - Use the markdown section headers exactly as shown above.
+# - Present each section with a header followed by bullet points or concise paragraphs.
+# - Paraphrase and synthesize; do not copy directly from the paper.
+# - Use clear, accessible technical language.
+# - Directly start with the summary, don't provide any unrelevant content. 
+
+# ---
+
+# **Example Output Format:**
+
+# ## 0. Key Words
+# - ...
+
+# ## 1. Motivation
+# - ...
+
+# ## 2. State-of-the-Art Methods
+# - ...
+
+# ## 3. Proposed Method
+# - ...
+
+# ## 4. Experiment Results
+# - ...
+
+# ## 5. Limitations and Future Work
+# - ...
+
+# ## 6. Highlights
+# - ...
+
+# ---
+# **Paper Context**
+# {title}
+# {text}
+
+# **Summary**
+# """
