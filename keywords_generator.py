@@ -30,6 +30,9 @@ class KeywordsGenerator:
         # Call the model
         resp_msg = self.llm(prompt)
         if resp_msg.get("status") != "success":
+            if "RESOURCE_EXHAUSTED" in resp_msg.get("message", ""):
+                msg = "[PAPER_FILTER] LLM resource exhausted; stopping further calls."
+                logging.error(msg); raise RuntimeError(msg)
             msg = f"LLM call failed: {resp_msg.get('message', 'unknown error')}"
             logging.error(f"[KEYWORD_GEN] {msg}")
             raise RuntimeError(msg)

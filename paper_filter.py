@@ -234,6 +234,9 @@ class PaperFilter:
             paper_prompt = prompt_template.format(title=title)
             resp = self.llm(paper_prompt)
             if resp.get("status") != "success":
+                if "RESOURCE_EXHAUSTED" in resp.get("message", ""):
+                    msg = "[PAPER_FILTER] LLM resource exhausted; stopping further calls."
+                    logging.error(msg); raise RuntimeError(msg)
                 logging.error(f"[PAPER_FILTER] LLM call failed for '{title}': {resp.get('message', 'unknown error')}")
                 fail += 1; continue
 
