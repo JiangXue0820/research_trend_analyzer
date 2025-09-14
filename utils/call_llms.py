@@ -37,7 +37,7 @@ def mlops_inference(user_input, headers, model=None, temperature=None):
 def gemini_inference(user_input, api_key, model=None):
 
     try:
-        client = genai.Client(api_key=api_key)
+        client = genai.Client(api_key="AIzaSyCne7SEgk1sM0unvXXLTERGWkEa9_NXTTI")
     except Exception as e:
         logging.exception(f"[GEMINI] Failed to create Gemini client: {e}")
         return make_response("error", f"Failed to create Gemini client: {e}", None)
@@ -62,6 +62,7 @@ def gemini_inference(user_input, api_key, model=None):
     
 
 def get_llm(api: str, llm: str) -> Callable[[str], Any]:
+
     if api == "mlops":
         model = Config.ModelListMLOps.get(llm)
         if not model:

@@ -82,11 +82,8 @@ def crawl_papers_node(state: ResearchWorkflowState) -> ResearchWorkflowState:
             logging.info("[NODE] Skipping paper crawling as requested")
             return state
         
-        # Initialize paper crawler tool with LLM configuration
-        crawler_tool = PaperCrawlerTool(
-            api=state["api"],
-            model_name=state["model_name"]
-        )
+        # Initialize paper crawler tool
+        crawler_tool = PaperCrawlerTool()
 
         # Crawl papers
         result = crawler_tool._run(state["conference"], state["year"])
@@ -234,7 +231,6 @@ def aggregate_summary_node(state: ResearchWorkflowState) -> ResearchWorkflowStat
             state["conference"], 
             state["year"], 
             state["topic"], 
-            state["language"]
         )
         
         if result["status"] != "success":
@@ -244,10 +240,23 @@ def aggregate_summary_node(state: ResearchWorkflowState) -> ResearchWorkflowStat
         
         # Update state with aggregation results
         state["aggregated_summary"] = result
-        state["excel_output_path"] = result.get("excel_path", "")
+        
+        # Extract Excel path from successful language results (prefer CH if available)
+        excel_path = ""
+        for lang in ["CH", "EN"]:
+            lang_result = result.get("language_results", {}).get(lang, {})
+            if lang_result.get("status") == "success" and lang_result.get("excel_path"):
+                excel_path = lang_result["excel_path"]
+                break
+        
+        state["excel_output_path"] = excel_path
         state["status"] = "completed"
         
-        logging.info(f"[NODE] Aggregated {result.get('aggregated_count', 0)} summaries into Excel file")
+        total_aggregated = sum(
+            lang_result.get("aggregated_count", 0)
+            for lang_result in result.get("language_results", {}).values()
+        )
+        logging.info(f"[NODE] Aggregated {total_aggregated} summaries into Excel files")
         return state
         
     except Exception as e:
@@ -296,6 +305,10 @@ def finalize_workflow_node(state: ResearchWorkflowState) -> ResearchWorkflowStat
             },
             "completion_time": datetime.now().isoformat()
         }
+        
+        # Add language-specific aggregation results if available
+        if state.get("aggregated_summary") and state["aggregated_summary"].get("language_results"):
+            workflow_summary["aggregation_results"] = state["aggregated_summary"]["language_results"]
         
         state["aggregated_summary"] = workflow_summary
         logging.info("[NODE] Workflow completed successfully")

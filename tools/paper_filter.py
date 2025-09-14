@@ -85,9 +85,6 @@ class PaperFilterTool(BaseTool):
         if not os.path.isfile(full_list_path):
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "error": f"Full paper list not found: {full_list_path}. Use paper_crawler first.",
                 "filtered_count": 0
             }
@@ -97,9 +94,6 @@ class PaperFilterTool(BaseTool):
         except Exception as e:
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "error": f"Failed to load paper list: {e}",
                 "filtered_count": 0
             }
@@ -121,9 +115,6 @@ class PaperFilterTool(BaseTool):
             if not scope_path.is_file():
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"Scope list file does not exist: {scope_path}",
                     "filtered_count": 0
                 }
@@ -135,9 +126,6 @@ class PaperFilterTool(BaseTool):
             if not topic_key:
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"No keywords found for topic '{topic}'. Add it in analysis_scope.json.",
                     "filtered_count": 0
                 }
@@ -146,9 +134,6 @@ class PaperFilterTool(BaseTool):
             if not isinstance(keywords, list) or not keywords:
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"No keywords for topic '{topic_key}'.",
                     "filtered_count": 0
                 }
@@ -158,9 +143,6 @@ class PaperFilterTool(BaseTool):
             if not kw_set:
                 return {
                     "status": "warning",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "message": "No valid keywords provided",
                     "filtered_count": 0
                 }
@@ -193,9 +175,6 @@ class PaperFilterTool(BaseTool):
             
             return {
                 "status": "success",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "filtered_count": len(filtered_papers),
                 "new_papers_added": added,
                 "save_path": save_path,
@@ -206,9 +185,6 @@ class PaperFilterTool(BaseTool):
             logging.exception(f"[PAPER_FILTER] Failed to filter papers for {conference}, {year}, {topic}: {e}")
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "error": str(e),
                 "filtered_count": 0
             }
@@ -226,9 +202,6 @@ class PaperFilterTool(BaseTool):
                 logging.exception(f"[PAPER_FILTER] Failed to get LLM function for {self.api}/{self.model_name}: {e}")
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"Failed to get LLM function: {e}",
                     "filtered_count": 0
                 }
@@ -238,9 +211,6 @@ class PaperFilterTool(BaseTool):
             if not scope_path.is_file():
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"Scope list file does not exist: {scope_path}",
                     "filtered_count": 0
                 }
@@ -252,9 +222,6 @@ class PaperFilterTool(BaseTool):
             if not topic_key:
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"No definition found for topic '{topic}'.",
                     "filtered_count": 0
                 }
@@ -265,9 +232,6 @@ class PaperFilterTool(BaseTool):
             if not definition or not isinstance(definition, str):
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"No valid definition for topic '{topic_key}'.",
                     "filtered_count": 0
                 }
@@ -329,9 +293,6 @@ class PaperFilterTool(BaseTool):
             
             return {
                 "status": "success",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "filtered_count": len(filtered_papers),
                 "failed_count": failed_count,
                 "new_papers_added": added,
@@ -343,9 +304,6 @@ class PaperFilterTool(BaseTool):
             logging.exception(f"[PAPER_FILTER] Failed to LLM filter papers for {conference}, {year}, {topic}: {e}")
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "error": str(e),
                 "filtered_count": 0
             }

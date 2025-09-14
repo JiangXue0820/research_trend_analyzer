@@ -1,38 +1,28 @@
-KEYWORDS_GENERATION_PROMPT = """You are an assistant that generates comprehensive keyword lists for academic research topics.
+KEYWORDS_GENERATION_PROMPT = """
+<instructions>
+You generate a concise topic definition and a compact, title-friendly keyword list for academic retrieval.
+Return ONLY valid JSON: {"topic":"...","definition":"...","keywords":[...]}.
+Rules:
+- Definition: 1–2 sentences for TITLE filtering; state scope and key exclusions.
+- Keywords: 12–16 unique items; no slashes; 1–3 words (allow standard multiword phrases); deduplicated.
+- Coverage: core terms; common variants/abbreviations/synonyms; key subareas; methods/evaluations.
+- Style: lowercase except standard acronyms/proper nouns (e.g., LLM, GDPR).
+- Avoid generic/non-topical words (e.g., survey, tutorial, position paper).
+</instructions>
 
-TASK:
-Given a topic, output keywords that are likely to appear in paper TITLES so that title-based filtering retrieves most relevant papers with few false positives.
-REQUIREMENTS:
-- Include AT LEAST 10 unique, relevant keywords.
-- Prioritize terms that commonly appear in paper titles.
-- Keywords should be primarily single words, but include common multi-word technical phrases if necessary.
-- Cover:
-  * Core terms (directly matching the topic)
-  * Variants (noun, verb, adjective forms, abbreviations, synonyms)
-  * Subfields and branches
-  * Technical terms, methods, and related concepts
-- Ensure coverage across both foundational and emerging subtopics.
-- Output ONLY the Python list (no dicts, no explanations, no formatting beyond the list).
-- Output MUST be valid Python code.
+<input>
+Topic="topic to analyze"
+</input>
 
-OUTPUT FORMAT (strict):
-["...", "...", "..."]
+<output_format>
+{
+  "topic": "<echo the input>",
+  "definition": "concise scope for title filtering with key inclusions/exclusions.",
+  "keywords": ["...", "...", "..."]
+}
+</output_format>
 
-EXAMPLES:
-
-Topic="privacy"
-Output=["privacy", "private", "anonymity", "anonymous", "data protection", "federated learning"]
-
-Topic="safety"
-Output=["safety", "safe", "safety alignment", "robustness", "risk assessment", "safety risk"]
-
-Topic="attack"
-Output=["attack", "membership inference", "model inversion", "memorization", "backdoor", "jailbreak", "red-team", "poison"]
-
-
-Now, do the same for this topic:
-Topic="{topic}"
-Output=
+Now produce the output for this Topic: {topic}
 """
 
 # PAPER_FILTER_PROMPT = """<Instructions>You are an expert paper screener.

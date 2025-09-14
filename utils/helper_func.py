@@ -59,11 +59,30 @@ def strip_code_block(text: str) -> str:
         return match.group(1).strip()
     return text.strip()
 
-def safe_filename(name: str) -> str:
-    """Convert a string to a safe filename by removing invalid characters."""
+def safe_filename(name: str, max_length: int = 100) -> str:
+    """Convert a string to a safe filename by removing invalid characters.
+    
+    Args:
+        name: The original string to convert
+        max_length: Maximum length for the filename (default: 100)
+        
+    Returns:
+        Safe filename string
+    """
     s = (name or "").strip()
     s = "".join(c if c.isalnum() or c in ("-", "_", " ") else "_" for c in s)
-    s = "_".join(s.split())[:180]  # collapse spaces, trim long names
+    s = "_".join(s.split())
+    
+    # Trim to maximum length while preserving meaningful parts
+    if len(s) > max_length:
+        # Try to keep the beginning and end for readability
+        if len(s) > max_length + 10:  # Only if significantly too long
+            # Keep first 60% and last 40% with ellipsis
+            first_part = s[:int(max_length * 0.6)]
+            last_part = s[-int(max_length * 0.4):]
+            s = f"{first_part}...{last_part}"
+        s = s[:max_length]
+    
     return s.lower() or "untitled"
 
 def save_md_file(text: str, md_path: str, mode: str = "w") -> Dict[str, Any]:

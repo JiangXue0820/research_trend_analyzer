@@ -1373,3 +1373,401 @@ google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, '
 2025-09-14 17:31:04 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
 2025-09-14 17:31:04 - root - INFO - [GRAPH] Research workflow graph compiled successfully
 2025-09-14 17:31:04 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:40:21 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:40:21 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:40:21 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:42:21 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:42:22 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:42:22 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:43:29 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:43:29 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:43:29 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 17:53:31 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 17:53:31 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 17:53:31 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:00:32 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:00:32 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:00:32 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:05:02 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:05:02 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:05:02 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:13:49 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:13:49 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:13:49 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:23:16 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:23:16 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:23:16 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:29:27 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:29:27 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:29:27 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:33:48 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:33:48 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:33:48 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:36:18 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:36:18 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:36:18 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:37:22 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:37:22 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:37:22 - root - INFO - [AGENT] Research workflow agent initialized
+2025-09-14 18:43:30 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:43:30 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:43:31 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:43:33 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002606FCAC830>
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002606F8762B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002606FC94F50>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:43:33 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=79'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:43:33 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:43:33 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:43:33 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:43:33 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002606FC97B10>
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002606FC9EDF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:43:33 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002606FC65480>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:43:33 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=140'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:43:33 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:43:33 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:43:33 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:43:33 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:47:09 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:47:09 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:47:10 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:47:11 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:47:11 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:47:11 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002566E9AC830>
+2025-09-14 18:47:11 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002566E5722B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:47:11 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002566E994F50>
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:47:11 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=78'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:47:11 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:47:11 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:47:11 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:47:11 - root - WARNING - [SUMMARIZER] Failed to generate EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:47:12 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:47:12 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:47:12 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002566E997B10>
+2025-09-14 18:47:12 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000002566E99EDF0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:47:12 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002566E975220>
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:47:12 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=74'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:47:12 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 400 Bad Request"
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:47:12 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:47:12 - root - ERROR - [GEMINI] Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+Traceback (most recent call last):
+  File "D:\AI_Learning\AI_agent\research_trend_analyzer_light_agent\utils\call_llms.py", line 46, in gemini_inference
+    response = client.models.generate_content(
+        model=model,
+        contents=user_input,
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 4799, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=config
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\models.py", line 3775, in _generate_content
+    response_dict = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 726, in request
+    response = self._request(http_request, stream=False)
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 655, in _request
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "D:\AI_Learning\AI_agent\.venv\Lib\site-packages\google\genai\errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:47:12 - root - WARNING - [SUMMARIZER] Failed to generate CH summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Gemini API call failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2025-09-14 18:49:16 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:49:16 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:49:17 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:49:18 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:49:18 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:49:18 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C6DFDB0830>
+2025-09-14 18:49:18 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001C6DF97A2B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:49:18 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C6DFD94F50>
+2025-09-14 18:49:18 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:49:18 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:49:18 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:49:18 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:49:18 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:49:42 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:49:42 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=23849'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:49:42 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:49:42 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:49:42 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:49:42 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:49:42 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:49:42 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:49:42 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:49:42 - root - ERROR - [SUMMARIZER] Failed to save EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\EN\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:49:43 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:49:43 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:49:43 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C6DFD97C50>
+2025-09-14 18:49:43 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001C6DF979810> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:49:43 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C6DFD75220>
+2025-09-14 18:49:43 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:49:43 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:49:43 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:49:43 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:49:43 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:50:05 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:50:05 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=21966'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:50:05 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:50:05 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:50:05 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:50:05 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:50:05 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:50:05 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:50:05 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:50:05 - root - ERROR - [SUMMARIZER] Failed to save CH summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\CH\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:51:21 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:51:21 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:51:22 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:51:24 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:51:24 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:51:24 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000249DACA8980>
+2025-09-14 18:51:24 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000249DA8722B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:51:24 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000249DAC8D090>
+2025-09-14 18:51:24 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:51:24 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:51:24 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:51:24 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:51:24 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:51:50 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:51:50 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=26458'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:51:50 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:51:50 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:51:50 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:51:50 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:51:50 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:51:50 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:51:50 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:51:50 - root - ERROR - [SUMMARIZER] Failed to save EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\EN\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:51:51 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:51:51 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:51:51 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000249DAC8FD90>
+2025-09-14 18:51:51 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000249DA871810> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:51:51 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000249DAC5D810>
+2025-09-14 18:51:51 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:51:51 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:51:51 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:51:51 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:51:51 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:52:14 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:52:14 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=23481'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:52:14 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:52:14 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:52:14 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:52:14 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:52:14 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:52:14 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:52:14 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:52:14 - root - ERROR - [SUMMARIZER] Failed to save CH summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\CH\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:53:09 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:53:09 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:53:10 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:53:12 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:53:12 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:53:12 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269AB7AC980>
+2025-09-14 18:53:12 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000269AB3722B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:53:12 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269AB78D090>
+2025-09-14 18:53:12 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:53:12 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:53:12 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:53:12 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:53:12 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:53:37 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=24895'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:53:37 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:53:37 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:53:37 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:53:37 - root - ERROR - [SUMMARIZER] Failed to save EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\EN\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:53:37 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:53:37 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:53:37 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269AB78FD90>
+2025-09-14 18:53:37 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000269AB371810> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:53:37 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000269AB7696E0>
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:53:37 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:54:03 - httpcore.http11 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
+2025-09-14 18:54:03 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:54:03 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:54:36 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:54:36 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:54:37 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:54:38 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:54:38 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:54:38 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D12B7A8980>
+2025-09-14 18:54:38 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001D12B372350> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:54:38 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D12B78D090>
+2025-09-14 18:54:38 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:54:38 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:54:38 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:54:38 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:54:38 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:55:17 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=38333'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:55:17 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:55:17 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:55:17 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:55:17 - root - ERROR - [SUMMARIZER] Failed to save EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development': Failed to save markdown: [Errno 2] No such file or directory: 'papers\\paper_summary\\popets_2025\\usable_privacy\\EN\\privacy_bills_of_materials__pribom___a_transparent_privacy_information_inventory_for_collaborative_privacy_notice_generation_in_mobile_app_development.md'
+2025-09-14 18:55:17 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:55:17 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:55:17 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D12B78FD90>
+2025-09-14 18:55:17 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001D12B3718B0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:55:17 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D12B7696E0>
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:55:17 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:55:40 - httpcore.http11 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
+2025-09-14 18:55:40 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:55:40 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:57:36 - root - INFO - [SUMMARIZER] Summarizing paper: Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development with gemini/gemini-2.5-flash
+2025-09-14 18:57:36 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): petsymposium.org:443
+2025-09-14 18:57:37 - urllib3.connectionpool - DEBUG - https://petsymposium.org:443 "GET /popets/2025/popets-2025-0136.pdf HTTP/1.1" 200 4734787
+2025-09-14 18:57:39 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:57:39 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:57:39 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029FF56B8830>
+2025-09-14 18:57:39 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000029FF527E3F0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:57:39 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029FF56A0F50>
+2025-09-14 18:57:39 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:57:39 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:57:39 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:57:39 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:57:39 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:58:02 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:58:02 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=23623'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:58:02 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:58:02 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:58:02 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:58:02 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:58:02 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:58:02 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:58:02 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:58:02 - root - INFO - [SUMMARIZER] Saved EN summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development' to papers\paper_summary\popets_2025\usable_privacy\EN\privacy_bills_of_materials__pribom___a_transparent_privacy_i...ice_generation_in_mobile_app_developm.md
+2025-09-14 18:58:02 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-09-14 18:58:02 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2025-09-14 18:58:02 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029FF56A3B10>
+2025-09-14 18:58:02 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000029FF527D950> server_hostname='generativelanguage.googleapis.com' timeout=None
+2025-09-14 18:58:03 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000029FF5685350>
+2025-09-14 18:58:03 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-09-14 18:58:03 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-14 18:58:03 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-09-14 18:58:03 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-14 18:58:03 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-09-14 18:58:25 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Sun, 14 Sep 2025 16:58:25 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=22568'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2025-09-14 18:58:25 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2025-09-14 18:58:25 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-09-14 18:58:25 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-14 18:58:25 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-14 18:58:25 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-14 18:58:25 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-09-14 18:58:25 - root - INFO - [GEMINI] Gemini inference successful, model=gemini-2.5-flash.
+2025-09-14 18:58:25 - root - INFO - [SUMMARIZER] Saved CH summary for 'Privacy Bills of Materials (PriBOM): A Transparent Privacy Information Inventory for Collaborative Privacy Notice Generation in Mobile App Development' to papers\paper_summary\popets_2025\usable_privacy\CH\privacy_bills_of_materials__pribom___a_transparent_privacy_i...ice_generation_in_mobile_app_developm.md
+2025-09-14 18:58:56 - root - INFO - [GRAPH] Creating research trend analysis workflow graph
+2025-09-14 18:58:56 - root - INFO - [GRAPH] Research workflow graph compiled successfully
+2025-09-14 18:58:56 - root - INFO - [AGENT] Research workflow agent initialized

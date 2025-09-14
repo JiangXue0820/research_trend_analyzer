@@ -12,8 +12,7 @@ from configs.log_config import configure_logging
 from utils.helper_func import make_response, load_md_file, parse_markdown_summary, load_jsonl, safe_filename
 
 
-@tool
-def aggregate_summaries_tool(
+def _aggregate_summaries_impl(
     conference: str,
     year: int,
     topic: Optional[str] = None,
@@ -22,7 +21,7 @@ def aggregate_summaries_tool(
     paper_summary_root: str = None
 ) -> Dict[str, Any]:
     """
-    Aggregate and structure paper summaries into an Excel file.
+    Internal implementation for aggregating and structuring paper summaries into an Excel file.
     
     Args:
         conference: Conference name
@@ -56,10 +55,6 @@ def aggregate_summaries_tool(
         if not os.path.isfile(paper_list_path):
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
-                "language": language,
                 "error": f"Paper list file does not exist: {paper_list_path}",
                 "aggregated_count": 0
             }
@@ -68,23 +63,15 @@ def aggregate_summaries_tool(
         if not papers:
             return {
                 "status": "warning",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
-                "language": language,
                 "message": "No papers found in the list",
                 "aggregated_count": 0
             }
         
         # Check if summary directory exists
-        paper_summary_path = os.path.join(paper_summary_root, f"{conf_key}_{year}", language)
+        paper_summary_path = os.path.join(paper_summary_root, f"{conf_key}_{year}", topic, language)
         if not os.path.exists(paper_summary_path):
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
-                "language": language,
                 "error": f"Paper summary directory does not exist: {paper_summary_path}",
                 "aggregated_count": 0
             }
@@ -106,14 +93,14 @@ def aggregate_summaries_tool(
                 logging.warning(f"[SUMMARY_AGGREGATOR] Summary file not found: {summary_path}")
                 failed_count += 1
                 continue
-            
+
             # Load markdown file
             load_result = load_md_file(summary_path)
             if load_result.get("status") != "success":
                 logging.warning(f"[SUMMARY_AGGREGATOR] Failed to load markdown: {load_result.get('message')}")
                 failed_count += 1
                 continue
-            
+
             summary_content = load_result.get("data", "")
             
             # Parse markdown summary
@@ -122,12 +109,12 @@ def aggregate_summaries_tool(
                 logging.warning(f"[SUMMARY_AGGREGATOR] Failed to parse summary: {parse_result.get('message')}")
                 failed_count += 1
                 continue
-            
+
             parsed_content = parse_result.get("data", {})
             if not parsed_content:
                 failed_count += 1
                 continue
-            
+
             # Extract structured data
             authors = parsed_content.get("Paper Info", {}).get("Authors", [])
             affiliations = parsed_content.get("Paper Info", {}).get("Affiliations", [])
@@ -152,10 +139,6 @@ def aggregate_summaries_tool(
             
             return {
                 "status": "success",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
-                "language": language,
                 "aggregated_count": len(aggregated_summary),
                 "failed_count": failed_count,
                 "excel_path": excel_path,
@@ -164,10 +147,6 @@ def aggregate_summaries_tool(
         else:
             return {
                 "status": "warning",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
-                "language": language,
                 "message": "No summaries were successfully aggregated",
                 "aggregated_count": 0,
                 "failed_count": failed_count
@@ -177,13 +156,42 @@ def aggregate_summaries_tool(
         logging.exception(f"[SUMMARY_AGGREGATOR] Failed to aggregate summaries: {e}")
         return {
             "status": "error",
-            "conference": conference,
-            "year": year,
-            "topic": topic,
-            "language": language,
             "error": str(e),
             "aggregated_count": 0
         }
+
+
+@tool
+def aggregate_summaries_tool(
+    conference: str,
+    year: int,
+    topic: Optional[str] = None,
+    language: str = "CH",
+    paper_list_root: str = None,
+    paper_summary_root: str = None
+) -> Dict[str, Any]:
+    """
+    Aggregate and structure paper summaries into an Excel file.
+    
+    Args:
+        conference: Conference name
+        year: Conference year
+        topic: Research topic (optional)
+        language: Language of summaries ('CH' for Chinese, 'EN' for English)
+        paper_list_root: Root directory for paper lists (optional)
+        paper_summary_root: Root directory for paper summaries (optional)
+        
+    Returns:
+        Dictionary with aggregation results
+    """
+    return _aggregate_summaries_impl(
+        conference,
+        year,
+        topic,
+        language,
+        paper_list_root,
+        paper_summary_root
+    )
 
 
 @tool
@@ -211,7 +219,6 @@ def parse_single_summary_tool(
         if parse_result.get("status") != "success":
             return {
                 "status": "error",
-                "paper_title": paper_title,
                 "error": f"Failed to parse summary: {parse_result.get('message')}",
                 "parsed_data": None
             }
@@ -220,7 +227,6 @@ def parse_single_summary_tool(
         if not parsed_content:
             return {
                 "status": "warning",
-                "paper_title": paper_title,
                 "message": "No valid data found in summary",
                 "parsed_data": None
             }
@@ -240,7 +246,6 @@ def parse_single_summary_tool(
         
         return {
             "status": "success",
-            "paper_title": paper_title,
             "parsed_data": parsed_data,
             "message": "Successfully parsed summary"
         }
@@ -249,7 +254,6 @@ def parse_single_summary_tool(
         logging.exception(f"[SUMMARY_AGGREGATOR] Failed to parse summary for '{paper_title}': {e}")
         return {
             "status": "error",
-            "paper_title": paper_title,
             "error": str(e),
             "parsed_data": None
         }
@@ -265,27 +269,60 @@ class SummaryAggregatorTool(BaseTool):
     paper_summary_root: str = Field(default=os.path.join("papers", "paper_summary"), 
                                   description="Root directory for paper summaries")
     
-    def _run(self, conference: str, year: int, topic: Optional[str] = None, language: str = "CH") -> Dict[str, Any]:
+    def _run(self, conference: str, year: int, topic: Optional[str] = None) -> Dict[str, Any]:
         """
-        Aggregate summaries for a conference and year.
-        
+        Aggregate summaries for a conference and year. Automatically aggregates both
+        Chinese (CH) and English (EN) summaries.
+
         Args:
             conference: Conference name
             year: Conference year
             topic: Research topic (optional)
-            language: Language of summaries ('CH' or 'EN')
-            
+
         Returns:
-            Dictionary with aggregation results
+            Dictionary with aggregation results for both languages (without redundant fields)
         """
-        return aggregate_summaries_tool(
-            conference=conference,
-            year=year,
-            topic=topic,
-            language=language,
-            paper_list_root=self.paper_list_root,
-            paper_summary_root=self.paper_summary_root
-        )
+        results = {}
+        
+        # Aggregate both Chinese and English summaries
+        for language in ["CH", "EN"]:
+            try:
+                result = _aggregate_summaries_impl(
+                    conference,
+                    year,
+                    topic,
+                    language,
+                    self.paper_list_root,
+                    self.paper_summary_root
+                )
+                # Extract only the necessary fields to avoid state conflicts
+                results[language] = {
+                    "status": result.get("status"),
+                    "aggregated_count": result.get("aggregated_count", 0),
+                    "failed_count": result.get("failed_count", 0),
+                    "excel_path": result.get("excel_path", ""),
+                    "message": result.get("message", "")
+                }
+                if result.get("status") == "error":
+                    results[language]["error"] = result.get("error", "Unknown error")
+            except Exception as e:
+                logging.warning(f"[SUMMARY_AGGREGATOR] Failed to aggregate {language} summaries: {e}")
+                results[language] = {
+                    "status": "error",
+                    "error": str(e),
+                    "aggregated_count": 0,
+                    "failed_count": 0,
+                    "excel_path": ""
+                }
+        
+        # Return combined results without redundant fields that conflict with state
+        overall_status = "success" if any(r.get("status") == "success" for r in results.values()) else "error"
+        
+        return {
+            "status": overall_status,
+            "language_results": results,
+            "message": f"Aggregated summaries for both languages: CH ({results['CH'].get('aggregated_count', 0)}), EN ({results['EN'].get('aggregated_count', 0)})"
+        }
     
     async def _arun(self, conference: str, year: int, topic: Optional[str] = None, language: str = "CH") -> Dict[str, Any]:
         """Async version of the tool"""

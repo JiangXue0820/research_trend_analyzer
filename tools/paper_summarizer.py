@@ -64,9 +64,6 @@ class PaperSummarizerTool(BaseTool):
             if not os.path.isfile(raw_list_path):
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "error": f"Paper list not found: {raw_list_path}",
                     "papers_processed": 0
                 }
@@ -75,9 +72,6 @@ class PaperSummarizerTool(BaseTool):
             if not papers:
                 return {
                     "status": "warning",
-                    "conference": conference,
-                    "year": year,
-                    "topic": topic,
                     "message": "No papers found in the list",
                     "papers_processed": 0
                 }
@@ -105,9 +99,6 @@ class PaperSummarizerTool(BaseTool):
             
             return {
                 "status": "success",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "papers_processed": len(results),
                 "successful_summaries": successful,
                 "failed_summaries": failed,
@@ -118,9 +109,6 @@ class PaperSummarizerTool(BaseTool):
             logging.exception(f"[SUMMARIZER] Failed to batch summarize papers for {conference}, {year}: {e}")
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
-                "topic": topic,
                 "error": str(e),
                 "papers_processed": 0
             }
@@ -135,7 +123,6 @@ class PaperSummarizerTool(BaseTool):
             logging.exception(f"[SUMMARIZER] Failed to get LLM function for {api}/{model_name}: {e}")
             return {
                 "status": "error",
-                "paper_title": "unknown",
                 "error": f"Failed to get LLM function: {e}",
                 "summaries_generated": 0
             }
@@ -166,7 +153,6 @@ class PaperSummarizerTool(BaseTool):
             if download_result.get("status") != "success":
                 return {
                     "status": "error",
-                    "paper_title": title,
                     "error": f"Failed to download PDF: {download_result.get('message')}",
                     "summaries_generated": 0
                 }
@@ -176,7 +162,6 @@ class PaperSummarizerTool(BaseTool):
             if parse_result.get("status") != "success":
                 return {
                     "status": "error",
-                    "paper_title": title,
                     "error": f"Failed to parse PDF: {parse_result.get('message')}",
                     "summaries_generated": 0
                 }
@@ -193,7 +178,7 @@ class PaperSummarizerTool(BaseTool):
             summary_paths = {}
             
             # Create summary directory structure
-            summary_base = Path(paper_summary_root) / "general"
+            summary_base = Path(paper_summary_root)
             for lang in lang_prompts.keys():
                 lang_dir = summary_base / lang
                 lang_dir.mkdir(parents=True, exist_ok=True)
@@ -225,10 +210,13 @@ class PaperSummarizerTool(BaseTool):
                         logging.warning(f"[SUMMARIZER] Empty {lang} summary for '{title}'")
                         continue
                     
-                    # Save summary
-                    save_md_file(summary_text, str(summary_paths[lang]))
-                    summaries[lang] = summary_text
-                    logging.info(f"[SUMMARIZER] Saved {lang} summary for '{title}'")
+                    # Save summary with debug logging
+                    save_result = save_md_file(summary_text, str(summary_paths[lang]))
+                    if save_result.get("status") == "success":
+                        summaries[lang] = summary_text
+                        logging.info(f"[SUMMARIZER] Saved {lang} summary for '{title}' to {summary_paths[lang]}")
+                    else:
+                        logging.error(f"[SUMMARIZER] Failed to save {lang} summary for '{title}': {save_result.get('message')}")
                     
                 except Exception as e:
                     logging.exception(f"[SUMMARIZER] Failed to generate {lang} summary for '{title}': {e}")
@@ -241,7 +229,6 @@ class PaperSummarizerTool(BaseTool):
             
             return {
                 "status": "success",
-                "paper_title": title,
                 "summaries_generated": len(summaries),
                 "languages": list(summaries.keys()),
                 "summary_paths": {lang: str(path) for lang, path in summary_paths.items()},
@@ -252,7 +239,6 @@ class PaperSummarizerTool(BaseTool):
             logging.exception(f"[SUMMARIZER] Failed to summarize paper '{title}': {e}")
             return {
                 "status": "error",
-                "paper_title": title,
                 "error": str(e),
                 "summaries_generated": 0
             }

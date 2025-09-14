@@ -34,12 +34,8 @@ def parse_arguments():
                        help="Research topic to analyze")
     
     # Optional arguments
-    parser.add_argument("--method", "-m", default="llm", choices=["keyword", "llm"],
+    parser.add_argument("--method", "-m", default="keyword", choices=["keyword", "llm"],
                        help="Filtering method: 'keyword' or 'llm' (default: llm)")
-    parser.add_argument("--language", "-l", default="CH", choices=["CH", "EN"],
-                       help="Summary language: 'CH' for Chinese, 'EN' for English (default: CH)")
-    
-    # LLM configuration
     parser.add_argument("--model-name", default="gemini-2.5-pro",
                        help="LLM model name (default: gemini-2.5-pro)")
     parser.add_argument("--api", default="gemini", choices=["mlops", "gemini"],
@@ -81,7 +77,6 @@ def create_config_from_args(args) -> Dict[str, Any]:
         "year": args.year,
         "topic": args.topic,
         "method": args.method,
-        "language": args.language,
         "skip_keyword_generation": args.skip_keyword_generation,
         "skip_crawling": args.skip_crawling,
         "model_name": args.model_name,

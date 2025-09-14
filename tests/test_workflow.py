@@ -180,14 +180,23 @@ class TestWorkflowNodes(unittest.TestCase):
         """Test successful summary aggregation."""
         mock_aggregator_tool.return_value = {
             "status": "success",
-            "conference": "popets",
-            "year": 2025,
-            "topic": "dp_theory",
-            "language": "CH",
-            "aggregated_count": 3,
-            "failed_count": 0,
-            "excel_path": "papers/paper_summary/popets_2025/privacy/summary.xlsx",
-            "message": "Aggregated 3 summaries"
+            "language_results": {
+                "CH": {
+                    "status": "success",
+                    "aggregated_count": 3,
+                    "failed_count": 0,
+                    "excel_path": "papers/paper_summary/popets_2025/privacy/summary.xlsx",
+                    "message": "Aggregated 3 CH summaries"
+                },
+                "EN": {
+                    "status": "success",
+                    "aggregated_count": 3,
+                    "failed_count": 0,
+                    "excel_path": "papers/paper_summary/popets_2025/privacy/summary_EN.xlsx",
+                    "message": "Aggregated 3 EN summaries"
+                }
+            },
+            "message": "Aggregated summaries for both languages: CH (3), EN (3)"
         }
         
         state = aggregate_summary_node(self.test_state)

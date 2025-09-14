@@ -58,6 +58,7 @@
     "definition": "Research on continuous privacy/security evaluation and compliance auditing of AI models and systems, emphasizing benchmarks and evaluation methods (benchmark suites/datasets/metrics/protocols, automated evaluation and consistency calibration), rather than proposing new attacks or new defenses.",
     "keywords": [
       "safety benchmark",
+      "persona",
       "privacy benchmark",
       "prompt injection benchmark",
       "jailbreak benchmark",

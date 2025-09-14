@@ -43,8 +43,6 @@ class PaperCrawlerTool(BaseTool):
                 logging.error(msg)
                 return {
                     "status": "error",
-                    "conference": conference,
-                    "year": year,
                     "error": msg,
                     "papers_count": 0
                 }
@@ -62,8 +60,6 @@ class PaperCrawlerTool(BaseTool):
             
             return {
                 "status": "success",
-                "conference": conference,
-                "year": year,
                 "papers_count": len(paper_list),
                 "new_papers_added": added,
                 "save_path": save_path,
@@ -74,8 +70,6 @@ class PaperCrawlerTool(BaseTool):
             logging.exception(f"[CRAWL] Failed to crawl papers for {conference} {year}: {e}")
             return {
                 "status": "error",
-                "conference": conference,
-                "year": year,
                 "error": str(e),
                 "papers_count": 0
             }

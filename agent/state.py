@@ -13,7 +13,6 @@ class ResearchWorkflowState(TypedDict):
     year: int
     topic: str
     method: str = Field(default="llm")
-    language: str = Field(default="CH")
     
     # LLM configuration
     api: str
@@ -57,7 +56,6 @@ class ResearchWorkflowConfig(BaseModel):
     year: int = Field(..., description="Conference year")
     topic: str = Field(..., description="Research topic to analyze")
     method: str = Field(default="llm", description="Filtering method: 'keyword' or 'llm'")
-    language: str = Field(default="CH", description="Summary language: 'CH' for Chinese, 'EN' for English")
     
     # LLM configuration
     api: str = Field(default="gemini", description="API to use for LLM calls: 'gemini' or 'mlops'")
@@ -111,7 +109,6 @@ def initialize_workflow_state(config: ResearchWorkflowConfig) -> ResearchWorkflo
         "year": config.year,
         "topic": config.topic,
         "method": config.method,
-        "language": config.language,
         
         # LLM configuration
         "api": config.api,

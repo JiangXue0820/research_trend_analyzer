@@ -22,7 +22,6 @@ def example_basic_usage():
         "year": 2023,
         "topic": "privacy",
         "method": "keyword",  # or "llm" for more sophisticated filtering
-        "language": "CH",     # or "EN" for English summaries
         
         # Optional configuration (will use defaults if not specified)
         "skip_keyword_generation": False,  # Set to True if keywords already exist
@@ -35,7 +34,6 @@ def example_basic_usage():
     print(f"  Year: {config['year']}")
     print(f"  Topic: {config['topic']}")
     print(f"  Method: {config['method']}")
-    print(f"  Language: {config['language']}")
     print(f"  Max Papers: {config.get('max_papers', 'All')}")
     print()
     
@@ -87,7 +85,6 @@ def example_advanced_usage():
         "year": 2023,
         "topic": "differential_privacy",
         "method": "llm",      # Use LLM for more accurate filtering
-        "language": "EN",     # English summaries
         
         # Custom paths (optional - will use defaults if not specified)
         "scope_list_path": "configs/analysis_scope.json",

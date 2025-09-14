@@ -171,7 +171,6 @@ class KeywordsGeneratorTool(BaseTool):
             
             return {
                 "status": "success",
-                "topic": topic,
                 "keywords": keywords,
                 "save_result": save_result,
                 "keywords_count": len(keywords)
@@ -181,7 +180,6 @@ class KeywordsGeneratorTool(BaseTool):
             logging.exception(f"[KEYWORD_GEN] Failed to process topic={topic!r}: {e}")
             return {
                 "status": "error",
-                "topic": topic,
                 "error": str(e)
             }
     
