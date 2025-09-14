@@ -61,7 +61,7 @@ research_trend_analyzer_light_agent/
 
 3. **Configure environment**:
    ```bash
-   cp .env.example .env
+   cp .env.example configs/.env
    # Edit .env with your API keys and configurations
    ```
 
