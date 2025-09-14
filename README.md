@@ -191,19 +191,6 @@ python -m unittest tests.test_workflow
 - **pandas**: Data analysis and Excel export
 - **tqdm**: Progress bars for long-running operations
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make changes with proper testing
-4. Submit a pull request
-
 ## License
 
 This project is built upon the original `research_trend_analyzer_light` codebase and maintains compatibility with its functionality while adding langchain agent capabilities.
-
-## Acknowledgments
-
-- Original `research_trend_analyzer_light` project for the core functionality
-- Langchain and Langgraph teams for the excellent agent frameworks
-- Academic conferences for providing open access to research papers
