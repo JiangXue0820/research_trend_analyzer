@@ -191,6 +191,3 @@ python -m unittest tests.test_workflow
 - **pandas**: Data analysis and Excel export
 - **tqdm**: Progress bars for long-running operations
 
-## License
-
-This project is built upon the original `research_trend_analyzer_light` codebase and maintains compatibility with its functionality while adding langchain agent capabilities.
